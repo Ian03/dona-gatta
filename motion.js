@@ -77,3 +77,4 @@
     button.addEventListener('pointerleave', () => { button.style.transform = ''; });
   });
 })();
+const mobileApp=document.createElement('script');mobileApp.src='mobile-app.js';document.body.append(mobileApp);
