@@ -33,6 +33,29 @@
     });
   }
 
+  const modelVariations={
+    'CAPRI':{folder:'CAPRI',items:['01','02','03','04','05','06','07','08','09','10']},
+    'DAY USE':{folder:'DAY%20USE',items:['01','02','03','04','05','06','07']},
+    'CHECK IN':{folder:'CHECK%20IN',items:['01','02','03','04','05','06','07','08']},
+    'ESCAPE':{folder:'ESCAPE',items:['01','02','03','04','05']},
+    'LOUNGE':{folder:'LOUNGE',items:['01','02','03','04','05']},
+    'MARÉ':{folder:'MAR%C3%89',items:['01','02','03','04','05','06','07','08','09','10']},
+    'RESORT':{folder:'RESORT',items:['01','02','03','04','05','06','07']},
+    'BEACH CLUB':{folder:'BEACH%20CLUB',items:['01','02','03']}
+  };
+  const modelName=document.title.split(' — ')[0];
+  const variationConfig=modelVariations[modelName];
+  const variationGrid=document.querySelector('#variations');
+  if(variationConfig&&variationGrid){
+    variationGrid.innerHTML=variationConfig.items.map(number=>`<article class="variation"><div class="variation-image"><img src="assets/otimizadas/Verao/${variationConfig.folder}/${number}-detail.webp" alt="${modelName} — Variação ${number}" width="1400" height="1800" loading="lazy" decoding="async"></div><div class="variation-info"><div><div class="variation-name">${modelName}</div><div class="choice">Variação ${number}</div></div><a class="choose" target="_blank" rel="noopener">Escolher</a></div></article>`).join('');
+    variationGrid.querySelectorAll('.variation').forEach(card=>{
+      const variation=card.querySelector('.choice').textContent.trim();
+      const image=new URL(card.querySelector('img').getAttribute('src'),window.location.href).href;
+      const message=`Olá! Tenho interesse no modelo ${modelName}, ${variation}.\n\nFoto selecionada: ${image}\n\nPoderiam me informar disponibilidade e valor?`;
+      card.querySelector('.choose').href=`https://wa.me/5575981513433?text=${encodeURIComponent(message)}`;
+    });
+  }
+
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!canHover || reduced) return;
   document.querySelectorAll('.product-card,.card,.variation').forEach(card => {
