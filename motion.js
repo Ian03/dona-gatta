@@ -84,3 +84,4 @@ const menuIcons=document.createElement('script');menuIcons.src='menu-icons.js';m
 const favoritesExperience=document.createElement('script');favoritesExperience.src='favorites-experience.js';favoritesExperience.async=false;document.body.append(favoritesExperience);
 const installPrompt=document.createElement('script');installPrompt.src='install-prompt.js';installPrompt.async=false;document.body.append(installPrompt);
 const siteSearch=document.createElement('script');siteSearch.src='site-search.js';siteSearch.async=false;document.body.append(siteSearch);
+const sectionDividers=document.createElement('script');sectionDividers.src='section-dividers.js';sectionDividers.async=false;document.body.append(sectionDividers);
