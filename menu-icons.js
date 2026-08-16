@@ -8,7 +8,7 @@
   style.textContent = '.nav-icons .bi{font-size:21px;line-height:1}.menu-toggle .bi{font-size:27px}.mobile-tabbar .bi{font-size:18px;line-height:1}.mobile-tabbar [data-refresh] .bi{font-size:17px}.mobile-tabbar b{font-weight:400;line-height:1}';
   document.head.append(style);
   const icons = { Buscar: 'search', Conta: 'person', Sacola: 'bag', 'Abrir menu': 'list' };
-  document.querySelectorAll('.nav-icons a,.menu-toggle').forEach(item => {
+  document.querySelectorAll('.nav-icons a,.search-toggle,.menu-toggle').forEach(item => {
     const label = item.getAttribute('aria-label');
     if (!icons[label]) return;
     const bubble = item.querySelector('.bubble');

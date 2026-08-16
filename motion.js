@@ -82,3 +82,5 @@ const mobileReel=document.createElement('script');mobileReel.src='mobile-reel.js
 const mobileRefresh=document.createElement('script');mobileRefresh.src='mobile-refresh.js';mobileRefresh.async=false;document.body.append(mobileRefresh);
 const menuIcons=document.createElement('script');menuIcons.src='menu-icons.js';menuIcons.async=false;document.body.append(menuIcons);
 const favoritesExperience=document.createElement('script');favoritesExperience.src='favorites-experience.js';favoritesExperience.async=false;document.body.append(favoritesExperience);
+const installPrompt=document.createElement('script');installPrompt.src='install-prompt.js';installPrompt.async=false;document.body.append(installPrompt);
+const siteSearch=document.createElement('script');siteSearch.src='site-search.js';siteSearch.async=false;document.body.append(siteSearch);
