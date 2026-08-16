@@ -1,302 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dona Gatta Destinos</title>
-  <meta name="description" content="Catálogo Dona Gatta Destinos com atendimento e vendas pelo WhatsApp." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dona Gatta — óculos para todos os seus destinos.">
+  <title>Dona Gatta — Destinos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --sand:#94d2bd;
-      --cream:#e9d8a6;
-      --paper:#f7f0d7;
-      --brown:#001219;
-      --brown-2:#005f73;
-      --gold:#ee9b00;
-      --caramel:#ca6702;
-      --rust:#bb3e03;
-      --red:#ae2012;
-      --wine:#9b2226;
-      --text:#001219;
-      --muted:#005f73;
-      --line:rgba(0,95,115,.28);
-      --white:#fff;
-      --shadow:0 14px 36px rgba(0,18,25,.16);
-      --radius:22px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:Montserrat,Arial,sans-serif;color:var(--text);background:var(--cream);line-height:1.5}
-    img{display:block;width:100%;height:auto}
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
-    .container{width:min(1180px,calc(100% - 36px));margin:0 auto}
-    .eyebrow{font-size:.74rem;text-transform:uppercase;letter-spacing:.24em;font-weight:700;color:var(--brown-2)}
-    h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;line-height:.93;margin:0;color:var(--brown)}
-    h1{font-size:clamp(3.2rem,7vw,7rem);font-weight:500;letter-spacing:-.045em}
-    h2{font-size:clamp(2.3rem,4.2vw,4.4rem);font-weight:500;letter-spacing:-.035em}
-    h3{font-size:1.65rem;font-weight:600}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;padding:14px 20px;border-radius:6px;border:1px solid var(--brown);font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.03em;transition:.2s ease;cursor:pointer}
-    .btn-dark{background:var(--wine);border-color:var(--wine);color:white}
-    .btn-dark:hover{background:var(--red);border-color:var(--red);transform:translateY(-1px)}
-    .btn-light{background:transparent;color:var(--brown);border-color:var(--brown)}
-    .btn-light:hover{background:rgba(148,210,189,.32)}
-    .btn-whatsapp:before{content:"◉";font-size:1rem}
-
-    /* Header */
-    header{position:sticky;top:0;z-index:50;background:rgba(233,216,166,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,95,115,.16)}
-    .nav{height:76px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px}
-    .brand{display:flex;align-items:center;gap:10px;min-width:max-content}
-    .brand-mark{font-family:"Cormorant Garamond";font-size:1.8rem;letter-spacing:.02em}
-    .brand-sub{display:block;font-size:.5rem;letter-spacing:.42em;text-transform:uppercase;margin-top:-4px;text-align:center}
-    nav{display:flex;justify-content:center;gap:28px;font-size:.76rem;font-weight:700;text-transform:uppercase}
-    nav a{opacity:.76}
-    nav a:hover{opacity:1}
-    .menu-toggle{display:none}
-
-    /* Hero */
-    .hero{min-height:670px;display:grid;align-items:stretch;background:linear-gradient(90deg,rgba(0,18,25,.96) 0 43%,rgba(0,95,115,.70) 60%,rgba(0,95,115,.10)),url('8f2dc008-85b1-4891-87f6-031939ffd735.jpg') center 28%/cover no-repeat;position:relative;overflow:hidden}
-    .hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 10%,rgba(148,210,189,.22),transparent 30%);pointer-events:none}
-    .hero-inner{padding:80px 0 72px;display:flex;align-items:center;position:relative;z-index:1}
-    .hero-copy{max-width:650px}
-    .hero h1{color:var(--cream)}
-    .hero .eyebrow{color:var(--gold)}
-    .hero p{max-width:520px;font-size:1rem;margin:22px 0 28px;color:var(--paper)}
-    .hero .btn-light{color:var(--cream);border-color:var(--cream)}
-    .hero .btn-light:hover{color:var(--brown);background:var(--cream)}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-
-    /* Sections */
-    section{padding:84px 0}
-    .section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:30px}
-    .section-head p{max-width:520px;color:var(--muted);margin:0}
-
-    .collections{background:var(--sand)}
-    .collection-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:12px}
-    .collection-card{background:var(--paper);border:1px solid rgba(0,95,115,.23);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:.2s ease}
-    .collection-card:hover{transform:translateY(-4px)}
-    .collection-card img{aspect-ratio:4/5;object-fit:cover}
-    .collection-card .copy{padding:12px 8px 14px;text-align:center}
-    .collection-card .copy h3{font-size:1.06rem;margin-bottom:4px}
-    .collection-card .copy p{font-size:.66rem;line-height:1.25;margin:0;color:var(--muted)}
-
-    .products{background:var(--cream)}
-    .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-    .product-card{background:var(--paper);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(0,95,115,.18)}
-    .product-image{position:relative;background:#94d2bd}
-    .product-image img{aspect-ratio:1/1;object-fit:cover}
-    .heart{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.82);font-size:1.1rem}
-    .product-info{padding:16px}
-    .product-info h3{font-size:1.45rem}
-    .variant{font-size:.78rem;color:var(--muted);margin:.2rem 0 .65rem}
-    .swatches{display:flex;gap:7px;margin:8px 0 12px}
-    .swatch{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
-    .price{font-weight:700;font-size:.9rem;margin-bottom:12px}
-    .product-card .btn{width:100%;padding:12px;font-size:.74rem}
-
-    .benefits{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--dark-teal,#005f73);color:var(--cream)}
-    .benefit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-    .benefit{padding:24px 26px;display:flex;gap:14px;align-items:flex-start;border-right:1px solid var(--line)}
-    .benefit:last-child{border-right:0}
-    .benefit-icon{font-size:1.8rem;line-height:1}
-    .benefit strong{display:block;font-size:.78rem;text-transform:uppercase;margin-bottom:4px}
-    .benefit span{font-size:.75rem;color:var(--sand)}
-
-    .editorial{padding:0;background:var(--wine)}
-    .editorial-grid{display:grid;grid-template-columns:1fr 1fr;min-height:430px}
-    .editorial-image{background:url('3887de33-6522-4b69-91a9-bdc31d2fecc9.jpg') center 22%/cover no-repeat}
-    .editorial-copy{padding:58px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,var(--wine),var(--red))}
-    .editorial-copy h2,.editorial-copy p,.editorial-copy .tagline{color:var(--cream)}
-    .editorial-copy .eyebrow{color:var(--gold)}
-    .editorial-copy p{max-width:510px;margin:.55rem 0}
-    .editorial-copy .tagline{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.45rem;line-height:1.05;margin:1rem 0 1.25rem}
-    .editorial-copy .btn{background:var(--cream);border-color:var(--cream);color:var(--brown)}
-    .editorial-copy .btn{align-self:flex-start;margin-top:10px}
-
-    .why{background:var(--paper)}
-    .why h2{text-align:center;margin-bottom:34px}
-    .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    .why-card{text-align:center;padding:24px 18px;border-right:1px solid var(--line)}
-    .why-card:last-child{border-right:0}
-    .why-card .icon{font-size:2rem;margin-bottom:12px}
-    .why-card strong{display:block;font-family:"Cormorant Garamond";font-size:1.45rem;text-transform:uppercase;line-height:1.05;margin-bottom:8px}
-    .why-card p{font-size:.78rem;color:var(--muted);margin:0 auto;max-width:220px}
-
-    .cta-band{padding:64px 0;background:linear-gradient(rgba(0,18,25,.88),rgba(0,95,115,.86)),url('ab96f955-016b-4410-af47-d6d2cd5b39ae.jpg') center/cover no-repeat;text-align:center}
-    .cta-band h2,.cta-band p{color:var(--cream)}
-    .cta-band .eyebrow{color:var(--gold)}
-    .cta-band p{margin:12px auto 22px;max-width:620px}
-    .cta-band .btn{background:var(--gold);border-color:var(--gold);color:var(--brown)}
-
-    footer{background:var(--brown);color:var(--cream);padding:54px 0 24px}
-    .footer-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr 1fr;gap:28px}
-    footer h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin:0 0 14px;color:#fff}
-    footer p,footer a{font-size:.74rem;color:var(--sand)}
-    footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-    .social{display:flex;gap:10px;margin-top:18px}
-    .social a{width:34px;height:34px;border:1px solid var(--dark-cyan,#0a9396);border-radius:50%;display:grid;place-items:center}
-    .copyright{border-top:1px solid rgba(148,210,189,.3);margin-top:32px;padding-top:18px;font-size:.68rem;color:var(--sand);text-align:center}
-
-    @media (max-width:980px){
-      .nav{grid-template-columns:auto 1fr}.nav>.btn{display:none}nav{justify-content:end;gap:18px}
-      .collection-grid{grid-template-columns:repeat(4,1fr)}.product-grid{grid-template-columns:repeat(2,1fr)}
-      .benefit-grid,.why-grid{grid-template-columns:repeat(2,1fr)}
-      .benefit:nth-child(2){border-right:0}.benefit:nth-child(-n+2){border-bottom:1px solid var(--line)}
-      .why-card:nth-child(2){border-right:0}.why-card:nth-child(-n+2){border-bottom:1px solid var(--line)}
-      .editorial-grid{grid-template-columns:1fr}.editorial-image{min-height:420px}
-      .footer-grid{grid-template-columns:repeat(2,1fr)}
-      .hero{background-position:65% center;background-image:linear-gradient(90deg,rgba(0,18,25,.96) 0 52%,rgba(0,95,115,.72) 72%,rgba(0,95,115,.10)),url('8f2dc008-85b1-4891-87f6-031939ffd735.jpg')}
-    }
-    @media (max-width:700px){
-      .container{width:min(100% - 24px,1180px)}
-      header{position:relative}
-      .nav{height:auto;padding:16px 0;grid-template-columns:1fr auto}.menu-toggle{display:block;border:0;background:transparent;font-size:1.5rem}nav{display:none;grid-column:1/-1;flex-direction:column;align-items:flex-start;padding:8px 0 12px}nav.open{display:flex}
-      .hero{min-height:760px;background-position:64% 24%;background-image:linear-gradient(180deg,rgba(0,18,25,.95) 0 48%,rgba(0,95,115,.46) 72%,rgba(0,95,115,.08)),url('8f2dc008-85b1-4891-87f6-031939ffd735.jpg')}
-      .hero-inner{align-items:flex-start;padding-top:58px}.hero-copy{max-width:100%}
-      .section-head{align-items:flex-start;flex-direction:column}.section-head .btn{width:100%}
-      .collection-grid,.product-grid,.benefit-grid,.why-grid,.footer-grid{grid-template-columns:1fr}
-      .benefit,.why-card{border-right:0!important;border-bottom:1px solid var(--line)}
-      .benefit:last-child,.why-card:last-child{border-bottom:0}
-      .editorial-copy{padding:38px 24px}
-      section{padding:62px 0}
-    }
+    :root{--ink:#001219;--navy:#005f73;--teal:#0a9396;--aqua:#94d2bd;--cream:#e9d8a6;--gold:#ee9b00;--orange:#ca6702;--rust:#bb3e03;--red:#ae2012;--wine:#9b2226;--white:#fffdf5;--line:rgba(233,216,166,.35)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",Arial,sans-serif} a{color:inherit;text-decoration:none} img{display:block;width:100%} button{font:inherit}
+    .wrap{width:min(1240px,calc(100% - 48px));margin:auto}.serif{font-family:"Playfair Display",Georgia,serif}.mono{font-family:"DM Mono",monospace}.label{font:500 .68rem/1 "DM Mono",monospace;letter-spacing:.17em;text-transform:uppercase}
+    .topline{height:31px;display:flex;align-items:center;justify-content:center;background:var(--gold);color:var(--ink);font:500 .64rem/1 "DM Mono",monospace;letter-spacing:.13em;text-transform:uppercase}
+    header{position:absolute;z-index:5;left:0;right:0;color:var(--cream);border-bottom:1px solid var(--line)}.nav{height:82px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}.logo{font:500 1.4rem/1 "Playfair Display",serif;letter-spacing:-.06em}.logo small{display:block;margin:.26rem 0 0 .2rem;font:500 .48rem/1 "DM Mono",monospace;letter-spacing:.45em}.links{display:flex;gap:27px;font-size:.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}.links a{transition:color .25s}.links a:hover{color:var(--gold)}.nav-whats{justify-self:end;border:1px solid var(--cream);padding:10px 15px;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:.25s}.nav-whats:hover{color:var(--ink);background:var(--cream)}
+    .hero{min-height:790px;position:relative;display:flex;align-items:flex-end;overflow:hidden;background:var(--ink);color:var(--cream)}.hero-photo{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,18,25,.92) 0%,rgba(0,18,25,.52) 39%,rgba(0,18,25,.04) 72%),url('Estilo01.PNG') center/cover no-repeat;animation:heroZoom 13s ease-out both}.hero-grid{width:min(1240px,calc(100% - 48px));margin:0 auto;position:relative;z-index:1;padding:0 0 87px}.hero-copy{width:min(600px,100%);animation:rise .8s .2s both}.hero-copy h1{font:500 clamp(3.9rem,8vw,7.75rem)/.83 "Playfair Display",serif;letter-spacing:-.075em;margin:.65rem 0 1.4rem}.hero-copy h1 em{color:var(--gold);font-weight:500}.hero-copy p{max-width:415px;margin:0 0 28px;font-size:.98rem;line-height:1.6;color:var(--aqua)}.hero-meta{display:flex;align-items:center;gap:21px}.hero-meta .rule{width:58px;height:1px;background:var(--gold)}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--ink);padding:15px 22px;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:transform .25s,background .25s,color .25s}.button:hover{transform:translateY(-3px)}.button.red{background:var(--red);border-color:var(--red);color:var(--white)}.button.red:hover{background:var(--wine)}.button.outline{border-color:var(--cream);color:var(--cream)}.button.outline:hover{background:var(--cream);color:var(--ink)}
+    .ticker{overflow:hidden;background:var(--wine);color:var(--cream);white-space:nowrap}.ticker-track{display:inline-flex;gap:38px;padding:18px 0;animation:ticker 24s linear infinite}.ticker span{font:500 .73rem/1 "DM Mono",monospace;letter-spacing:.13em;text-transform:uppercase}.ticker b{color:var(--gold)}
+    section{padding:108px 0}.intro{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;background:var(--cream)}.intro h2{font:500 clamp(3rem,5vw,5.3rem)/.93 "Playfair Display",serif;letter-spacing:-.07em;margin:13px 0 0}.intro h2 em{color:var(--red)}.intro-copy{border-left:1px solid rgba(0,18,25,.3);padding-left:43px;align-self:end;font-size:1.13rem;line-height:1.57}.intro-copy p{max-width:500px;margin:0}.intro-copy .signature{display:block;margin-top:30px;color:var(--wine);font:italic 1.7rem/1.15 "Playfair Display",serif}
+    .collection{background:var(--teal);color:var(--cream)}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:40px}.section-head h2{font:500 clamp(2.8rem,5vw,5rem)/.9 "Playfair Display",serif;letter-spacing:-.07em;margin:11px 0 0}.section-head p{max-width:300px;margin:0;color:var(--aqua);font-size:.88rem;line-height:1.5}.destination-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(233,216,166,.45);border:1px solid rgba(233,216,166,.45)}.destination{min-height:284px;position:relative;overflow:hidden;background:var(--ink)}.destination img{height:100%;object-fit:cover;opacity:.84;transition:transform .7s ease,opacity .5s}.destination:hover img{transform:scale(1.08);opacity:.58}.destination div{position:absolute;inset:auto 18px 17px;color:var(--white);z-index:1}.destination strong{display:block;font:500 1.85rem/1 "Playfair Display",serif;letter-spacing:-.055em}.destination span{display:block;margin-top:6px;font-size:.68rem;color:var(--cream)}
+    .catalog{background:var(--white)}.catalog .section-head{color:var(--ink)}.catalog .button{border-color:var(--navy);color:var(--navy)}.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.product{background:var(--cream);position:relative;padding:9px 9px 18px;transition:transform .3s,box-shadow .3s}.product:hover{transform:translateY(-7px);box-shadow:9px 10px 0 var(--orange)}.product-img{position:relative;overflow:hidden;aspect-ratio:1/1.08;background:var(--aqua)}.product-img img{height:100%;object-fit:cover;transition:transform .6s}.product:hover .product-img img{transform:scale(1.06)}.product-code{position:absolute;top:12px;left:12px;padding:6px 7px;background:var(--ink);color:var(--cream);font:500 .57rem/1 "DM Mono",monospace;letter-spacing:.1em}.product-info{padding:17px 7px 0}.product-info h3{margin:0;font:500 1.8rem/1 "Playfair Display",serif;letter-spacing:-.06em}.product-info p{margin:4px 0 14px;color:var(--navy);font-size:.72rem}.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}.price{font-size:.78rem;font-weight:700}.mini-buy{border:0;background:var(--red);color:white;padding:10px 11px;font-size:.55rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer}
+    .manifesto{padding:0;background:var(--wine);color:var(--cream);display:grid;grid-template-columns:1fr 1fr}.manifesto-photo{min-height:620px;background:url('Estilo02.PNG') center 35%/cover no-repeat}.manifesto-copy{display:flex;align-items:center;padding:80px clamp(30px,7vw,115px)}.manifesto-copy h2{font:500 clamp(3.2rem,5vw,5.5rem)/.88 "Playfair Display",serif;letter-spacing:-.075em;margin:13px 0 25px}.manifesto-copy h2 em{color:var(--gold)}.manifesto-copy p{max-width:420px;line-height:1.65;color:#f5dca0}.manifesto-copy .button{margin-top:20px;background:var(--gold);border-color:var(--gold);color:var(--ink)}
+    .reasons{background:var(--aqua)}.reasons h2{text-align:center;font:500 clamp(2.7rem,5vw,4.8rem)/.92 "Playfair Display",serif;letter-spacing:-.07em;margin:12px 0 50px}.reason-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,18,25,.32);border-bottom:1px solid rgba(0,18,25,.32)}.reason{padding:29px 23px;border-right:1px solid rgba(0,18,25,.32)}.reason:last-child{border:0}.reason b{display:block;margin-bottom:36px;color:var(--red);font:500 1.4rem/1 "DM Mono",monospace}.reason h3{margin:0 0 9px;font:500 1.4rem/1 "Playfair Display",serif}.reason p{margin:0;font-size:.78rem;line-height:1.5;color:var(--navy)}
+    .closing{padding:107px 0;background:var(--ink);color:var(--cream);text-align:center}.closing h2{max-width:730px;margin:13px auto 25px;font:500 clamp(3.3rem,6vw,6.4rem)/.87 "Playfair Display",serif;letter-spacing:-.08em}.closing h2 em{color:var(--gold)}.closing p{max-width:450px;margin:0 auto 29px;color:var(--aqua);line-height:1.55}.closing .button{background:var(--red);color:var(--white);border-color:var(--red)}
+    footer{padding:46px 0 20px;background:#000d12;color:var(--cream)}.footer-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:35px}.footer-logo{font:500 2.1rem/1 "Playfair Display",serif;letter-spacing:-.07em}.footer-logo small{display:block;margin:.3rem 0 0 .16rem;font:500 .5rem/1 "DM Mono",monospace;letter-spacing:.4em}.footer-grid h4{margin:0 0 13px;font:500 .62rem/1 "DM Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}.footer-grid p,.footer-grid a{font-size:.74rem;line-height:1.8;color:var(--aqua)}.footer-grid ul{list-style:none;margin:0;padding:0}.copy{margin-top:38px;padding-top:18px;border-top:1px solid rgba(148,210,189,.2);font:400 .58rem/1 "DM Mono",monospace;color:var(--aqua)}
+    .reveal{animation:reveal linear both;animation-timeline:view();animation-range:entry 8% cover 29%}@keyframes heroZoom{from{transform:scale(1.07)}to{transform:scale(1)}}@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}@keyframes reveal{from{opacity:0;transform:translateY(45px)}to{opacity:1;transform:translateY(0)}}@keyframes ticker{to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+    @media(max-width:800px){.wrap,.hero-grid{width:min(100% - 30px,1240px)}.topline{font-size:.54rem}.nav{height:68px;grid-template-columns:1fr auto}.links{display:none}.nav-whats{padding:8px 9px;font-size:.55rem}.hero{min-height:690px}.hero-photo{background-position:61% center;background-image:linear-gradient(90deg,rgba(0,18,25,.91),rgba(0,18,25,.48)),url('Estilo01.PNG')}.hero-grid{padding-bottom:58px}.hero-copy h1{font-size:4.15rem}.hero-meta{gap:13px}.intro,.manifesto{grid-template-columns:1fr;gap:35px}.intro{padding:70px 0}.intro-copy{padding-left:0;border-left:0;font-size:1rem}.destination-grid,.product-grid{grid-template-columns:repeat(2,1fr)}.destination{min-height:225px}.manifesto-photo{min-height:480px}.manifesto-copy{padding:67px 30px}.reason-grid{grid-template-columns:repeat(2,1fr)}.reason:nth-child(2){border-right:0}.reason:nth-child(-n+2){border-bottom:1px solid rgba(0,18,25,.32)}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>:first-child{grid-column:1/-1}section{padding:72px 0}.section-head{align-items:start;flex-direction:column}.product-info h3{font-size:1.55rem}}
+    @media(max-width:440px){.hero-copy h1{font-size:3.45rem}.hero-meta{align-items:start;flex-direction:column}.destination-grid,.product-grid,.reason-grid,.footer-grid{grid-template-columns:1fr}.destination{min-height:290px}.reason,.reason:nth-child(2){border-right:0;border-bottom:1px solid rgba(0,18,25,.32)}.reason:last-child{border:0}.footer-grid>:first-child{grid-column:auto}}
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <a href="#top" class="brand" aria-label="Dona Gatta Destinos">
-        <div>
-          <div class="brand-mark">DONA 〽 GATTA</div>
-          <span class="brand-sub">DESTINOS</span>
-        </div>
-      </a>
-      <nav id="navMenu">
-        <a href="#colecoes">Coleções</a>
-        <a href="#modelos">Modelos</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#atendimento">Atendimento</a>
-      </nav>
-      <a class="btn btn-dark btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Dona%20Gatta." target="_blank" rel="noopener">Falar no WhatsApp</a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <span class="eyebrow">Dona Gatta Destinos</span>
-          <h1>Óculos para<br>todos os seus<br>destinos.</h1>
-          <p>Descubra modelos que unem personalidade, elegância e leveza para cada momento da sua vida.</p>
-          <div class="hero-actions">
-            <a class="btn btn-dark" href="#modelos">Ver coleção ✦</a>
-            <a class="btn btn-light btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Quero%20conhecer%20a%20cole%C3%A7%C3%A3o%20Dona%20Gatta." target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="collections" id="colecoes">
-      <div class="container">
-        <div class="section-head">
-          <div><span class="eyebrow">Coleções Dona Gatta</span><h2>Escolha seu destino</h2></div>
-        </div>
-        <div class="collection-grid">
-          <article class="collection-card"><img src="8f2dc008-85b1-4891-87f6-031939ffd735.jpg" alt="Coleção Resort"><div class="copy"><h3>Resort</h3><p>Sua pausa com elegância</p></div></article>
-          <article class="collection-card"><img src="3887de33-6522-4b69-91a9-bdc31d2fecc9.jpg" alt="Coleção Maré"><div class="copy"><h3>Maré</h3><p>Leveza e poder em único ritmo</p></div></article>
-          <article class="collection-card"><img src="96b09328-7192-4e35-9ad7-7d081dc84a39.jpg" alt="Coleção Capri"><div class="copy"><h3>Capri</h3><p>A beleza dispensa excessos</p></div></article>
-          <article class="collection-card"><img src="224e32cb-49c3-401b-aa4b-9469c0ac9752.jpg" alt="Coleção Check-In"><div class="copy"><h3>Check-In</h3><p>Seu próximo destino começa no olhar</p></div></article>
-          <article class="collection-card"><img src="bc100212-e616-44bf-8ba3-4999995d75d2.jpg" alt="Coleção Beach Club"><div class="copy"><h3>Beach Club</h3><p>O verão pede atitude</p></div></article>
-          <article class="collection-card"><img src="ab96f955-016b-4410-af47-d6d2cd5b39ae.jpg" alt="Coleção Day Use"><div class="copy"><h3>Day Use</h3><p>Pronta para qualquer destino</p></div></article>
-          <article class="collection-card"><img src="cc268c89-f6e3-4e7e-919f-2ff193dc63c2.jpg" alt="Coleção Escape"><div class="copy"><h3>Escape</h3><p>Leveza que foge do comum</p></div></article>
-          <article class="collection-card"><img src="ca06ac76-6b78-48a1-abf4-dd604b8dc008.jpg" alt="Coleção All Inclusive"><div class="copy"><h3>All Inclusive</h3><p>Aquele match perfeito</p></div></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="products" id="modelos">
-      <div class="container">
-        <div class="section-head">
-          <div><span class="eyebrow">Catálogo de óculos</span><h2>Modelos em destaque</h2></div>
-          <a class="btn btn-light" href="#atendimento">Ver todos os modelos ✦</a>
-        </div>
-        <div class="product-grid">
-          <article class="product-card">
-            <div class="product-image"><img src="4cd43171-7262-4926-86f4-93e92dcfa26b.jpg" alt="Óculos Maré preto"><span class="heart">♡</span></div>
-            <div class="product-info"><h3>Maré</h3><div class="variant">Preto</div><div class="swatches"><span class="swatch" style="background:#111"></span><span class="swatch" style="background:#6a3419"></span><span class="swatch" style="background:#b7834d"></span></div><div class="price">R$ 499,00</div><a class="btn btn-dark btn-whatsapp" target="_blank" rel="noopener" href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Quero%20o%20modelo%20Mar%C3%A9%20na%20cor%20Preto.">Quero este modelo</a></div>
-          </article>
-          <article class="product-card">
-            <div class="product-image"><img src="ff117950-a90c-45e9-ba25-70dbc7924055.jpg" alt="Óculos Capri tartaruga"><span class="heart">♡</span></div>
-            <div class="product-info"><h3>Capri</h3><div class="variant">Tartaruga</div><div class="swatches"><span class="swatch" style="background:#111"></span><span class="swatch" style="background:#6e2a1c"></span><span class="swatch" style="background:#a65e2a"></span></div><div class="price">R$ 499,00</div><a class="btn btn-dark btn-whatsapp" target="_blank" rel="noopener" href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Quero%20o%20modelo%20Capri%20na%20cor%20Tartaruga.">Quero este modelo</a></div>
-          </article>
-          <article class="product-card">
-            <div class="product-image"><img src="d1a120ea-15bf-4ca8-b879-0bcacc1e967b.jpg" alt="Óculos Check-In preto"><span class="heart">♡</span></div>
-            <div class="product-info"><h3>Check-In</h3><div class="variant">Preto</div><div class="swatches"><span class="swatch" style="background:#111"></span><span class="swatch" style="background:#4b3a32"></span></div><div class="price">R$ 549,00</div><a class="btn btn-dark btn-whatsapp" target="_blank" rel="noopener" href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Quero%20o%20modelo%20Check-In%20na%20cor%20Preto.">Quero este modelo</a></div>
-          </article>
-          <article class="product-card">
-            <div class="product-image"><img src="fcaa76e9-61ae-418c-8b78-6d9a5ef694a3.jpg" alt="Óculos Beach Club marrom"><span class="heart">♡</span></div>
-            <div class="product-info"><h3>Beach Club</h3><div class="variant">Marrom</div><div class="swatches"><span class="swatch" style="background:#2a1612"></span><span class="swatch" style="background:#9b5f29"></span></div><div class="price">R$ 549,00</div><a class="btn btn-dark btn-whatsapp" target="_blank" rel="noopener" href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Quero%20o%20modelo%20Beach%20Club%20na%20cor%20Marrom.">Quero este modelo</a></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="benefits">
-      <div class="container benefit-grid">
-        <div class="benefit"><div class="benefit-icon">◒</div><div><strong>Design exclusivo</strong><span>Modelos autorais com acabamento impecável.</span></div></div>
-        <div class="benefit"><div class="benefit-icon">◇</div><div><strong>Materiais premium</strong><span>Acetato e durabilidade em cada detalhe.</span></div></div>
-        <div class="benefit"><div class="benefit-icon">♢</div><div><strong>Proteção total</strong><span>Lentes com proteção UV e alta performance.</span></div></div>
-        <div class="benefit"><div class="benefit-icon">▣</div><div><strong>Envio seguro</strong><span>Entrega rápida e segura para todo o Brasil.</span></div></div>
-      </div>
-    </div>
-
-    <section class="editorial" id="sobre">
-      <div class="editorial-grid">
-        <div class="editorial-image" role="img" aria-label="Modelo usando óculos Dona Gatta"></div>
-        <div class="editorial-copy"><span class="eyebrow">Sobre a Dona Gatta</span><h2>Mais do que um acessório.</h2><p>A Dona Gatta acredita que um óculos é mais do que um acessório: é uma extensão do seu estilo, da sua personalidade e da forma como você escolhe enxergar o mundo.</p><p>Criamos óculos que unem design, conforto e personalidade, para acompanhar diferentes momentos, estilos e destinos.</p><p>Mais do que seguir tendências, queremos ajudar você a encontrar aquele modelo que simplesmente faz sentido quando chega ao seu rosto.</p><p class="tagline">Você tem seu estilo.<br>A Dona tem todos.</p><a class="btn btn-dark btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Quero%20atendimento%20para%20escolher%20meu%20Dona%20Gatta." target="_blank" rel="noopener">Falar no WhatsApp</a></div>
-      </div>
-    </section>
-
-    <section class="why">
-      <div class="container"><h2>Por que escolher a Dona Gatta?</h2><div class="why-grid">
-        <div class="why-card"><div class="icon">✦</div><strong>Curadoria selecionada</strong><p>Escolhemos cada modelo pensando em você.</p></div>
-        <div class="why-card"><div class="icon">◌</div><strong>Para todos os rostos</strong><p>Modelos que valorizam e se adaptam a diferentes traços.</p></div>
-        <div class="why-card"><div class="icon">⌐◉</div><strong>Estilo que acompanha</strong><p>Do casual ao sofisticado, temos o modelo ideal.</p></div>
-        <div class="why-card"><div class="icon">♡</div><strong>Atendimento personalizado</strong><p>Fale conosco pelo WhatsApp e receba atendimento exclusivo.</p></div>
-      </div></div>
-    </section>
-
-    <section class="cta-band" id="atendimento">
-      <div class="container"><span class="eyebrow">Encontrou o seu?</span><h2>Fale com a Dona Gatta.</h2><p>Nosso time está pronto para te ajudar a escolher o modelo perfeito para você.</p><a class="btn btn-dark btn-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20quero%20ajuda%20para%20escolher%20meu%20%C3%B3culos." target="_blank" rel="noopener">Chamar no WhatsApp</a></div>
-    </section>
+  <div class="topline">Frete para todo o Brasil &nbsp;·&nbsp; atendimento personalizado pelo WhatsApp</div>
+  <header><div class="wrap nav"><a href="#inicio" class="logo">DONA GATTA<small>DESTINOS</small></a><nav class="links"><a href="#colecao">Coleção</a><a href="#modelos">Modelos</a><a href="#sobre">Sobre</a></nav><a class="nav-whats" data-whatsapp="Olá! Vim pelo site da Dona Gatta." target="_blank" rel="noopener">◉ Falar no WhatsApp</a></div></header>
+  <main id="inicio">
+    <section class="hero"><div class="hero-photo"></div><div class="hero-grid"><div class="hero-copy"><span class="label">Coleção Destinos · 2026</span><h1>Óculos para<br>todos os seus<br><em>destinos.</em></h1><p>Para novos caminhos, novas histórias e novas versões de você.</p><div class="hero-meta"><a class="button red" href="#modelos">Ver modelos</a><a class="button outline" data-whatsapp="Olá! Quero conhecer a coleção Destinos da Dona Gatta." target="_blank" rel="noopener">Comprar pelo WhatsApp</a><span class="rule"></span></div></div></div></section>
+    <div class="ticker"><div class="ticker-track"><span>Escolha <b>✦</b></span><span>Descubra <b>✦</b></span><span>Viva <b>✦</b></span><span>Explore <b>✦</b></span><span>Você vai sentir quando encontrar o seu <b>✦</b></span><span>Escolha <b>✦</b></span><span>Descubra <b>✦</b></span><span>Viva <b>✦</b></span><span>Explore <b>✦</b></span><span>Você vai sentir quando encontrar o seu <b>✦</b></span></div></div>
+    <section class="wrap intro reveal" id="sobre"><div><span class="label">A Dona Gatta</span><h2>O seu olhar<br>merece <em>destino.</em></h2></div><div class="intro-copy"><p>Um óculos é mais que um acessório: é a extensão da sua personalidade e da forma como você escolhe enxergar o mundo. Unimos design, conforto e atitude para você encontrar o modelo que simplesmente faz sentido quando chega ao seu rosto.</p><span class="signature">Você tem seu estilo.<br>A Dona tem todos.</span></div></section>
+    <section class="collection" id="colecao"><div class="wrap"><div class="section-head reveal"><div><span class="label">Escolha seu caminho</span><h2>Qual é o seu<br>próximo destino?</h2></div><p>Uma curadoria pensada para acompanhar cada versão de você.</p></div><div class="destination-grid reveal"><a class="destination" href="#modelos"><img src="8f2dc008-85b1-4891-87f6-031939ffd735.jpg" alt="Coleção Resort"><div><strong>Resort</strong><span>Sua pausa com elegância</span></div></a><a class="destination" href="#modelos"><img src="3887de33-6522-4b69-91a9-bdc31d2fecc9.jpg" alt="Coleção Maré"><div><strong>Maré</strong><span>Leveza e poder</span></div></a><a class="destination" href="#modelos"><img src="96b09328-7192-4e35-9ad7-7d081dc84a39.jpg" alt="Coleção Capri"><div><strong>Capri</strong><span>Beleza sem excessos</span></div></a><a class="destination" href="#modelos"><img src="224e32cb-49c3-401b-aa4b-9469c0ac9752.jpg" alt="Coleção Check-In"><div><strong>Check-In</strong><span>Começa no olhar</span></div></a></div></div></section>
+    <section class="catalog" id="modelos"><div class="wrap"><div class="section-head reveal"><div><span class="label">Catálogo selecionado</span><h2>Encontre o seu.</h2></div><a class="button" data-whatsapp="Olá! Quero ver todos os modelos da Dona Gatta." target="_blank" rel="noopener">Ver catálogo completo</a></div><div class="product-grid reveal"><article class="product"><div class="product-img"><span class="product-code">DG · 01</span><img src="4cd43171-7262-4926-86f4-93e92dcfa26b.jpg" alt="Óculos Maré preto"></div><div class="product-info"><h3>Maré</h3><p>Preto · Acetato</p><div class="product-bottom"><span class="price">R$ 499,00</span><a class="mini-buy" data-whatsapp="Olá! Quero saber mais sobre o modelo Maré, na cor preto." target="_blank" rel="noopener">Quero este</a></div></div></article><article class="product"><div class="product-img"><span class="product-code">DG · 02</span><img src="ff117950-a90c-45e9-ba25-70dbc7924055.jpg" alt="Óculos Capri tartaruga"></div><div class="product-info"><h3>Capri</h3><p>Tartaruga · Acetato</p><div class="product-bottom"><span class="price">R$ 499,00</span><a class="mini-buy" data-whatsapp="Olá! Quero saber mais sobre o modelo Capri, na cor tartaruga." target="_blank" rel="noopener">Quero este</a></div></div></article><article class="product"><div class="product-img"><span class="product-code">DG · 03</span><img src="d1a120ea-15bf-4ca8-b879-0bcacc1e967b.jpg" alt="Óculos Check-In preto"></div><div class="product-info"><h3>Check-In</h3><p>Preto · Metal</p><div class="product-bottom"><span class="price">R$ 549,00</span><a class="mini-buy" data-whatsapp="Olá! Quero saber mais sobre o modelo Check-In, na cor preto." target="_blank" rel="noopener">Quero este</a></div></div></article><article class="product"><div class="product-img"><span class="product-code">DG · 04</span><img src="fcaa76e9-61ae-418c-8b78-6d9a5ef694a3.jpg" alt="Óculos Beach Club marrom"></div><div class="product-info"><h3>Beach Club</h3><p>Marrom · Metal</p><div class="product-bottom"><span class="price">R$ 549,00</span><a class="mini-buy" data-whatsapp="Olá! Quero saber mais sobre o modelo Beach Club, na cor marrom." target="_blank" rel="noopener">Quero este</a></div></div></article></div></div></section>
+    <section class="manifesto"><div class="manifesto-photo"></div><div class="manifesto-copy reveal"><div><span class="label">Dona Gatta Destinos</span><h2>Você vai sentir<br>quando encontrar <em>o seu.</em></h2><p>Mais do que seguir tendências, queremos que cada escolha revele a sua forma de estar no mundo. O seu próximo destino começa no olhar.</p><a class="button" data-whatsapp="Olá! Quero ajuda para encontrar o meu modelo Dona Gatta." target="_blank" rel="noopener">Falar com a Dona Gatta</a></div></div></section>
+    <section class="reasons"><div class="wrap"><div class="reveal"><span class="label">Por que escolher</span><h2>Feitos para acompanhar você.</h2></div><div class="reason-grid reveal"><article class="reason"><b>01</b><h3>Curadoria real</h3><p>Modelos escolhidos para diferentes personalidades e momentos.</p></article><article class="reason"><b>02</b><h3>Design & conforto</h3><p>Óculos que combinam presença, leveza e acabamento.</p></article><article class="reason"><b>03</b><h3>Proteção total</h3><p>Lentes com proteção UV para acompanhar todos os seus dias.</p></article><article class="reason"><b>04</b><h3>Atendimento humano</h3><p>Uma conversa direta para ajudar você a encontrar o ideal.</p></article></div></div></section>
+    <section class="closing"><div class="wrap reveal"><span class="label">Encontrou o seu?</span><h2>Fale com a<br><em>Dona Gatta.</em></h2><p>Seu novo destino pode começar com uma conversa.</p><a class="button" data-whatsapp="Olá! Vim pelo site e quero escolher meus óculos Dona Gatta." target="_blank" rel="noopener">Chamar no WhatsApp</a></div></section>
   </main>
-
-  <footer>
-    <div class="container"><div class="footer-grid">
-      <div><div class="brand-mark" style="color:#fff">DONA 〽 GATTA</div><span class="brand-sub" style="text-align:left">DESTINOS</span><p>Óculos que unem elegância, leveza e personalidade para todos os seus destinos.</p><div class="social"><a href="#">◎</a><a href="#">f</a><a href="#">◉</a></div></div>
-      <div><h4>Institucional</h4><ul><li><a href="#sobre">Sobre a Dona Gatta</a></li><li><a href="#colecoes">Nossas Coleções</a></li><li><a href="#">Política de Privacidade</a></li><li><a href="#">Trocas e Devoluções</a></li></ul></div>
-      <div><h4>Atendimento</h4><ul><li><a href="#atendimento">Fale pelo WhatsApp</a></li><li><a href="#">Perguntas Frequentes</a></li><li><a href="#">Cuidados com os Óculos</a></li><li><a href="#">Acompanhe seu Pedido</a></li></ul></div>
-      <div><h4>Fale conosco</h4><ul><li><a href="https://wa.me/5511999999999">(75) 98151-3433</a></li><li><a href="mailto:contato@donagatta.com.br">contato@donagatta.com.br</a></li><li><span>São Paulo - SP</span></li></ul></div>
-    </div><div class="copyright">© 2026 Dona Gatta Destinos. Todos os direitos reservados.</div></div>
-  </footer>
-
+  <footer><div class="wrap"><div class="footer-grid"><div><div class="footer-logo">DONA GATTA<small>DESTINOS</small></div><p>Óculos que acompanham todos os seus destinos.</p></div><div><h4>Institucional</h4><ul><li><a href="#sobre">Sobre a Dona Gatta</a></li><li><a href="#colecao">Coleções</a></li><li><a href="#modelos">Catálogo</a></li></ul></div><div><h4>Atendimento</h4><ul><li><a data-whatsapp="Olá! Quero falar com a Dona Gatta." target="_blank" rel="noopener">WhatsApp: (75) 98151-3433</a></li><li><a href="mailto:contato@donagatta.com.br">contato@donagatta.com.br</a></li><li><a href="#inicio">Voltar ao início</a></li></ul></div></div><div class="copy">© 2026 Dona Gatta Destinos. Todos os direitos reservados.</div></div></footer>
   <script>
-    // Configuração: substitua pelo WhatsApp oficial da ótica, incluindo DDI e DDD, sem símbolos.
     const whatsappNumber = '5575981513433';
-    document.querySelectorAll('a[href*="wa.me/"]').forEach((link) => {
-      const url = new URL(link.href);
-      url.pathname = `/${whatsappNumber}`;
-      link.href = url.toString();
-    });
-
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    menuToggle?.addEventListener('click', () => navMenu.classList.toggle('open'));
-    navMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+    document.querySelectorAll('[data-whatsapp]').forEach((link) => { link.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(link.dataset.whatsapp)}`; });
   </script>
 </body>
 </html>
