@@ -1,12 +1,79 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="0; url=dona-gatta-landing.html">
-    <title>Dona Gatta Destinos</title>
-  </head>
-  <body>
-    <p>Abrindo a <a href="dona-gatta-landing.html">Dona Gatta Destinos</a>…</p>
-  </body>
-</html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dona Gatta — Coleção Destinos 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#001219;--deep:#005f73;--teal:#0a9396;--mint:#94d2bd;--sand:#e9d8a6;--gold:#ee9b00;--orange:#ca6702;--rust:#bb3e03;--red:#ae2012;--wine:#9b2226;--paper:#fbf7ee;--cream:#f7f0df}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif}img{display:block;width:100%}a{text-decoration:none;color:inherit}.container{width:min(1180px,calc(100% - 40px));margin:auto}.eyebrow{font-size:.76rem;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--rust)}
+.nav{position:sticky;top:0;z-index:30;background:rgba(251,247,238,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,18,25,.08)}.nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}.brand{display:flex;align-items:center;gap:10px;font-family:"Playfair Display",serif;font-size:1.5rem;letter-spacing:.06em}.mark{color:var(--wine);font-size:1.6rem;transform:skew(-8deg)}.nav-links{display:flex;gap:28px;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:13px 20px;font-weight:700;border:1px solid transparent;transition:.2s}.nav-cta{background:var(--wine);color:#fff}
+.hero{position:relative;min-height:760px;display:flex;align-items:end;overflow:hidden;background:var(--cream)}.hero-media{position:absolute;inset:0}.hero-media img{height:100%;object-fit:cover;object-position:center}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,18,25,.70) 0%,rgba(0,18,25,.24) 43%,rgba(0,18,25,0) 72%)}.hero-content{position:relative;z-index:2;padding-bottom:82px;color:#fff;max-width:640px}.hero .eyebrow{color:var(--sand)}h1{font-family:"Playfair Display",serif;font-size:clamp(4rem,8vw,8rem);line-height:.84;margin:16px 0 6px;font-weight:500}.hero-script{font-family:"Playfair Display",serif;font-style:italic;font-size:clamp(2rem,4vw,4rem);color:var(--sand)}.hero-copy{max-width:520px;font-size:1.06rem;line-height:1.75;margin:24px 0 28px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.btn-primary{background:var(--gold);color:var(--ink)}.btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.routebar{background:var(--wine);color:#fff}.routebar .container{display:grid;grid-template-columns:repeat(4,1fr);padding:18px 0}.route{display:flex;align-items:center;justify-content:center;gap:10px;border-right:1px solid rgba(255,255,255,.22);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase}.route:last-child{border-right:0}
+.section{padding:90px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:36px}.section-head h2{font-family:"Playfair Display",serif;font-size:clamp(2.5rem,5vw,4.8rem);line-height:.96;margin:8px 0 0;font-weight:500}.section-head p{max-width:470px;line-height:1.7;color:#31434a}
+.cards,.products{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.dest-card{position:relative;min-height:390px;border-radius:26px;overflow:hidden;color:#fff;background:#ddd}.dest-card img{height:100%;object-fit:cover}.dest-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,rgba(0,18,25,.84) 100%)}.dest-copy{position:absolute;left:22px;right:22px;bottom:20px;z-index:2}.dest-copy h3{font-family:"Playfair Display",serif;font-size:2rem;margin:0 0 6px}.dest-copy p{font-size:.85rem;margin:0;color:#e9f5f2}
+.catalog{background:var(--ink);color:#fff}.catalog .section-head p{color:#bad2d2}.catalog .eyebrow{color:var(--gold)}.product{background:#fff;color:var(--ink);border-radius:24px;overflow:hidden}.product-media{aspect-ratio:1/1;background:var(--sand);overflow:hidden}.product-media img{height:100%;object-fit:cover}.product-body{padding:20px}.product-kicker{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);font-weight:700}.product h3{font-family:"Playfair Display",serif;font-size:1.8rem;margin:6px 0 3px}.price{font-weight:700;margin:12px 0 18px}.swatches{display:flex;gap:7px;margin-top:10px}.sw{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.2)}.btn-whatsapp{width:100%;background:var(--deep);color:#fff}
+.story{background:var(--sand)}.story-grid{display:grid;grid-template-columns:1.05fr .95fr;min-height:620px;border-radius:32px;overflow:hidden;background:var(--wine);color:#fff}.story-media img{height:100%;object-fit:cover}.story-copy{padding:64px;display:flex;flex-direction:column;justify-content:center}.story-copy h2{font-family:"Playfair Display",serif;font-size:clamp(3rem,5vw,5.5rem);line-height:.94;margin:10px 0 20px;font-weight:500}.story-copy p{line-height:1.8;color:#f8e7d3}
+.features{background:var(--paper)}.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,18,25,.14);border:1px solid rgba(0,18,25,.14);border-radius:24px;overflow:hidden}.feature{background:var(--paper);padding:34px}.feature strong{display:block;font-family:"Playfair Display",serif;font-size:1.35rem;margin:12px 0 8px}.feature p{margin:0;line-height:1.6;color:#425359;font-size:.9rem}.icon{font-size:1.7rem;color:var(--orange)}
+.cta{background:linear-gradient(135deg,var(--deep),var(--teal));color:#fff;text-align:center;padding:90px 20px}.cta h2{font-family:"Playfair Display",serif;font-size:clamp(3rem,6vw,6rem);line-height:.95;margin:10px auto 18px;max-width:850px;font-weight:500}.cta p{max-width:650px;margin:0 auto 28px;line-height:1.7;color:#d9f2ed}
+.footer{background:var(--ink);color:#d7e4e5;padding:52px 0 24px}.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}.footer h4{color:#fff;margin:0 0 14px}.footer p,.footer a{font-size:.88rem;line-height:1.8;color:#a9c0c2}.copyright{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:.75rem;color:#7fa0a4}
+@media(max-width:980px){.nav-links{display:none}.hero{min-height:720px}.hero:after{background:linear-gradient(180deg,rgba(0,18,25,.10) 30%,rgba(0,18,25,.86) 100%)}.cards,.products{grid-template-columns:repeat(2,1fr)}.story-grid{grid-template-columns:1fr}.story-media{height:520px}.feature-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.container{width:min(100% - 24px,1180px)}.nav-inner{height:66px}.brand{font-size:1.08rem}.nav-cta{font-size:.72rem;padding:11px 14px}.hero{min-height:760px}.hero-media img{content:url('assets/hero-mobile.png');object-position:center top}.hero-content{padding-bottom:40px}h1{font-size:4rem}.routebar .container{grid-template-columns:repeat(2,1fr)}.route{padding:11px 6px}.section{padding:64px 0}.section-head{display:block}.cards,.products{grid-template-columns:1fr}.dest-card{min-height:430px}.story-copy{padding:38px 26px}.story-media{height:430px}.feature-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="container nav-inner">
+<a class="brand" href="#top"><span>DONA</span><span class="mark">///</span><span>GATTA</span></a>
+<div class="nav-links"><a href="#destinos">Destinos</a><a href="#catalogo">Modelos</a><a href="#conceito">Conceito</a><a href="#atendimento">Atendimento</a></div>
+<a class="nav-cta" href="https://wa.me/5575981513433?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Dona%20Gatta." target="_blank">◉ WhatsApp</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="hero-media"><img src="assets/hero-desktop.png" alt="Duas modelos usando óculos Dona Gatta"></div><div class="container hero-content">
+<div class="eyebrow">Coleção</div><h1>DESTINOS</h1><div class="hero-script">2026</div>
+<p class="hero-copy">10 óculos. 10 destinos. Para novos caminhos, novas histórias e novas versões de você.</p>
+<div class="hero-actions"><a class="btn btn-primary" href="#catalogo">Explorar coleção</a><a class="btn btn-ghost" href="https://wa.me/5575981513433?text=Quero%20conhecer%20a%20cole%C3%A7%C3%A3o%20Destinos%202026." target="_blank">Comprar pelo WhatsApp</a></div>
+</div></header>
+
+<div class="routebar"><div class="container"><div class="route">✈ Escolha</div><div class="route">☼ Descubra</div><div class="route">◎ Viva</div><div class="route">✦ Explore</div></div></div>
+
+<section class="section" id="destinos"><div class="container"><div class="section-head">
+<div><div class="eyebrow">Dona Gatta Destinos</div><h2>Escolha o seu próximo olhar.</h2></div><p>Cada modelo nasce com uma personalidade própria — do resort ao urbano, da praia ao inesperado.</p>
+</div><div class="cards">
+<article class="dest-card"><img src="assets/0e88bf8a-3ac1-422c-bd44-dd97e6e2aa22.jpg"><div class="dest-copy"><h3>Resort</h3><p>Elegância que desacelera.</p></div></article>
+<article class="dest-card"><img src="assets/7e456206-6c8b-4e17-b4b8-d713c62217ef.jpg"><div class="dest-copy"><h3>Maré</h3><p>Leveza e poder em único ritmo.</p></div></article>
+<article class="dest-card"><img src="assets/58b3da10-55b4-42b9-bf6c-a66a8380f1e5.jpg"><div class="dest-copy"><h3>Capri</h3><p>A beleza dispensa excessos.</p></div></article>
+<article class="dest-card"><img src="assets/96b09328-7192-4e35-9ad7-7d081dc84a39.jpg"><div class="dest-copy"><h3>Check-In</h3><p>Seu próximo destino começa no olhar.</p></div></article>
+</div></div></section>
+
+<section class="section catalog" id="catalogo"><div class="container"><div class="section-head">
+<div><div class="eyebrow">Catálogo</div><h2>Modelos em destaque.</h2></div><p>Escolha seu modelo e fale diretamente com a equipe Dona Gatta pelo WhatsApp.</p>
+</div><div class="products">
+<article class="product"><div class="product-media"><img src="assets/a559e3cf-86e4-46ac-818f-98a16924b01e.jpg"></div><div class="product-body"><div class="product-kicker">Destinos 2026</div><h3>Beach Club</h3><div class="swatches"><span class="sw" style="background:#111"></span><span class="sw" style="background:#a46722"></span></div><div class="price">Consulte valor</div><a class="btn btn-whatsapp" href="https://wa.me/5575981513433?text=Quero%20saber%20mais%20sobre%20o%20modelo%20Beach%20Club." target="_blank">Quero este modelo</a></div></article>
+<article class="product"><div class="product-media"><img src="assets/e8ca8abb-cd4d-4e38-88c1-047be2a7ce26.jpg"></div><div class="product-body"><div class="product-kicker">Destinos 2026</div><h3>Day Use</h3><div class="swatches"><span class="sw" style="background:#111"></span><span class="sw" style="background:#745039"></span></div><div class="price">Consulte valor</div><a class="btn btn-whatsapp" href="https://wa.me/5575981513433?text=Quero%20saber%20mais%20sobre%20o%20modelo%20Day%20Use." target="_blank">Quero este modelo</a></div></article>
+<article class="product"><div class="product-media"><img src="assets/fcaa76e9-61ae-418c-8b78-6d9a5ef694a3.jpg"></div><div class="product-body"><div class="product-kicker">Destinos 2026</div><h3>Escape</h3><div class="swatches"><span class="sw" style="background:#111"></span><span class="sw" style="background:#8a5a39"></span></div><div class="price">Consulte valor</div><a class="btn btn-whatsapp" href="https://wa.me/5575981513433?text=Quero%20saber%20mais%20sobre%20o%20modelo%20Escape." target="_blank">Quero este modelo</a></div></article>
+<article class="product"><div class="product-media"><img src="assets/ca06ac76-6b78-48a1-abf4-dd604b8dc008.jpg"></div><div class="product-body"><div class="product-kicker">Destinos 2026</div><h3>All Inclusive</h3><div class="swatches"><span class="sw" style="background:#111"></span><span class="sw" style="background:#6f1f25"></span></div><div class="price">Consulte valor</div><a class="btn btn-whatsapp" href="https://wa.me/5575981513433?text=Quero%20saber%20mais%20sobre%20o%20modelo%20All%20Inclusive." target="_blank">Quero este modelo</a></div></article>
+</div></div></section>
+
+<section class="section story" id="conceito"><div class="container"><div class="story-grid">
+<div class="story-media"><img src="assets/hero-mobile.png"></div>
+<div class="story-copy"><div class="eyebrow" style="color:var(--sand)">Coleção Destinos</div><h2>Você vai sentir quando encontrar o seu.</h2><p>A coleção foi pensada como uma viagem: cada armação traduz um estado de espírito. Sofisticada, solar, marcante e livre — sem perder a assinatura Dona Gatta.</p><div><a class="btn btn-primary" href="#catalogo">Descobrir meu destino</a></div></div>
+</div></div></section>
+
+<section class="section features"><div class="container"><div class="section-head"><div><div class="eyebrow">Experiência Dona Gatta</div><h2>Mais que óculos, uma escolha de estilo.</h2></div></div>
+<div class="feature-grid">
+<div class="feature"><div class="icon">✦</div><strong>Curadoria autoral</strong><p>Modelos escolhidos para valorizar diferentes rostos e estilos.</p></div>
+<div class="feature"><div class="icon">◇</div><strong>Acabamento premium</strong><p>Materiais, detalhes e presença pensados para durar além da tendência.</p></div>
+<div class="feature"><div class="icon">◉</div><strong>Atendimento próximo</strong><p>Converse com a equipe e receba ajuda para escolher o modelo ideal.</p></div>
+<div class="feature"><div class="icon">↗</div><strong>Compra simples</strong><p>Escolheu? Finalize sua compra diretamente pelo WhatsApp.</p></div>
+</div></div></section>
+
+<section class="cta" id="atendimento"><div class="eyebrow" style="color:var(--sand)">Seu próximo destino</div><h2>Encontrou o seu? Fale com a Dona Gatta.</h2><p>Nosso atendimento continua no WhatsApp para tirar dúvidas, conferir cores disponíveis e concluir seu pedido.</p><a class="btn btn-primary" href="https://wa.me/5575981513433?text=Vim%20pelo%20site%20da%20Dona%20Gatta%20e%20quero%20ajuda%20para%20escolher%20meu%20%C3%B3culos." target="_blank">Chamar no WhatsApp</a></section>
+
+<footer class="footer"><div class="container"><div class="footer-grid">
+<div><div class="brand" style="color:#fff;margin-bottom:14px"><span>DONA</span><span class="mark">///</span><span>GATTA</span></div><p>Óculos que unem personalidade, elegância e liberdade para todos os seus destinos.</p></div>
+<div><h4>Navegação</h4><a href="#destinos">Destinos</a><br><a href="#catalogo">Modelos</a><br><a href="#conceito">Conceito</a></div>
+<div><h4>Atendimento</h4><a href="https://wa.me/5575981513433" target="_blank">WhatsApp</a><br><a href="#">Instagram</a></div>
+</div><div class="copyright">© 2026 Dona Gatta. Layout conceitual para catálogo e vendas via WhatsApp.</div></div></footer>
+</body></html>
