@@ -79,3 +79,4 @@
 })();
 const mobileApp=document.createElement('script');mobileApp.src='mobile-app.js';mobileApp.async=false;document.body.append(mobileApp);
 const mobileReel=document.createElement('script');mobileReel.src='mobile-reel.js';mobileReel.async=false;document.body.append(mobileReel);
+const mobileRefresh=document.createElement('script');mobileRefresh.src='mobile-refresh.js';mobileRefresh.async=false;document.body.append(mobileRefresh);
