@@ -77,4 +77,5 @@
     button.addEventListener('pointerleave', () => { button.style.transform = ''; });
   });
 })();
-const mobileApp=document.createElement('script');mobileApp.src='mobile-app.js';document.body.append(mobileApp);
+const mobileApp=document.createElement('script');mobileApp.src='mobile-app.js';mobileApp.async=false;document.body.append(mobileApp);
+const mobileReel=document.createElement('script');mobileReel.src='mobile-reel.js';mobileReel.async=false;document.body.append(mobileReel);
