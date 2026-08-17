@@ -1,4 +1,4 @@
-const CACHE='dona-gatta-v10';
+const CACHE='dona-gatta-v11';
 const CORE=['./','./index.html','./catalogo.html','./modelo.css','./motion.js','./mobile-app.js','./mobile-reel.js','./mobile-refresh.js','./menu-icons.js','./favorites-experience.js','./install-prompt.js','./site-search.js','./section-dividers.js','./whatsapp-modelo.js','./manifest.webmanifest','./app-icon.svg'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
