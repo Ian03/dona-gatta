@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Dona Gatta</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="login-container">
+            <div class="login-brand">
+                <span class="logo">DONA <i>///</i> GATTA</span>
+                <span class="eyebrow">Painel Administrativo</span>
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" required placeholder="Digite seu usuário">
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required placeholder="Digite sua senha">
+                </div>
+                <p id="loginError" class="error-message"></p>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Layout (Hidden by default) -->
+    <div id="adminApp" class="admin-layout" style="display: none;">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>Dona Gatta</h3>
+                <button id="toggleSidebar" class="toggle-btn"><i class="fas fa-bars"></i></button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#" data-target="dashboard"><i class="fas fa-home"></i> <span>Início</span></a></li>
+                    <li><a href="#" data-target="collections"><i class="fas fa-images"></i> <span>Coleções</span></a></li>
+                    <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <header class="top-header">
+                <div class="header-title">
+                    <h2 id="pageTitle">Gerenciador de Coleções</h2>
+                </div>
+            </header>
+
+            <div class="content-area">
+                
+                <!-- Dashboard / Collections View -->
+                <section id="collectionsView" class="view-section active">
+                    <div class="section-header">
+                        <h3>Suas Coleções</h3>
+                        <button id="newCollectionBtn" class="btn-primary"><i class="fas fa-plus"></i> Nova Coleção</button>
+                    </div>
+                    
+                    <div class="collections-grid" id="collectionsGrid">
+                        <!-- Coleções serão renderizadas aqui via JS -->
+                    </div>
+                </section>
+
+                <!-- Create/Edit Collection View -->
+                <section id="editCollectionView" class="view-section" style="display: none;">
+                    <div class="section-header">
+                        <h3 id="editViewTitle">Nova Coleção</h3>
+                        <button id="backToCollections" class="btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</button>
+                    </div>
+
+                    <form id="collectionForm" class="edit-form">
+                        <div class="form-group">
+                            <label>Nome da Coleção</label>
+                            <input type="text" id="colName" required placeholder="Ex: Coleção Verão 2024">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Foto de Capa (Modelo)</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="colCover" accept="image/*" class="file-input">
+                                <div class="upload-placeholder" id="coverPreview">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Clique para selecionar a capa</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="variations-section">
+                            <div class="section-header">
+                                <h4>Fotos das Variações</h4>
+                                <button type="button" id="addVariationBtn" class="btn-secondary btn-sm"><i class="fas fa-plus"></i> Adicionar Foto</button>
+                            </div>
+                            
+                            <div id="variationsContainer" class="variations-list">
+                                <!-- Variações serão adicionadas aqui -->
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary btn-lg">Salvar Coleção</button>
+                        </div>
+                    </form>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
