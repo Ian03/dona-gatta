@@ -70,8 +70,8 @@
       menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');document.body.classList.remove('menu-open');toggle.setAttribute('aria-expanded','false')}));
       
       async function loadIndexCollections() {
-          if (!supabase) return;
-          const { data: collections, error } = await supabase.from('colecoes').select('*, variacoes(*)').order('created_at', { ascending: false });
+          if (!supabaseClient) return;
+          const { data: collections, error } = await supabaseClient.from('colecoes').select('*, variacoes(*)').order('created_at', { ascending: false });
           if (error) { console.error(error); return; }
           
           const wrapper = document.querySelector('.products .swiper-wrapper');

@@ -20,8 +20,8 @@
   <script src="db.js"></script>
   <script>
     async function loadCatalog() {
-      if (!supabase) return;
-      const { data: collections, error } = await supabase.from('colecoes').select('*').order('created_at', { ascending: false });
+      if (!supabaseClient) return;
+      const { data: collections, error } = await supabaseClient.from('colecoes').select('*').order('created_at', { ascending: false });
       if (error) { console.error(error); return; }
       
       const grid = document.getElementById('catalog-grid');

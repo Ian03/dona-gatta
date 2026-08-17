@@ -144,13 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
         const filePath = `${pathFolder}/${fileName}`;
         
-        const { data, error } = await supabase.storage.from('produtos').upload(filePath, file);
+        const { data, error } = await supabaseClient.storage.from('produtos').upload(filePath, file);
         if (error) {
             console.error("Erro upload:", error);
             throw error;
         }
         
-        const { data: publicData } = supabase.storage.from('produtos').getPublicUrl(filePath);
+        const { data: publicData } = supabaseClient.storage.from('produtos').getPublicUrl(filePath);
         return publicData.publicUrl;
     }
 
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Insert Collection
-            const { data: colData, error: colError } = await supabase
+            const { data: colData, error: colError } = await supabaseClient
                 .from('colecoes')
                 .insert([{ nome: name, capa_url: coverUrl }])
                 .select();
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     varImgUrl = await uploadImage(fileInput.files[0], 'variacoes');
                 }
 
-                await supabase.from('variacoes').insert([{
+                await supabaseClient.from('variacoes').insert([{
                     colecao_id: collectionId,
                     imagem_url: varImgUrl,
                     descricao: desc,
@@ -217,10 +217,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function loadCollections() {
-        if (!supabase) return;
+        if (!supabaseClient) return;
         collectionsGrid.innerHTML = '<p>Carregando coleções...</p>';
         
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('colecoes')
             .select('*')
             .order('created_at', { ascending: false });
@@ -255,14 +255,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Expose delete to window so inline onclick works
     window.deleteCollection = async (id) => {
         if (confirm("Tem certeza que deseja excluir esta coleção?")) {
-            await supabase.from('colecoes').delete().eq('id', id);
+            await supabaseClient.from('colecoes').delete().eq('id', id);
             loadCollections();
         }
     };
 
     // Load initially if logged in
     // For now we just load when viewing dashboard
-    if (supabase) {
+    if (supabaseClient) {
         loadCollections();
     }
 

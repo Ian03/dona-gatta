@@ -41,13 +41,13 @@
         const urlParams = new URLSearchParams(window.location.search);
         const modelId = urlParams.get('id');
         
-        if (!modelId || !supabase) {
+        if (!modelId || !supabaseClient) {
             document.getElementById('model-name').textContent = "Modelo não encontrado.";
             document.getElementById('variations').innerHTML = "";
             return;
         }
 
-        const { data: model, error } = await supabase
+        const { data: model, error } = await supabaseClient
             .from('colecoes')
             .select('*, variacoes(*)')
             .eq('id', modelId)
