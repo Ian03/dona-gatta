@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modelo — Dona Gatta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="modelo.css">
+</head>
+<body>
+<header class="top">
+<nav class="wrap nav">
+<a class="logo" href="index.html">DONA <i>///</i> GATTA</a>
+<a class="back" href="catalogo.html">← Voltar ao catálogo</a>
+</nav>
+</header>
+<main>
+<section class="intro">
+<div class="wrap">
+<div class="eyebrow">Coleção Verão</div>
+<h1 class="display" id="model-name">CARREGANDO...</h1>
+<p>Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.</p>
+</div>
+</section>
+<section class="variations">
+<div class="wrap">
+<div class="grid" id="variations">
+    <p style="grid-column: 1/-1; text-align: center;">Buscando as variações...</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">DONA GATTA · COLEÇÃO VERÃO</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="db.js"></script>
+<script>
+    async function loadModel() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const modelId = urlParams.get('id');
+        
+        if (!modelId || !supabase) {
+            document.getElementById('model-name').textContent = "Modelo não encontrado.";
+            document.getElementById('variations').innerHTML = "";
+            return;
+        }
+
+        const { data: model, error } = await supabase
+            .from('colecoes')
+            .select('*, variacoes(*)')
+            .eq('id', modelId)
+            .single();
+
+        if (error || !model) {
+            console.error(error);
+            document.getElementById('model-name').textContent = "Modelo não encontrado.";
+            document.getElementById('variations').innerHTML = "";
+            return;
+        }
+
+        document.title = `${model.nome} — Coleção Verão | Dona Gatta`;
+        document.getElementById('model-name').textContent = model.nome;
+
+        const variationsContainer = document.getElementById('variations');
+        
+        if (!model.variacoes || model.variacoes.length === 0) {
+            variationsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Nenhuma variação adicionada ainda.</p>';
+            return;
+        }
+
+        variationsContainer.innerHTML = model.variacoes.map((v, idx) => `
+            <article class="variation">
+                <div class="variation-image">
+                    <img src="${v.imagem_url}" alt="${model.nome} — Variação ${idx + 1}" width="1400" height="1800" loading="lazy" decoding="async">
+                </div>
+                <div class="variation-info">
+                    <div>
+                        <div class="variation-name">${model.nome}</div>
+                        <div class="choice">${v.descricao}</div>
+                        <div style="font-size: 11px; margin-top: 4px; color: var(--wine);">
+                            À vista: <b>${v.valor_vista}</b><br>
+                            Parcelado: <b>${v.valor_parcelado}</b>
+                        </div>
+                    </div>
+                    <a class="choose" href="https://wa.me/5575981513433?text=${encodeURIComponent('Olá! Gostaria de consultar o modelo ' + model.nome + ' (' + v.descricao + ').')}" target="_blank" rel="noopener">Escolher</a>
+                </div>
+            </article>
+        `).join('');
+    }
+    
+    loadModel();
+</script>
+<script src="motion.js"></script>
+</body>
+</html>

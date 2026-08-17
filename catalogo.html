@@ -12,16 +12,36 @@
 </head>
 <body>
   <header class="top"><nav class="wrap nav"><a class="logo" href="index.html">DONA <i>///</i> GATTA</a><a class="back" href="index.html#colecoes">← Voltar para o site</a></nav></header>
-  <main><section class="intro"><div class="wrap"><div class="eyebrow">Coleção</div><h1 class="display">DESTINOS</h1><p>por Dona Gatta<br>Preview verão 27</p></div></section><section class="catalog"><div class="wrap"><div class="grid">
-    <a class="card" href="capri.html" aria-label="Ver as variações do modelo CAPRI"><div class="product-photo"><img src="assets/otimizadas/Verao/CAPRI/01-card.webp" width="720" height="900" alt="Óculos CAPRI" fetchpriority="high" decoding="async"></div><div class="card-info"><div class="card-name">CAPRI</div><div class="card-code">Coleção Verão · Ver variações</div></div></a>
-    <a class="card" href="day-use.html" aria-label="Ver as variações do modelo DAY USE"><div class="product-photo"><img src="assets/otimizadas/Verao/DAY%20USE/01-card.webp" width="720" height="900" alt="Óculos DAY USE" loading="lazy" decoding="async"></div><div class="card-info"><div class="card-name">DAY USE</div><div class="card-code">Coleção Verão · Ver variações</div></div></a>
-    <a class="card" href="mare.html" aria-label="Ver as variações do modelo MARÉ"><div class="product-photo"><img src="assets/otimizadas/Verao/MAR%C3%89/01-card.webp" width="720" height="900" alt="Óculos MARÉ" loading="lazy" decoding="async"></div><div class="card-info"><div class="card-name">MARÉ</div><div class="card-code">Coleção Verão · Ver variações</div></div></a>
-    <a class="card" href="check-in.html" aria-label="Ver as variações do modelo CHECK IN"><div class="product-photo"><img src="assets/otimizadas/Verao/CHECK%20IN/01-card.webp" width="720" height="900" alt="Óculos CHECK IN" loading="lazy" decoding="async"></div><div class="card-info"><div class="card-name">CHECK IN</div><div class="card-code">Coleção Verão · Ver variações</div></div></a>
-    <a class="card" href="escape.html" aria-label="Ver as variações do modelo ESCAPE"><div class="product-photo"><img src="assets/otimizadas/Verao/ESCAPE/01-card.webp" width="720" height="900" alt="Óculos ESCAPE" loading="lazy" decoding="async"></div><div class="card-info"><div class="card-name">ESCAPE</div><div class="card-code">Coleção Verão · Ver variações</div></div></a>
-    <a class="card" href="lounge.html" aria-label="Ver as variações do modelo LOUNGE"><div class="product-photo"><img src="assets/otimizadas/Verao/LOUNGE/01-card.webp" width="720" height="900" alt="Óculos LOUNGE" loading="lazy" decoding="async"></div><div class="card-info"><div class="card-name">LOUNGE</div><div class="card-code">Coleção Verão · Ver variações</div></div></a>
-    <a class="card" href="resort.html" aria-label="Ver as variações do modelo RESORT"><div class="product-photo"><img src="assets/otimizadas/Verao/RESORT/01-card.webp" width="720" height="900" alt="Óculos RESORT" loading="lazy" decoding="async"></div><div class="card-info"><div class="card-name">RESORT</div><div class="card-code">Coleção Verão · Ver variações</div></div></a>
-    <a class="card" href="beach-club.html" aria-label="Ver as variações do modelo BEACH CLUB"><div class="product-photo"><img src="assets/otimizadas/Verao/BEACH%20CLUB/01-card.webp" width="720" height="900" alt="Óculos BEACH CLUB" loading="lazy" decoding="async"></div><div class="card-info"><div class="card-name">BEACH CLUB</div><div class="card-code">Coleção Verão · Ver variações</div></div></a>
+  <main><section class="intro"><div class="wrap"><div class="eyebrow">Coleção</div><h1 class="display">CATÁLOGO GERAL</h1><p>Todas as nossas coleções</p></div></section><section class="catalog"><div class="wrap"><div class="grid" id="catalog-grid">
+    <p style="grid-column: 1/-1; text-align: center;">Carregando catálogo...</p>
   </div></div></section></main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <script>
+    async function loadCatalog() {
+      if (!supabase) return;
+      const { data: collections, error } = await supabase.from('colecoes').select('*').order('created_at', { ascending: false });
+      if (error) { console.error(error); return; }
+      
+      const grid = document.getElementById('catalog-grid');
+      if(collections.length === 0) {
+          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Nenhuma coleção disponível no momento.</p>';
+          return;
+      }
+      
+      grid.innerHTML = collections.map(c => `
+        <a class="card" href="modelo.html?id=${c.id}" aria-label="Ver variações do modelo ${c.nome}">
+            <div class="product-photo"><img src="${c.capa_url}" width="720" height="900" alt="Óculos ${c.nome}" fetchpriority="high" decoding="async"></div>
+            <div class="card-info">
+                <div class="card-name">${c.nome}</div>
+                <div class="card-code">Coleção Verão · Ver variações</div>
+            </div>
+        </a>
+      `).join('');
+    }
+    loadCatalog();
+  </script>
   <footer class="footer">DONA GATTA · COLEÇÃO VERÃO</footer><script src="motion.js"></script>
 </body>
 </html>
