@@ -1,269 +1,316 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    
-    // --- Elements ---
     const loginModal = document.getElementById('loginModal');
     const loginForm = document.getElementById('loginForm');
     const adminApp = document.getElementById('adminApp');
     const loginError = document.getElementById('loginError');
     const logoutBtn = document.getElementById('logoutBtn');
-    
     const toggleSidebar = document.getElementById('toggleSidebar');
     const sidebar = document.getElementById('sidebar');
-    
     const newCollectionBtn = document.getElementById('newCollectionBtn');
     const backToCollections = document.getElementById('backToCollections');
-    const collectionsView = document.getElementById('collectionsView');
-    const editCollectionView = document.getElementById('editCollectionView');
-    
     const addVariationBtn = document.getElementById('addVariationBtn');
     const variationsContainer = document.getElementById('variationsContainer');
     const collectionForm = document.getElementById('collectionForm');
     const collectionsGrid = document.getElementById('collectionsGrid');
+    const colName = document.getElementById('colName');
+    const colCover = document.getElementById('colCover');
+    const coverPreview = document.getElementById('coverPreview');
+    const editViewTitle = document.getElementById('editViewTitle');
 
-    // --- State ---
-    let collections = [];
+    let editingCollection = null;
+    let coverFile = null;
+    let removedVariationIds = new Set();
 
-    // --- Login Logic ---
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const user = document.getElementById('username').value;
-        const pass = document.getElementById('password').value;
+    const defaultCoverPreview = () => {
+        coverPreview.replaceChildren();
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-cloud-upload-alt';
+        const text = document.createElement('p');
+        text.textContent = 'Clique para selecionar a capa';
+        coverPreview.append(icon, text);
+    };
 
-        // Mock simple login validation
-        if (user === 'admin' && pass === 'admin4030') {
-            loginModal.style.display = 'none';
-            adminApp.style.display = 'flex';
-        } else {
-            loginError.textContent = 'Usuário ou senha incorretos.';
-        }
-    });
+    const showImagePreview = (container, source, className = '') => {
+        container.replaceChildren();
+        const image = document.createElement('img');
+        image.src = source;
+        image.alt = 'Prévia da imagem';
+        image.className = className;
+        container.append(image);
+    };
 
-    logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        adminApp.style.display = 'none';
-        loginModal.style.display = 'flex';
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
-        loginError.textContent = '';
-    });
-
-    // --- Sidebar Logic ---
-    toggleSidebar.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-    });
-
-    // --- Navigation Logic ---
     function showView(viewId) {
-        document.querySelectorAll('.view-section').forEach(sec => sec.style.display = 'none');
+        document.querySelectorAll('.view-section').forEach(section => section.style.display = 'none');
         document.getElementById(viewId).style.display = 'block';
     }
 
-    newCollectionBtn.addEventListener('click', () => {
-        document.getElementById('editViewTitle').textContent = 'Nova Coleção';
+    function resetEditor() {
+        editingCollection = null;
+        coverFile = null;
+        removedVariationIds = new Set();
         collectionForm.reset();
-        variationsContainer.innerHTML = '';
-        document.getElementById('coverPreview').innerHTML = '<i class="fas fa-cloud-upload-alt"></i><p>Clique para selecionar a capa</p>';
-        showView('editCollectionView');
-    });
-
-    backToCollections.addEventListener('click', () => {
-        showView('collectionsView');
-    });
-
-    // --- Form Logic ---
-    // Cover Image Preview
-    let coverFile = null;
-    document.getElementById('colCover').addEventListener('change', function(e) {
-        coverFile = e.target.files[0];
-        if (coverFile) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('coverPreview').innerHTML = `<img src="${e.target.result}" style="max-width:100%; max-height:200px; border-radius:8px;" />`;
-            }
-            reader.readAsDataURL(coverFile);
-        }
-    });
-
-    // Add Variation
-    let varCount = 0;
-    addVariationBtn.addEventListener('click', () => {
-        varCount++;
-        const div = document.createElement('div');
-        div.className = 'variation-item';
-        div.innerHTML = `
-            <div class="variation-img-upload">
-                <input type="file" class="file-input var-file" accept="image/*" required>
-                <div class="upload-placeholder var-preview">
-                    <i class="fas fa-camera"></i>
-                </div>
-            </div>
-            <div class="variation-details">
-                <div class="form-group full-width">
-                    <label>Descrição</label>
-                    <input type="text" class="var-desc" placeholder="Ex: Top M, Calcinha P - Rosa" required>
-                </div>
-                <div class="form-group">
-                    <label>Valor à vista (com desconto)</label>
-                    <input type="text" class="var-vista" placeholder="R$ 0,00" required>
-                </div>
-                <div class="form-group">
-                    <label>Valor Parcelado</label>
-                    <input type="text" class="var-parcelado" placeholder="R$ 0,00" required>
-                </div>
-            </div>
-            <button type="button" class="remove-variation"><i class="fas fa-trash"></i></button>
-        `;
-        
-        // Setup image preview for variation
-        const fileInput = div.querySelector('.var-file');
-        const preview = div.querySelector('.var-preview');
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.innerHTML = `<img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover; display:block;" />`;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Setup remove button
-        div.querySelector('.remove-variation').addEventListener('click', () => {
-            div.remove();
-        });
-
-        variationsContainer.appendChild(div);
-    });
-
-    // Upload Helper
-    async function uploadImage(file, pathFolder) {
-        if (!file) return null;
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-        const filePath = `${pathFolder}/${fileName}`;
-        
-        const { data, error } = await supabaseClient.storage.from('produtos').upload(filePath, file);
-        if (error) {
-            console.error("Erro upload:", error);
-            throw error;
-        }
-        
-        const { data: publicData } = supabaseClient.storage.from('produtos').getPublicUrl(filePath);
-        return publicData.publicUrl;
+        variationsContainer.replaceChildren();
+        defaultCoverPreview();
     }
 
-    // Save Collection
-    collectionForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const submitBtn = collectionForm.querySelector('button[type="submit"]');
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
-        submitBtn.disabled = true;
+    function openNewCollection() {
+        resetEditor();
+        editViewTitle.textContent = 'Nova Coleção';
+        showView('editCollectionView');
+    }
+
+    function createVariationItem(variation = null) {
+        const isExisting = Boolean(variation?.id);
+        const item = document.createElement('div');
+        item.className = 'variation-item';
+        if (isExisting) {
+            item.dataset.variationId = variation.id;
+            item.dataset.existingImageUrl = variation.imagem_url || '';
+        }
+
+        const upload = document.createElement('div');
+        upload.className = 'variation-img-upload';
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.className = 'file-input var-file';
+        fileInput.accept = 'image/*';
+        fileInput.required = !isExisting;
+        const preview = document.createElement('div');
+        preview.className = 'upload-placeholder var-preview';
+        upload.append(fileInput, preview);
+
+        if (variation?.imagem_url) {
+            showImagePreview(preview, variation.imagem_url);
+        } else {
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-camera';
+            preview.append(icon);
+        }
+
+        const details = document.createElement('div');
+        details.className = 'variation-details';
+        details.innerHTML = `
+            <div class="form-group full-width"><label>Descrição</label><input type="text" class="var-desc" required></div>
+            <div class="form-group"><label>Valor à vista (com desconto)</label><input type="text" class="var-vista" required></div>
+            <div class="form-group"><label>Valor parcelado</label><input type="text" class="var-parcelado" required></div>
+        `;
+        details.querySelector('.var-desc').value = variation?.descricao || '';
+        details.querySelector('.var-vista').value = variation?.valor_vista || '';
+        details.querySelector('.var-parcelado').value = variation?.valor_parcelado || '';
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'remove-variation';
+        removeButton.setAttribute('aria-label', 'Remover variação');
+        removeButton.innerHTML = '<i class="fas fa-trash"></i>';
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            if (file) showImagePreview(preview, URL.createObjectURL(file));
+        });
+        removeButton.addEventListener('click', () => {
+            if (item.dataset.variationId) removedVariationIds.add(item.dataset.variationId);
+            item.remove();
+        });
+
+        item.append(upload, details, removeButton);
+        variationsContainer.append(item);
+    }
+
+    async function uploadImage(file, pathFolder) {
+        if (!file) return null;
+        const extension = file.name.split('.').pop();
+        const fileName = `${Date.now()}_${crypto.randomUUID()}.${extension}`;
+        const filePath = `${pathFolder}/${fileName}`;
+        const { error } = await supabaseClient.storage.from('produtos').upload(filePath, file);
+        if (error) throw error;
+        return supabaseClient.storage.from('produtos').getPublicUrl(filePath).data.publicUrl;
+    }
+
+    async function openCollectionEditor(id) {
+        const { data: collection, error } = await supabaseClient
+            .from('colecoes')
+            .select('*, variacoes(*)')
+            .eq('id', id)
+            .single();
+
+        if (error || !collection) {
+            console.error(error);
+            alert('Não foi possível carregar esta coleção.');
+            return;
+        }
+
+        resetEditor();
+        editingCollection = collection;
+        editViewTitle.textContent = `Editar coleção: ${collection.nome}`;
+        colName.value = collection.nome || '';
+        if (collection.capa_url) showImagePreview(coverPreview, collection.capa_url, 'cover-image');
+        (collection.variacoes || []).forEach(createVariationItem);
+        showView('editCollectionView');
+    }
+
+    async function saveCollection(event) {
+        event.preventDefault();
+        const submitButton = collectionForm.querySelector('button[type="submit"]');
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+        submitButton.disabled = true;
 
         try {
-            const name = document.getElementById('colName').value;
-            
-            // Upload Cover
-            let coverUrl = '';
-            if (coverFile) {
-                coverUrl = await uploadImage(coverFile, 'capas');
+            const nome = colName.value.trim();
+            let capaUrl = editingCollection?.capa_url || '';
+            if (coverFile) capaUrl = await uploadImage(coverFile, 'capas');
+
+            let collectionId = editingCollection?.id;
+            if (collectionId) {
+                const { error } = await supabaseClient
+                    .from('colecoes')
+                    .update({ nome, capa_url: capaUrl })
+                    .eq('id', collectionId);
+                if (error) throw error;
+            } else {
+                const { data, error } = await supabaseClient
+                    .from('colecoes')
+                    .insert([{ nome, capa_url: capaUrl }])
+                    .select('id')
+                    .single();
+                if (error) throw error;
+                collectionId = data.id;
             }
 
-            // Insert Collection
-            const { data: colData, error: colError } = await supabaseClient
-                .from('colecoes')
-                .insert([{ nome: name, capa_url: coverUrl }])
-                .select();
-                
-            if (colError) throw colError;
-            
-            const collectionId = colData[0].id;
+            if (removedVariationIds.size) {
+                const { error } = await supabaseClient
+                    .from('variacoes')
+                    .delete()
+                    .in('id', [...removedVariationIds]);
+                if (error) throw error;
+            }
 
-            // Upload Variations and Insert
-            const variationItems = document.querySelectorAll('.variation-item');
-            for (let item of variationItems) {
-                const fileInput = item.querySelector('.var-file');
-                const desc = item.querySelector('.var-desc').value;
-                const vista = item.querySelector('.var-vista').value;
-                const parcelado = item.querySelector('.var-parcelado').value;
-                
-                let varImgUrl = '';
-                if (fileInput.files[0]) {
-                    varImgUrl = await uploadImage(fileInput.files[0], 'variacoes');
+            for (const item of variationsContainer.querySelectorAll('.variation-item')) {
+                const file = item.querySelector('.var-file').files[0];
+                const descricao = item.querySelector('.var-desc').value.trim();
+                const valor_vista = item.querySelector('.var-vista').value.trim();
+                const valor_parcelado = item.querySelector('.var-parcelado').value.trim();
+                let imagem_url = item.dataset.existingImageUrl || '';
+                if (file) imagem_url = await uploadImage(file, 'variacoes');
+
+                if (item.dataset.variationId) {
+                    const { error } = await supabaseClient
+                        .from('variacoes')
+                        .update({ imagem_url, descricao, valor_vista, valor_parcelado })
+                        .eq('id', item.dataset.variationId);
+                    if (error) throw error;
+                } else {
+                    const { error } = await supabaseClient.from('variacoes').insert([{
+                        colecao_id: collectionId,
+                        imagem_url,
+                        descricao,
+                        valor_vista,
+                        valor_parcelado
+                    }]);
+                    if (error) throw error;
                 }
-
-                await supabaseClient.from('variacoes').insert([{
-                    colecao_id: collectionId,
-                    imagem_url: varImgUrl,
-                    descricao: desc,
-                    valor_vista: vista,
-                    valor_parcelado: parcelado
-                }]);
             }
 
-            alert("Coleção criada com sucesso!");
-            loadCollections();
+            alert(editingCollection ? 'Coleção atualizada com sucesso!' : 'Coleção criada com sucesso!');
+            await loadCollections();
             showView('collectionsView');
-            
         } catch (error) {
             console.error(error);
-            alert("Erro ao salvar coleção. Verifique o console.");
+            alert('Erro ao salvar a coleção. Verifique o console.');
         } finally {
-            submitBtn.innerHTML = 'Salvar Coleção';
-            submitBtn.disabled = false;
+            submitButton.innerHTML = 'Salvar Coleção';
+            submitButton.disabled = false;
         }
-    });
+    }
 
     async function loadCollections() {
         if (!supabaseClient) return;
-        collectionsGrid.innerHTML = '<p>Carregando coleções...</p>';
-        
+        collectionsGrid.textContent = 'Carregando coleções...';
         const { data, error } = await supabaseClient
             .from('colecoes')
             .select('*')
             .order('created_at', { ascending: false });
-            
         if (error) {
             console.error(error);
+            collectionsGrid.textContent = 'Não foi possível carregar as coleções.';
             return;
         }
 
-        collectionsGrid.innerHTML = '';
-        if (data.length === 0) {
-            collectionsGrid.innerHTML = '<p>Nenhuma coleção criada ainda.</p>';
+        collectionsGrid.replaceChildren();
+        if (!data?.length) {
+            collectionsGrid.textContent = 'Nenhuma coleção criada ainda.';
             return;
         }
 
-        data.forEach(col => {
-            const card = document.createElement('div');
+        data.forEach(collection => {
+            const card = document.createElement('article');
             card.className = 'collection-card';
-            card.innerHTML = `
-                <div class="card-img" style="background-image: url('${col.capa_url}');"></div>
-                <div class="card-info">
-                    <h4>${col.nome}</h4>
-                    <div class="card-actions">
-                        <button class="btn-secondary btn-sm" style="color: var(--error-color);" onclick="deleteCollection('${col.id}')"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            `;
-            collectionsGrid.appendChild(card);
+            const image = document.createElement('div');
+            image.className = 'card-img';
+            if (collection.capa_url) image.style.backgroundImage = `url("${collection.capa_url}")`;
+            const info = document.createElement('div');
+            info.className = 'card-info';
+            const name = document.createElement('h4');
+            name.textContent = collection.nome;
+            const actions = document.createElement('div');
+            actions.className = 'card-actions';
+            const edit = document.createElement('button');
+            edit.type = 'button';
+            edit.className = 'btn-primary btn-sm';
+            edit.innerHTML = '<i class="fas fa-pen"></i> Editar';
+            edit.addEventListener('click', () => openCollectionEditor(collection.id));
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'btn-secondary btn-sm';
+            remove.style.color = 'var(--error-color)';
+            remove.setAttribute('aria-label', `Excluir ${collection.nome}`);
+            remove.innerHTML = '<i class="fas fa-trash"></i>';
+            remove.addEventListener('click', () => deleteCollection(collection.id));
+            actions.append(edit, remove);
+            info.append(name, actions);
+            card.append(image, info);
+            collectionsGrid.append(card);
         });
     }
 
-    // Expose delete to window so inline onclick works
-    window.deleteCollection = async (id) => {
-        if (confirm("Tem certeza que deseja excluir esta coleção?")) {
-            await supabaseClient.from('colecoes').delete().eq('id', id);
-            loadCollections();
+    async function deleteCollection(id) {
+        if (!confirm('Tem certeza que deseja excluir esta coleção?')) return;
+        const { error } = await supabaseClient.from('colecoes').delete().eq('id', id);
+        if (error) {
+            console.error(error);
+            alert('Não foi possível excluir a coleção.');
+            return;
         }
-    };
-
-    // Load initially if logged in
-    // For now we just load when viewing dashboard
-    if (supabaseClient) {
-        loadCollections();
+        await loadCollections();
     }
 
+    loginForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const user = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        if (user === 'admin' && password === 'admin4030') {
+            loginModal.style.display = 'none';
+            adminApp.style.display = 'flex';
+            loadCollections();
+        } else {
+            loginError.textContent = 'Usuário ou senha incorretos.';
+        }
+    });
+    logoutBtn.addEventListener('click', event => {
+        event.preventDefault();
+        adminApp.style.display = 'none';
+        loginModal.style.display = 'flex';
+        loginForm.reset();
+        loginError.textContent = '';
+        resetEditor();
+    });
+    toggleSidebar.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+    newCollectionBtn.addEventListener('click', openNewCollection);
+    backToCollections.addEventListener('click', () => showView('collectionsView'));
+    addVariationBtn.addEventListener('click', () => createVariationItem());
+    colCover.addEventListener('change', () => {
+        coverFile = colCover.files[0] || null;
+        if (coverFile) showImagePreview(coverPreview, URL.createObjectURL(coverFile), 'cover-image');
+    });
+    collectionForm.addEventListener('submit', saveCollection);
 });
