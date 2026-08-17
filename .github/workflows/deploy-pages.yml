@@ -25,10 +25,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
-      - name: Preparar arquivos estáticos
+      - name: Preparar página de migração
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: .github/pages-redirect
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
