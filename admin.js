@@ -305,6 +305,19 @@ document.addEventListener('DOMContentLoaded', () => {
         resetEditor();
     });
     toggleSidebar.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+    document.querySelectorAll('.sidebar-nav a[data-target]').forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            const target = link.dataset.target;
+            document.querySelectorAll('.sidebar-nav li').forEach(item => item.classList.remove('active'));
+            link.closest('li').classList.add('active');
+            document.getElementById('pageTitle').textContent = target === 'dashboard'
+                ? 'Visão geral das coleções'
+                : 'Gerenciador de Coleções';
+            showView('collectionsView');
+            loadCollections();
+        });
+    });
     newCollectionBtn.addEventListener('click', openNewCollection);
     backToCollections.addEventListener('click', () => showView('collectionsView'));
     addVariationBtn.addEventListener('click', () => createVariationItem());
