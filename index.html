@@ -82,7 +82,7 @@
           wrapper.innerHTML = collections.map(model => {
               return `<article class="product-card">
                   <a class="product-image" href="modelo.html?id=${model.id}" aria-label="Ver variações do modelo ${model.nome}">
-                      <img src="${model.capa_url}" width="720" height="900" loading="lazy" decoding="async" alt="Óculos ${model.nome}">
+                      <img src="${model.capa_url}" width="720" height="900" loading="eager" fetchpriority="high" decoding="async" alt="Óculos ${model.nome}">
                   </a>
                   <div class="product-info">
                       <div><div class="product-name">${model.nome}</div><div class="price">Coleção Especial</div></div>
