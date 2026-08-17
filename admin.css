@@ -478,3 +478,145 @@ body {
     display: flex;
     justify-content: flex-end;
 }
+
+@media (max-width: 700px) {
+    .login-container {
+        width: calc(100% - 32px);
+        padding: 36px 24px;
+    }
+
+    .admin-layout {
+        align-items: stretch;
+    }
+
+    .sidebar,
+    .sidebar.collapsed {
+        width: 64px;
+        flex: 0 0 64px;
+        position: sticky;
+        top: 0;
+        height: 100svh;
+    }
+
+    .sidebar-header {
+        min-height: 72px;
+        justify-content: center;
+        padding: 14px 8px;
+    }
+
+    .sidebar-header h3,
+    .sidebar.collapsed .sidebar-header h3,
+    .sidebar-nav span {
+        display: none;
+    }
+
+    .toggle-btn {
+        display: none;
+    }
+
+    .sidebar-nav {
+        padding-top: 12px;
+    }
+
+    .sidebar-nav a {
+        justify-content: center;
+        padding: 16px 8px;
+        border-left: 0;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav li.active a {
+        border-left: 0;
+        border-bottom: 3px solid var(--accent-color);
+    }
+
+    .sidebar-nav i {
+        min-width: 0;
+        font-size: 1.15rem;
+    }
+
+    .main-content {
+        width: calc(100% - 64px);
+        min-width: 0;
+    }
+
+    .top-header {
+        min-height: 72px;
+        padding: 20px 16px;
+    }
+
+    .top-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .content-area {
+        padding: 18px 14px 32px;
+    }
+
+    .section-header {
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 18px;
+    }
+
+    .section-header h3,
+    .section-header h4 {
+        font-size: 1rem;
+    }
+
+    .section-header .btn-primary,
+    .section-header .btn-secondary {
+        width: auto;
+        padding: 11px 12px;
+        font-size: .65rem;
+        letter-spacing: .08em;
+    }
+
+    .collections-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-form {
+        padding: 18px 14px;
+        max-width: none;
+    }
+
+    .file-upload-wrapper {
+        min-height: 220px;
+        padding: 18px;
+    }
+
+    #coverPreview img {
+        height: 220px;
+    }
+
+    .variation-item {
+        flex-direction: column;
+        gap: 16px;
+        padding: 14px;
+    }
+
+    .variation-img-upload {
+        width: min(100%, 220px);
+        flex-basis: auto;
+        align-self: center;
+    }
+
+    .variation-details {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .variation-details .full-width {
+        grid-column: span 1;
+    }
+
+    .form-actions {
+        margin-top: 28px;
+    }
+
+    .form-actions .btn-primary {
+        width: 100%;
+    }
+}
