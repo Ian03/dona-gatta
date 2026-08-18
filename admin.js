@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const adminApp = document.getElementById('adminApp');
     const loginError = document.getElementById('loginError');
+    const passwordToggle = document.getElementById('passwordToggle');
+    const passwordInput = document.getElementById('password');
     const logoutBtn = document.getElementById('logoutBtn');
     const toggleSidebar = document.getElementById('toggleSidebar');
     const sidebar = document.getElementById('sidebar');
@@ -297,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', event => {
         event.preventDefault();
         const user = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        const password = passwordInput.value;
         if (user === 'admin' && password === 'admin4030') {
             loginModal.style.display = 'none';
             adminApp.style.display = 'flex';
@@ -305,6 +307,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             loginError.textContent = 'Usuário ou senha incorretos.';
         }
+    });
+    passwordToggle?.addEventListener('click', () => {
+        const show = passwordInput.type === 'password';
+        passwordInput.type = show ? 'text' : 'password';
+        passwordToggle.setAttribute('aria-label', show ? 'Ocultar senha' : 'Mostrar senha');
+        passwordToggle.setAttribute('aria-pressed', String(show));
+        passwordToggle.innerHTML = show ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
     });
     logoutBtn.addEventListener('click', event => {
         event.preventDefault();

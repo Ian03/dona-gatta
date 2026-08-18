@@ -14,22 +14,50 @@
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal-overlay">
+        <div class="login-aurora" aria-hidden="true">
+            <span class="aurora aurora-1"></span>
+            <span class="aurora aurora-2"></span>
+            <span class="aurora aurora-3"></span>
+        </div>
         <div class="login-container">
+            <div class="login-background" aria-hidden="true">
+                <svg viewBox="0 0 800 240" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="loginWave" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="rgba(217,176,110,0.45)"></stop>
+                            <stop offset="100%" stop-color="rgba(255,255,255,0.08)"></stop>
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,160 C120,120 220,220 360,190 C500,160 600,60 800,120 L800,240 L0,240 Z" fill="url(#loginWave)"></path>
+                    <path d="M0,188 C145,150 255,250 395,214 C536,178 649,107 800,148 L800,240 L0,240 Z" fill="rgba(255,255,255,0.05)"></path>
+                </svg>
+            </div>
             <div class="login-brand">
+                <span class="login-badge">Acesso restrito</span>
+                <img src="app-icon.svg" alt="Dona Gatta" class="login-logo-image">
                 <span class="logo">DONA <i>///</i> GATTA</span>
                 <span class="eyebrow">Painel Administrativo</span>
+                <p class="login-welcome">Acesse para gerenciar coleções, variações e conteúdos exibidos no site.</p>
             </div>
             <form id="loginForm">
-                <div class="input-group">
+                <div class="input-group login-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" required placeholder=" " autocomplete="username">
                     <label for="username">Usuário</label>
-                    <input type="text" id="username" required placeholder="Digite seu usuário">
                 </div>
-                <div class="input-group">
+                <div class="input-group login-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" required placeholder=" " autocomplete="current-password">
                     <label for="password">Senha</label>
-                    <input type="password" id="password" required placeholder="Digite sua senha">
+                    <button type="button" class="password-toggle" id="passwordToggle" aria-label="Mostrar senha" aria-pressed="false">
+                        <i class="fas fa-eye"></i>
+                    </button>
                 </div>
                 <p id="loginError" class="error-message"></p>
-                <button type="submit" class="btn-primary">Entrar</button>
+                <button type="submit" class="btn-primary login-submit">
+                    <span>Entrar</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </form>
         </div>
     </div>
