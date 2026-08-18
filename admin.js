@@ -13,9 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const collectionForm = document.getElementById('collectionForm');
     const collectionsGrid = document.getElementById('collectionsGrid');
     const colName = document.getElementById('colName');
+    const colEyebrow = document.getElementById('colEyebrow');
+    const colIntroText = document.getElementById('colIntroText');
     const colCover = document.getElementById('colCover');
     const coverPreview = document.getElementById('coverPreview');
     const editViewTitle = document.getElementById('editViewTitle');
+    const defaultCollectionEyebrow = 'Coleção Verão';
+    const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
 
     let editingCollection = null;
     let coverFile = null;
@@ -49,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         coverFile = null;
         removedVariationIds = new Set();
         collectionForm.reset();
+        colEyebrow.value = defaultCollectionEyebrow;
+        colIntroText.value = defaultCollectionIntro;
         variationsContainer.replaceChildren();
         defaultCoverPreview();
     }
@@ -144,6 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
         editingCollection = collection;
         editViewTitle.textContent = `Editar coleção: ${collection.nome}`;
         colName.value = collection.nome || '';
+        colEyebrow.value = collection.catalogo_eyebrow ?? defaultCollectionEyebrow;
+        colIntroText.value = collection.catalogo_intro ?? defaultCollectionIntro;
         if (collection.capa_url) showImagePreview(coverPreview, collection.capa_url, 'cover-image');
         (collection.variacoes || []).forEach(createVariationItem);
         showView('editCollectionView');
@@ -157,6 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const nome = colName.value.trim();
+            const catalogo_eyebrow = colEyebrow.value.trim();
+            const catalogo_intro = colIntroText.value.trim();
             let capaUrl = editingCollection?.capa_url || '';
             if (coverFile) capaUrl = await uploadImage(coverFile, 'capas');
 
@@ -164,13 +174,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (collectionId) {
                 const { error } = await supabaseClient
                     .from('colecoes')
-                    .update({ nome, capa_url: capaUrl })
+                    .update({ nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro })
                     .eq('id', collectionId);
                 if (error) throw error;
             } else {
                 const { data, error } = await supabaseClient
                     .from('colecoes')
-                    .insert([{ nome, capa_url: capaUrl }])
+                    .insert([{ nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro }])
                     .select('id')
                     .single();
                 if (error) throw error;
@@ -325,5 +335,5 @@ document.addEventListener('DOMContentLoaded', () => {
         coverFile = colCover.files[0] || null;
         if (coverFile) showImagePreview(coverPreview, URL.createObjectURL(coverFile), 'cover-image');
     });
-    collectionForm.addEventListener('submit', saveCollection);
+        collectionForm.addEventListener('submit', saveCollection);
 });

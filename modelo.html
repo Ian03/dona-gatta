@@ -19,9 +19,9 @@
 <main>
 <section class="intro">
 <div class="wrap">
-<div class="eyebrow">Coleção Verão</div>
+<div class="eyebrow" id="model-eyebrow">Coleção Verão</div>
 <h1 class="display" id="model-name">CARREGANDO...</h1>
-<p>Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.</p>
+<p id="model-intro">Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.</p>
 </div>
 </section>
 <section class="variations">
@@ -54,6 +54,9 @@
             currency: 'BRL'
         }).format(value);
     }
+
+    const defaultCollectionEyebrow = 'Coleção Verão';
+    const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
 
     function buildPriceBlock(installmentValue, cashValue) {
         const parcelado = parseBrazilianPrice(installmentValue);
@@ -102,7 +105,9 @@
         }
 
         document.title = `${model.nome} — Coleção Verão | Dona Gatta`;
+        document.getElementById('model-eyebrow').textContent = model.catalogo_eyebrow || defaultCollectionEyebrow;
         document.getElementById('model-name').textContent = model.nome;
+        document.getElementById('model-intro').textContent = model.catalogo_intro || defaultCollectionIntro;
 
         const variationsContainer = document.getElementById('variations');
         
