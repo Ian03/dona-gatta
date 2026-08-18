@@ -66,14 +66,13 @@
                 <div class="price-card price-card-featured">
                     <span class="price-label">Parcelado</span>
                     <strong class="price-value">${installmentValue}</strong>
-                    <span class="price-note">Mais destaque para pagamento parcelado</span>
                 </div>
                 <div class="price-card price-card-pix">
                     <span class="price-label">À vista no Pix</span>
                     <strong class="price-value">${cashValue}</strong>
                     ${hasValidPrices && savings > 0
                         ? `<span class="price-saving">Economize ${formatBrazilianPrice(savings)} no Pix</span>`
-                        : `<span class="price-saving price-saving-neutral">Melhor valor para pagamento à vista</span>`}
+                        : ``}
                 </div>
             </div>
         `;
