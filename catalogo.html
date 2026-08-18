@@ -18,7 +18,8 @@
   
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="db.js"></script>
-  <script>
+  <script src="catalogo-page.js"></script>
+  <!--
     function parseBrazilianPrice(value){
       if(value==null) return NaN;
       const normalized=String(value).replace(/\s+/g,'').replace(/[R$r$\u00A0]/g,'').replace(/\./g,'').replace(',', '.').replace(/[^0-9.-]/g,'');
@@ -41,19 +42,38 @@
       return { parceladoLabel: featured.parceladoRaw || '', vistaLabel: pix.vistaRaw || '', savings };
     }
     function buildPriceSummaryHTML(summary){
-      if(!summary) return '<div class="catalog-prices"><div class="price-chip price-chip-pix"><span class="price-chip-label">Pagamento</span><strong class="price-chip-value">Consulte</strong><span class="price-chip-saving price-chip-saving-neutral">Veja as opções desta coleção</span></div></div>';
-      return `<div class="catalog-prices">
-        <div class="price-chip price-chip-featured">
-          <span class="price-chip-label">Parcelado</span>
-          <strong class="price-chip-value">${summary.parceladoLabel || 'Consulte'}</strong>
-          <span class="price-chip-note">Mais destaque para pagamento parcelado</span>
-        </div>
-        <div class="price-chip price-chip-pix">
-          <span class="price-chip-label">À vista no Pix</span>
-          <strong class="price-chip-value">${summary.vistaLabel || 'Consulte'}</strong>
-          <span class="price-chip-saving ${Number.isFinite(summary.savings)&&summary.savings>0?'':'price-chip-saving-neutral'}">${Number.isFinite(summary.savings)&&summary.savings>0?`Economize ${formatBrazilianPrice(summary.savings)} no Pix`:'Melhor valor para pagamento à vista'}</span>
-        </div>
-      </div>`;
+      const wrap = document.createElement('div');
+      wrap.className = 'catalog-prices';
+      const featured = document.createElement('div');
+      featured.className = 'price-chip price-chip-featured';
+      const featuredLabel = document.createElement('span');
+      featuredLabel.className = 'price-chip-label';
+      featuredLabel.textContent = 'Parcelado';
+      const featuredValue = document.createElement('strong');
+      featuredValue.className = 'price-chip-value';
+      featuredValue.textContent = summary?.parceladoLabel || 'Consulte';
+      const featuredNote = document.createElement('span');
+      featuredNote.className = 'price-chip-note';
+      featuredNote.textContent = 'Mais destaque para pagamento parcelado';
+      featured.append(featuredLabel, featuredValue, featuredNote);
+
+      const pix = document.createElement('div');
+      pix.className = 'price-chip price-chip-pix';
+      const pixLabel = document.createElement('span');
+      pixLabel.className = 'price-chip-label';
+      pixLabel.textContent = 'À vista no Pix';
+      const pixValue = document.createElement('strong');
+      pixValue.className = 'price-chip-value';
+      pixValue.textContent = summary?.vistaLabel || 'Consulte';
+      const pixSaving = document.createElement('span');
+      pixSaving.className = `price-chip-saving ${Number.isFinite(summary?.savings)&&summary.savings>0?'':'price-chip-saving-neutral'}`;
+      pixSaving.textContent = Number.isFinite(summary?.savings)&&summary.savings>0
+        ? `Economize ${formatBrazilianPrice(summary.savings)} no Pix`
+        : 'Melhor valor para pagamento à vista';
+      pix.append(pixLabel, pixValue, pixSaving);
+
+      wrap.append(featured, pix);
+      return wrap;
     }
     async function loadCatalog() {
       if (!supabaseClient) return;
@@ -62,22 +82,46 @@
       
       const grid = document.getElementById('catalog-grid');
       if(collections.length === 0) {
-          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Nenhuma coleção disponível no momento.</p>';
+          grid.replaceChildren();
+          const empty = document.createElement('p');
+          empty.style.gridColumn = '1/-1';
+          empty.style.textAlign = 'center';
+          empty.textContent = 'Nenhuma coleção disponível no momento.';
+          grid.append(empty);
           return;
       }
       
-      grid.innerHTML = collections.map(c => `
-        <a class="card" href="modelo.html?id=${c.id}" aria-label="Ver variações do modelo ${c.nome}">
-            <div class="product-photo"><img src="${c.capa_url}" width="720" height="900" alt="Óculos ${c.nome}" fetchpriority="high" decoding="async"></div>
-            <div class="card-info">
-                <div class="card-name">${c.nome}</div>
-                <div class="card-code">Coleção Verão · Ver variações</div>${buildPriceSummaryHTML(getCollectionPriceSummary(c.variacoes))}
-            </div>
-        </a>
-      `).join('');
+      grid.replaceChildren();
+      collections.forEach(c => {
+        const card = document.createElement('a');
+        card.className = 'card';
+        card.href = `modelo.html?id=${encodeURIComponent(c.id)}`;
+        card.setAttribute('aria-label', `Ver variações do modelo ${c.nome}`);
+        const photo = document.createElement('div');
+        photo.className = 'product-photo';
+        const img = document.createElement('img');
+        img.src = c.capa_url || '';
+        img.width = 720;
+        img.height = 900;
+        img.alt = `Óculos ${c.nome}`;
+        img.fetchPriority = 'high';
+        img.decoding = 'async';
+        photo.append(img);
+        const info = document.createElement('div');
+        info.className = 'card-info';
+        const name = document.createElement('div');
+        name.className = 'card-name';
+        name.textContent = c.nome || 'Modelo';
+        const code = document.createElement('div');
+        code.className = 'card-code';
+        code.textContent = 'Coleção Verão · Ver variações';
+        info.append(name, code, buildPriceSummaryHTML(getCollectionPriceSummary(c.variacoes)));
+        card.append(photo, info);
+        grid.append(card);
+      });
     }
     loadCatalog();
-  </script>
+  -->
   <footer class="footer">DONA GATTA · COLEÇÃO VERÃO</footer><script src="motion.js"></script>
 </body>
 </html>

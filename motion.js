@@ -47,12 +47,44 @@
   const variationConfig=modelVariations[modelName];
   const variationGrid=document.querySelector('#variations');
   if(variationConfig&&variationGrid){
-    variationGrid.innerHTML=variationConfig.items.map(number=>`<article class="variation"><div class="variation-image"><img src="assets/otimizadas/Verao/${variationConfig.folder}/${number}-detail.webp" alt="${modelName} — Variação ${number}" width="1400" height="1800" loading="lazy" decoding="async"></div><div class="variation-info"><div><div class="variation-name">${modelName}</div><div class="choice">Variação ${number}</div></div><a class="choose" target="_blank" rel="noopener">Escolher</a></div></article>`).join('');
-    variationGrid.querySelectorAll('.variation').forEach(card=>{
-      const variation=card.querySelector('.choice').textContent.trim();
-      const image=new URL(card.querySelector('img').getAttribute('src'),window.location.href).href;
-      const message=`Olá! Tenho interesse no modelo ${modelName}, ${variation}.\n\nFoto selecionada: ${image}\n\nPoderiam me informar disponibilidade e valor?`;
-      card.querySelector('.choose').href=`https://wa.me/5575981513433?text=${encodeURIComponent(message)}`;
+    variationGrid.replaceChildren();
+    variationConfig.items.forEach(number => {
+      const article = document.createElement('article');
+      article.className = 'variation';
+      const imageWrap = document.createElement('div');
+      imageWrap.className = 'variation-image';
+      const image = document.createElement('img');
+      image.src = `assets/otimizadas/Verao/${variationConfig.folder}/${number}-detail.webp`;
+      image.alt = `${modelName} — Variação ${number}`;
+      image.width = 1400;
+      image.height = 1800;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      imageWrap.append(image);
+
+      const info = document.createElement('div');
+      info.className = 'variation-info';
+      const content = document.createElement('div');
+      const name = document.createElement('div');
+      name.className = 'variation-name';
+      name.textContent = modelName;
+      const choice = document.createElement('div');
+      choice.className = 'choice';
+      choice.textContent = `Variação ${number}`;
+      content.append(name, choice);
+
+      const link = document.createElement('a');
+      link.className = 'choose';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = 'Escolher';
+      const imageUrl = new URL(image.getAttribute('src'), window.location.href).href;
+      const message = `Olá! Tenho interesse no modelo ${modelName}, Variação ${number}.\n\nFoto selecionada: ${imageUrl}\n\nPoderiam me informar disponibilidade e valor?`;
+      link.href = `https://wa.me/5575981513433?text=${encodeURIComponent(message)}`;
+
+      info.append(content, link);
+      article.append(imageWrap, info);
+      variationGrid.append(article);
     });
   }
 

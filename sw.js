@@ -6,6 +6,8 @@ const CORE = [
   './section-dividers.js', './whatsapp-modelo.js', './manifest.webmanifest', './app-icon.svg'
 ];
 
+const CACHEABLE_DESTINATIONS = new Set(['style', 'script', 'image', 'font']);
+
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
 });
@@ -30,9 +32,15 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  if (requestUrl.search || !CACHEABLE_DESTINATIONS.has(event.request.destination)) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(hit => hit || fetch(event.request).then(response => {
-      caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
+      if (response.ok && response.type === 'basic') {
+        caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
+      }
       return response;
     }))
   );

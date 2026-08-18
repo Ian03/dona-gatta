@@ -36,7 +36,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="db.js"></script>
-<script>
+<script src="modelo-page.js"></script>
+<!--
     function parseBrazilianPrice(value) {
         if (value == null) return NaN;
         const normalized = String(value)
@@ -63,22 +64,38 @@
         const vista = parseBrazilianPrice(cashValue);
         const hasValidPrices = Number.isFinite(parcelado) && Number.isFinite(vista) && parcelado >= vista;
         const savings = hasValidPrices ? parcelado - vista : 0;
+        const block = document.createElement('div');
+        block.className = 'price-block';
 
-        return `
-            <div class="price-block">
-                <div class="price-card price-card-featured">
-                    <span class="price-label">Parcelado</span>
-                    <strong class="price-value">${installmentValue}</strong>
-                </div>
-                <div class="price-card price-card-pix">
-                    <span class="price-label">À vista no Pix</span>
-                    <strong class="price-value">${cashValue}</strong>
-                    ${hasValidPrices && savings > 0
-                        ? `<span class="price-saving">Economize ${formatBrazilianPrice(savings)} no Pix</span>`
-                        : ``}
-                </div>
-            </div>
-        `;
+        const featured = document.createElement('div');
+        featured.className = 'price-card price-card-featured';
+        const featuredLabel = document.createElement('span');
+        featuredLabel.className = 'price-label';
+        featuredLabel.textContent = 'Parcelado';
+        const featuredValue = document.createElement('strong');
+        featuredValue.className = 'price-value';
+        featuredValue.textContent = installmentValue || 'Consulte';
+        featured.append(featuredLabel, featuredValue);
+
+        const pix = document.createElement('div');
+        pix.className = 'price-card price-card-pix';
+        const pixLabel = document.createElement('span');
+        pixLabel.className = 'price-label';
+        pixLabel.textContent = 'À vista no Pix';
+        const pixValue = document.createElement('strong');
+        pixValue.className = 'price-value';
+        pixValue.textContent = cashValue || 'Consulte';
+        pix.append(pixLabel, pixValue);
+
+        if (hasValidPrices && savings > 0) {
+            const saving = document.createElement('span');
+            saving.className = 'price-saving';
+            saving.textContent = `Economize ${formatBrazilianPrice(savings)} no Pix`;
+            pix.append(saving);
+        }
+
+        block.append(featured, pix);
+        return block;
     }
 
     async function loadModel() {
@@ -112,29 +129,57 @@
         const variationsContainer = document.getElementById('variations');
         
         if (!model.variacoes || model.variacoes.length === 0) {
-            variationsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Nenhuma variação adicionada ainda.</p>';
+            variationsContainer.replaceChildren();
+            const empty = document.createElement('p');
+            empty.style.gridColumn = '1/-1';
+            empty.style.textAlign = 'center';
+            empty.textContent = 'Nenhuma variação adicionada ainda.';
+            variationsContainer.append(empty);
             return;
         }
 
-        variationsContainer.innerHTML = model.variacoes.map((v, idx) => `
-            <article class="variation">
-                <div class="variation-image">
-                    <img src="${v.imagem_url}" alt="${model.nome} — Variação ${idx + 1}" width="1400" height="1800" loading="lazy" decoding="async">
-                </div>
-                <div class="variation-info">
-                    <div>
-                        <div class="variation-name">${model.nome}</div>
-                        <div class="choice">${v.descricao}</div>
-                        ${buildPriceBlock(v.valor_parcelado, v.valor_vista)}
-                    </div>
-                    <a class="choose" href="https://wa.me/5575981513433?text=${encodeURIComponent('Olá! Gostaria de consultar o modelo ' + model.nome + ' (' + v.descricao + ').')}" target="_blank" rel="noopener">Escolher</a>
-                </div>
-            </article>
-        `).join('');
+        variationsContainer.replaceChildren();
+        model.variacoes.forEach((v, idx) => {
+            const article = document.createElement('article');
+            article.className = 'variation';
+
+            const imageWrap = document.createElement('div');
+            imageWrap.className = 'variation-image';
+            const image = document.createElement('img');
+            image.src = v.imagem_url || '';
+            image.alt = `${model.nome} — Variação ${idx + 1}`;
+            image.width = 1400;
+            image.height = 1800;
+            image.loading = 'lazy';
+            image.decoding = 'async';
+            imageWrap.append(image);
+
+            const info = document.createElement('div');
+            info.className = 'variation-info';
+            const content = document.createElement('div');
+            const name = document.createElement('div');
+            name.className = 'variation-name';
+            name.textContent = model.nome || 'Modelo';
+            const choice = document.createElement('div');
+            choice.className = 'choice';
+            choice.textContent = v.descricao || '';
+            content.append(name, choice, buildPriceBlock(v.valor_parcelado, v.valor_vista));
+
+            const link = document.createElement('a');
+            link.className = 'choose';
+            link.href = `https://wa.me/5575981513433?text=${encodeURIComponent('Olá! Gostaria de consultar o modelo ' + model.nome + ' (' + (v.descricao || '') + ').')}`;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = 'Escolher';
+
+            info.append(content, link);
+            article.append(imageWrap, info);
+            variationsContainer.append(article);
+        });
     }
     
     loadModel();
-</script>
+-->
 <script src="motion.js"></script>
 </body>
 </html>

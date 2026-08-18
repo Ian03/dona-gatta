@@ -10,13 +10,51 @@
   document.head.append(style);
   const overlay = document.createElement('section');
   overlay.className = 'search-overlay';
-  overlay.innerHTML = '<div class="search-box"><div class="search-top"><input type="search" autocomplete="off" placeholder="Buscar modelo" aria-label="Buscar modelo"><button class="search-close" type="button" aria-label="Fechar busca">×</button></div><div class="search-results"></div></div>';
+  const box = document.createElement('div');
+  box.className = 'search-box';
+  const top = document.createElement('div');
+  top.className = 'search-top';
+  const inputNode = document.createElement('input');
+  inputNode.type = 'search';
+  inputNode.autocomplete = 'off';
+  inputNode.placeholder = 'Buscar modelo';
+  inputNode.setAttribute('aria-label', 'Buscar modelo');
+  const closeButton = document.createElement('button');
+  closeButton.className = 'search-close';
+  closeButton.type = 'button';
+  closeButton.setAttribute('aria-label', 'Fechar busca');
+  closeButton.textContent = '×';
+  const resultsNode = document.createElement('div');
+  resultsNode.className = 'search-results';
+  top.append(inputNode, closeButton);
+  box.append(top, resultsNode);
+  overlay.append(box);
   document.body.append(overlay);
-  const input = overlay.querySelector('input'), results = overlay.querySelector('.search-results');
-  const render = () => { const term = input.value.trim().toLocaleUpperCase('pt-BR'); const found = models.filter(([name]) => name.includes(term)); results.innerHTML = found.length ? found.map(([name, page]) => `<a href="${page}">${name}<small>Coleção Destinos · ver variações</small></a>`).join('') : '<p class="search-empty">Nenhum modelo encontrado.</p>'; };
+  const input = inputNode, results = resultsNode;
+  const render = () => {
+    const term = input.value.trim().toLocaleUpperCase('pt-BR');
+    const found = models.filter(([name]) => name.includes(term));
+    results.replaceChildren();
+    if (!found.length) {
+      const empty = document.createElement('p');
+      empty.className = 'search-empty';
+      empty.textContent = 'Nenhum modelo encontrado.';
+      results.append(empty);
+      return;
+    }
+    found.forEach(([name, page]) => {
+      const link = document.createElement('a');
+      link.href = page;
+      link.textContent = name;
+      const small = document.createElement('small');
+      small.textContent = 'Coleção Destinos · ver variações';
+      link.append(small);
+      results.append(link);
+    });
+  };
   const close = () => { overlay.classList.remove('open'); document.body.style.overflow = ''; trigger.focus(); };
   trigger.onclick = () => { overlay.classList.add('open'); document.body.style.overflow = 'hidden'; input.value = ''; render(); setTimeout(() => input.focus(), 80); };
-  overlay.querySelector('.search-close').onclick = close;
+  closeButton.onclick = close;
   input.oninput = render;
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && overlay.classList.contains('open')) close(); });
 })();

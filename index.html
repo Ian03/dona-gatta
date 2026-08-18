@@ -53,7 +53,8 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="db.js"></script>
-    <script>
+    <script src="index-page.js"></script>
+    <!--
       gsap.registerPlugin(ScrollTrigger);
       gsap.set('.reveal',{autoAlpha:1});
       gsap.from('.hero-copy',{y:36,opacity:0,duration:1.1,ease:'power3.out'});
@@ -97,19 +98,38 @@
           };
       }
       function buildPriceSummaryHTML(summary){
-          if(!summary) return '<div class="price-chip price-chip-pix"><span class="price-chip-label">Pagamento</span><strong class="price-chip-value">Consulte</strong><span class="price-chip-saving price-chip-saving-neutral">Veja as opções desta coleção</span></div>';
-          return `<div class="price-stack">
-              <div class="price-chip price-chip-featured">
-                  <span class="price-chip-label">Parcelado</span>
-                  <strong class="price-chip-value">${summary.parceladoLabel || 'Consulte'}</strong>
-                  <span class="price-chip-note">Mais destaque para pagamento parcelado</span>
-              </div>
-              <div class="price-chip price-chip-pix">
-                  <span class="price-chip-label">À vista no Pix</span>
-                  <strong class="price-chip-value">${summary.vistaLabel || 'Consulte'}</strong>
-                  <span class="price-chip-saving ${Number.isFinite(summary.savings)&&summary.savings>0?'':'price-chip-saving-neutral'}">${Number.isFinite(summary.savings)&&summary.savings>0?`Economize ${formatBrazilianPrice(summary.savings)} no Pix`:'Melhor valor para pagamento à vista'}</span>
-              </div>
-          </div>`;
+          const stack = document.createElement('div');
+          stack.className = 'price-stack';
+          const featured = document.createElement('div');
+          featured.className = 'price-chip price-chip-featured';
+          const featuredLabel = document.createElement('span');
+          featuredLabel.className = 'price-chip-label';
+          featuredLabel.textContent = 'Parcelado';
+          const featuredValue = document.createElement('strong');
+          featuredValue.className = 'price-chip-value';
+          featuredValue.textContent = summary?.parceladoLabel || 'Consulte';
+          const featuredNote = document.createElement('span');
+          featuredNote.className = 'price-chip-note';
+          featuredNote.textContent = 'Mais destaque para pagamento parcelado';
+          featured.append(featuredLabel, featuredValue, featuredNote);
+
+          const pix = document.createElement('div');
+          pix.className = 'price-chip price-chip-pix';
+          const pixLabel = document.createElement('span');
+          pixLabel.className = 'price-chip-label';
+          pixLabel.textContent = 'À vista no Pix';
+          const pixValue = document.createElement('strong');
+          pixValue.className = 'price-chip-value';
+          pixValue.textContent = summary?.vistaLabel || 'Consulte';
+          const pixSaving = document.createElement('span');
+          pixSaving.className = `price-chip-saving ${Number.isFinite(summary?.savings)&&summary.savings>0?'':'price-chip-saving-neutral'}`;
+          pixSaving.textContent = Number.isFinite(summary?.savings)&&summary.savings>0
+              ? `Economize ${formatBrazilianPrice(summary.savings)} no Pix`
+              : 'Melhor valor para pagamento à vista';
+          pix.append(pixLabel, pixValue, pixSaving);
+
+          stack.append(featured, pix);
+          return stack;
       }
       async function loadIndexCollections() {
           if (!supabaseClient) return;
@@ -119,24 +139,47 @@
           const wrapper = document.querySelector('.products');
           if (!wrapper) return;
           
-          wrapper.innerHTML = collections.map(model => {
+          wrapper.replaceChildren();
+          collections.forEach(model => {
               const summary = getCollectionPriceSummary(model.variacoes);
-              return `<article class="product-card">
-                  <a class="product-image" href="modelo.html?id=${model.id}" aria-label="Ver variações do modelo ${model.nome}">
-                      <img src="${model.capa_url}" width="720" height="900" loading="eager" fetchpriority="high" decoding="async" alt="Óculos ${model.nome}">
-                  </a>
-                  <div class="product-info">
-                      <div><div class="product-name">${model.nome}</div>${buildPriceSummaryHTML(summary)}</div>
-                      <a class="heart" href="modelo.html?id=${model.id}" aria-label="Ver variações do ${model.nome}">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z"/></svg>
-                      </a>
-                  </div>
-              </article>`;
-          }).join('');
+              const article = document.createElement('article');
+              article.className = 'product-card';
+              const imageLink = document.createElement('a');
+              imageLink.className = 'product-image';
+              imageLink.href = `modelo.html?id=${encodeURIComponent(model.id)}`;
+              imageLink.setAttribute('aria-label', `Ver variações do modelo ${model.nome}`);
+              const img = document.createElement('img');
+              img.src = model.capa_url || '';
+              img.width = 720;
+              img.height = 900;
+              img.loading = 'eager';
+              img.fetchPriority = 'high';
+              img.decoding = 'async';
+              img.alt = `Óculos ${model.nome}`;
+              imageLink.append(img);
+
+              const info = document.createElement('div');
+              info.className = 'product-info';
+              const left = document.createElement('div');
+              const name = document.createElement('div');
+              name.className = 'product-name';
+              name.textContent = model.nome || 'Modelo';
+              left.append(name, buildPriceSummaryHTML(summary));
+
+              const heart = document.createElement('a');
+              heart.className = 'heart';
+              heart.href = `modelo.html?id=${encodeURIComponent(model.id)}`;
+              heart.setAttribute('aria-label', `Ver variações do ${model.nome}`);
+              heart.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z"/></svg>';
+
+              info.append(left, heart);
+              article.append(imageLink, info);
+              wrapper.append(article);
+          });
           
       }
       
       loadIndexCollections();
-    </script>
+    -->
     <script src="motion.js"></script>
 </body></html>

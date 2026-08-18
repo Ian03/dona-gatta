@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultCollectionEyebrow = 'Coleção Verão';
     const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
     const allowedAdminEmail = 'admin@donagatta.com';
+    const maxImageSizeBytes = 5 * 1024 * 1024;
+    const allowedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
     let editingCollection = null;
     let coverFile = null;
@@ -45,6 +47,22 @@ document.addEventListener('DOMContentLoaded', () => {
         image.className = className;
         container.append(image);
     };
+
+    function validateImageFile(file, fieldLabel) {
+        if (!file) return true;
+
+        if (!allowedImageTypes.has(file.type)) {
+            alert(`${fieldLabel}: envie apenas arquivos JPG, PNG ou WEBP.`);
+            return false;
+        }
+
+        if (file.size > maxImageSizeBytes) {
+            alert(`${fieldLabel}: o arquivo excede o limite de 5 MB.`);
+            return false;
+        }
+
+        return true;
+    }
 
     function showView(viewId) {
         document.querySelectorAll('.view-section').forEach(section => section.style.display = 'none');
@@ -125,7 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fileInput.addEventListener('change', () => {
             const file = fileInput.files[0];
-            if (file) showImagePreview(preview, URL.createObjectURL(file));
+            if (!file) return;
+            if (!validateImageFile(file, 'Imagem da variação')) {
+                fileInput.value = '';
+                return;
+            }
+            showImagePreview(preview, URL.createObjectURL(file));
         });
         removeButton.addEventListener('click', () => {
             if (item.dataset.variationId) removedVariationIds.add(item.dataset.variationId);
@@ -377,7 +400,14 @@ document.addEventListener('DOMContentLoaded', () => {
     addVariationBtn.addEventListener('click', () => createVariationItem());
     colCover.addEventListener('change', () => {
         coverFile = colCover.files[0] || null;
-        if (coverFile) showImagePreview(coverPreview, URL.createObjectURL(coverFile), 'cover-image');
+        if (!coverFile) return;
+        if (!validateImageFile(coverFile, 'Imagem de capa')) {
+            colCover.value = '';
+            coverFile = null;
+            defaultCoverPreview();
+            return;
+        }
+        showImagePreview(coverPreview, URL.createObjectURL(coverFile), 'cover-image');
     });
     collectionForm.addEventListener('submit', saveCollection);
 
