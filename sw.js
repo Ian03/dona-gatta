@@ -1,9 +1,9 @@
-const CACHE = 'dona-gatta-v13';
+const CACHE = 'dona-gatta-v14';
 const CORE = [
-  './', './index.html', './catalogo.html', './modelo.css', './motion.js',
-  './mobile-app.js', './mobile-reel.js', './mobile-refresh.js', './menu-icons.js',
-  './favorites-experience.js', './install-prompt.js', './site-search.js',
-  './section-dividers.js', './whatsapp-modelo.js', './manifest.webmanifest', './app-icon.svg'
+  './', './index.html', './catalogo.html', './modelo.html',
+  './home.css', './modelo.css', './motion.js',
+  './index-page.js', './catalogo-page.js', './modelo-page.js',
+  './db.js', './manifest.webmanifest', './app-icon.svg'
 ];
 
 const CACHEABLE_DESTINATIONS = new Set(['style', 'script', 'image', 'font']);

@@ -6,36 +6,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="Estilo01.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="Estilo02.webp" media="(max-width: 600px)">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-  <style>
-    :root{--wine:#401010;--wine2:#531919;--gold:#b9853d;--cream:#fbf4ee;--blush:#f6e7da;--text:#3d2020;--line:#e8d7c8;--pix-bg:#f7eee5}*{box-sizing:border-box}html,body{margin:0}body{background:var(--cream);color:var(--text);font-family:"DM Sans",Arial,sans-serif;font-size:14px}a{color:inherit;text-decoration:none}img{display:block;max-width:100%}.wrap{width:min(1340px,calc(100% - 64px));margin:auto}.eyebrow{font-size:11px;letter-spacing:.46em;text-transform:uppercase}.serif{font-family:"Cormorant Garamond",Georgia,serif}.display{font-family:Italiana,Georgia,serif}.reveal{visibility:hidden}
-    .topbar{height:98px;background:var(--wine);color:#fff;position:relative;z-index:20}.nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:30px}.logo{font-family:"Cormorant Garamond",serif;font-size:31px;letter-spacing:-1px;white-space:nowrap}.logo i{color:#c5953e;font-style:normal;font-size:48px;font-weight:400;vertical-align:-9px;line-height:0;margin:0 3px;letter-spacing:-11px}.links{display:flex;align-items:center;gap:35px;font-size:12px;font-weight:500;text-transform:uppercase}.links a{position:relative}.links a:after{content:"";position:absolute;left:0;bottom:-9px;width:0;height:1px;background:#d3a052;transition:width .3s}.links a:hover:after,.links a.active:after{width:100%}.links .active{color:#d5a04f}.nav-icons{display:flex;align-items:center;gap:22px}.nav-icons svg{width:21px;height:21px;stroke-width:1.5}.bag{position:relative}.bubble{position:absolute;right:-9px;top:-10px;width:17px;height:17px;background:#c89442;border-radius:50%;color:#401010;font-size:10px;text-align:center;line-height:17px}
-    .hero{height:635px;position:relative;overflow:hidden;background:#ead9cc}.hero-bg,.hero-alt{position:absolute;top:0;bottom:0;background-size:cover;background-repeat:no-repeat}.hero-bg{left:0;right:39%;background-image:url('Estilo01.webp');background-position:center}.hero-alt{left:61%;right:0;background-image:url('Estilo03.webp');background-position:center}.hero-alt:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,244,235,.18),transparent 35%)}.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,244,235,.78) 0%,rgba(255,244,235,.46) 38%,rgba(255,244,235,.08) 62%,transparent 76%)}.hero .wrap{height:100%;position:relative;z-index:1;display:flex;align-items:center}.hero-copy{width:54%;margin-top:-10px;text-align:center;max-width:660px}.hero-copy .eyebrow{font-size:17px;letter-spacing:.55em;margin-bottom:12px}.hero h1{font-size:87px;line-height:.76;font-weight:400;letter-spacing:.04em;margin:0}.signature{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:43px;margin:9px 0 21px;line-height:1}.signature:after{content:"";display:block;width:250px;border-bottom:1px solid var(--wine);margin:7px auto 0}.hero p{font-family:"Cormorant Garamond",serif;font-size:25px;line-height:1.08;margin:0 auto 35px;max-width:300px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:16px 29px;background:var(--wine);color:#fff;border:1px solid var(--wine);font-size:12px;letter-spacing:.18em;text-transform:uppercase;transition:background .3s,transform .3s,color .3s}.btn:hover{background:#fff;color:var(--wine);transform:translateY(-3px)}.spark{color:#cb9a48;font-size:16px}
-    .benefits{background:#fffaf5}.benefits .wrap{min-height:145px;display:grid;grid-template-columns:repeat(4,1fr);align-items:center}.benefit{min-height:65px;display:flex;align-items:center;justify-content:center;gap:18px;border-right:1px solid var(--line)}.benefit:last-child{border:0}.benefit svg{width:50px;height:50px;stroke:#aa7534;stroke-width:1.2;fill:none}.benefit strong{display:block;font-size:14px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}.benefit span{display:block;font-size:11px;line-height:1.5;margin-top:3px}.benefit small{font-size:10px}
-    .collection{padding:52px 0 35px;background:radial-gradient(circle at 50% 0,#fff 0,var(--cream) 65%)}.section-title{text-align:center;position:relative;margin-bottom:42px}.section-title h2{font-size:31px;font-weight:400;letter-spacing:.13em;margin:0}.section-title:after{content:"✦";position:absolute;bottom:-23px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--wine)}.section-title:before{content:"";width:95px;border-top:1px solid #a77451;position:absolute;bottom:-18px;left:calc(50% - 47px)}.see-all{position:absolute;right:0;top:10px;color:#874c39;font-size:11px;letter-spacing:.13em;text-transform:uppercase}.see-all b{font-size:24px;vertical-align:-3px;margin-left:14px;font-weight:400}.products{padding-top:14px}.swiper{padding:0 0 20px}.product-card{background:rgba(246,239,233,.72);border-radius:13px;min-height:280px;padding:30px 20px 15px;position:relative;overflow:hidden;transition:transform .35s,box-shadow .35s}.product-card:hover{transform:translateY(-7px);box-shadow:0 16px 30px rgba(70,25,14,.13)}.product-image{height:142px;display:flex;align-items:center;justify-content:center;overflow:hidden}.product-image img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .45s ease}.product-card:hover .product-image img{transform:scale(1.08)}.product-info{display:flex;align-items:flex-start;justify-content:space-between;margin-top:22px;gap:12px}.product-name{font-size:13px;letter-spacing:.16em;text-transform:uppercase}.price-stack{display:grid;gap:8px;margin-top:10px}.price-chip{display:grid;gap:3px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff}.price-chip-featured{background:linear-gradient(135deg,var(--wine),#5b1a1a);border-color:rgba(64,16,16,.9);box-shadow:0 8px 18px rgba(64,16,16,.16)}.price-chip-pix{background:var(--pix-bg)}.price-chip-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase}.price-chip-featured .price-chip-label{color:#ecdccf}.price-chip-pix .price-chip-label{color:#7c5b49}.price-chip-value{font-size:17px;line-height:1.05}.price-chip-featured .price-chip-value{color:#fff}.price-chip-pix .price-chip-value{color:var(--wine)}.price-chip-note{font-size:10px;line-height:1.3}.price-chip-featured .price-chip-note{color:#e8cdbd}.price-chip-saving{font-size:10px;line-height:1.3;color:#8b5a1d;font-weight:600}.price-chip-saving-neutral{color:#7c5b49;font-weight:500}.heart{border:0;background:transparent;padding:5px;cursor:pointer;color:#602a25;transition:transform .25s,color .25s}.heart:hover{transform:scale(1.22);color:#bb3333}.heart svg{width:21px;height:21px;stroke-width:1.2}.collection-empty{text-align:center;font-family:"Cormorant Garamond",serif;font-size:22px;margin:0;padding:24px 0;color:#795c54}
-    .editorial{display:grid;grid-template-columns:1fr 1fr;min-height:310px;margin-top:0;background:#f7e8db}.editorial-photo{overflow:hidden}.editorial-photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform 1.2s}.editorial:hover img{transform:scale(1.04)}.editorial-copy{padding:40px 76px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column;position:relative}.editorial-copy h2{font-size:34px;line-height:.83;font-weight:400;letter-spacing:.04em;margin:0 0 15px}.editorial-copy p{font-family:"Cormorant Garamond",serif;font-size:18px;line-height:1.1;margin:0 0 21px;max-width:325px}.editorial-copy .stamp{position:absolute;right:45px;bottom:23px;width:85px;height:85px;border:2px dashed #d9b899;border-radius:10px;opacity:.65;color:#b88a60;font-size:46px;display:grid;place-items:center;transform:rotate(-8deg)}.editorial .btn{padding:14px 23px;font-size:10px}
-    .launch{padding:92px 0;background:#fffaf6}.launch-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:62px;align-items:center}.launch-gallery{height:610px;display:grid;grid-template-columns:1.12fr .88fr;gap:14px}.launch-gallery img{width:100%;height:100%;object-fit:cover}.launch-gallery img:first-child{object-position:58% center}.launch-gallery img:last-child{object-position:63% center;margin-top:52px;height:calc(100% - 52px)}.launch-copy{max-width:490px}.launch-copy .eyebrow{color:#9a6333;margin-bottom:17px}.launch-copy h2{font-size:55px;line-height:.84;letter-spacing:.03em;font-weight:400;margin:0 0 23px}.launch-copy p{font-family:"Cormorant Garamond",serif;font-size:21px;line-height:1.28;margin:0 0 25px;max-width:410px}.launch-data{display:flex;gap:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:17px 0;margin:27px 0}.launch-data div{font-size:10px;letter-spacing:.12em;text-transform:uppercase}.launch-data b{display:block;color:#9a6333;font-size:12px;margin-top:5px}.text-link{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7e4132;border-bottom:1px solid #ad7a54;padding-bottom:7px}
-    .brand-story{background:var(--wine);color:#fff;padding:82px 0;overflow:hidden}.brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:86px;align-items:center}.brand-word{font-size:77px;line-height:.74;letter-spacing:.06em;font-weight:400;color:#f7e9df;margin:10px 0 25px}.brand-story p{font-family:"Cormorant Garamond",serif;font-size:22px;line-height:1.28;max-width:430px;color:#f3dfd2}.brand-files{display:grid;gap:13px}.file-card{display:flex;align-items:center;gap:18px;border:1px solid rgba(231,194,151,.42);padding:19px 20px;transition:background .3s,transform .3s}.file-card:hover{background:rgba(255,255,255,.08);transform:translateX(5px)}.file-icon{width:38px;height:42px;border:1px solid #d5a667;color:#d5a667;display:grid;place-items:center;font-size:9px;font-weight:600}.file-card strong{display:block;text-transform:uppercase;letter-spacing:.11em;font-size:11px}.file-card span{font-size:11px;color:#e6c8b2;display:block;margin-top:5px}.file-arrow{margin-left:auto;font-size:26px;color:#d5a667}
-    .promise{background:#fffaf5}.promise .wrap{min-height:136px;display:grid;grid-template-columns:repeat(4,1fr);align-items:center}.promise .benefit{justify-content:flex-start;padding-left:28px}.promise .benefit strong{font-size:12px}.promise .benefit svg{width:45px;height:45px}
-    footer{background:radial-gradient(circle at 60% 30%,#6b2822 0,#401010 58%);color:#fbede5;padding:48px 0 22px}.footer-grid{display:grid;grid-template-columns:1.3fr 1.15fr 1.15fr 1.6fr;gap:45px}.footer-grid>div:not(:first-child){border-left:1px solid rgba(210,157,86,.6);padding-left:45px}.footer-logo{font-size:29px}.footer-intro{font-family:"Cormorant Garamond",serif;font-size:19px;font-style:italic;line-height:1.15;max-width:200px;margin:14px 0 22px}.socials{display:flex;gap:20px}.socials svg{width:17px;height:17px;stroke-width:1.7}.footer-title{font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin:9px 0 16px}.footer-grid a,.footer-grid p{font-size:11px;line-height:1.9;margin:0;color:#f1dcd2}.newsletter p{font-size:12px;line-height:1.4;margin-bottom:17px}.email{height:44px;background:#fff6ef;color:#927875;display:flex;align-items:center;justify-content:space-between;padding-left:17px;font-size:11px}.email b{height:24px;border-left:1px solid #d8bda9;padding:3px 12px;font-size:21px;font-weight:300}.copyright{font-size:10px;opacity:.7;margin-top:37px;text-align:center}
-    @media(max-width:900px){.links{display:none}.hero{height:560px}.hero-copy{width:64%}.benefits .wrap,.promise .wrap{grid-template-columns:repeat(2,1fr);padding:20px 0}.benefit:nth-child(2){border:0}.benefit{padding:13px}.editorial-copy{padding:35px}.footer-grid{grid-template-columns:1fr 1fr;row-gap:30px}.footer-grid>div:not(:first-child){padding-left:25px}.footer-grid>div:nth-child(3){border-left:0}.see-all{right:8px}}
-    .menu-toggle{display:none;background:transparent;color:#fff;border:0;padding:5px;cursor:pointer}.menu-toggle span{display:block;width:24px;height:1px;background:currentColor;margin:5px 0;transition:transform .25s,opacity .25s}.mobile-menu{display:none}
-    @media(max-width:600px){body.menu-open{overflow:hidden}.wrap{width:min(100% - 30px,1340px)}.topbar{height:72px;position:sticky;top:0}.nav{gap:12px}.logo{font-size:24px}.logo i{font-size:35px}.nav-icons{gap:13px}.nav-icons a:not(.bag){display:none}.nav-icons svg{width:19px}.menu-toggle{display:block;order:-1}.mobile-menu{display:flex;position:fixed;z-index:19;inset:72px 0 0;background:var(--wine);color:#fff;transform:translateX(100%);opacity:0;pointer-events:none;transition:transform .38s cubic-bezier(.2,.8,.2,1),opacity .3s;padding:42px 30px;flex-direction:column;gap:23px}.mobile-menu.open{transform:translateX(0);opacity:1;pointer-events:auto}.mobile-menu a{font-family:"Cormorant Garamond",serif;font-size:33px;border-bottom:1px solid rgba(255,255,255,.16);padding-bottom:14px}.mobile-menu small{margin-top:auto;color:#d6ad69;letter-spacing:.18em;text-transform:uppercase}.hero{height:calc(100svh - 72px);min-height:600px;max-height:720px}.hero-bg{inset:0;background-image:url('Estilo02.PNG');background-position:center;transform:none!important}.hero-alt{display:none}.hero-shade{background:linear-gradient(180deg,rgba(49,9,9,.06) 22%,rgba(52,9,9,.12) 42%,rgba(49,9,9,.84) 100%)}.hero .wrap{align-items:flex-end;padding-bottom:34px}.hero-copy{width:100%;margin:0;color:#fff;text-align:left}.hero-copy .eyebrow{font-size:10px;letter-spacing:.42em}.hero h1{font-size:55px;line-height:.8;letter-spacing:.03em}.signature{font-size:30px;margin:7px 0 12px}.signature:after{display:none}.hero p{font-size:21px;line-height:1.05;margin:0 0 22px;max-width:none}.hero .btn{width:100%;padding:16px 18px;background:#fff;color:var(--wine);justify-content:center}.benefits .wrap,.promise .wrap{grid-template-columns:1fr;padding:10px 0}.benefit,.benefit:nth-child(2){border-right:0;border-bottom:1px solid var(--line);justify-content:flex-start;padding:14px 18px}.benefit svg{width:39px;height:39px}.benefit strong{font-size:12px}.benefit span{font-size:10px}.benefit:last-child{border:0}.collection{padding:39px 0 24px}.section-title{margin-bottom:30px}.section-title h2{font-size:24px}.see-all{position:static;display:inline-block;margin-top:17px}.editorial{grid-template-columns:1fr}.editorial-copy{min-height:265px;padding:35px 30px}.editorial-copy h2{font-size:32px}.editorial-copy .stamp{right:20px;bottom:17px;width:63px;height:63px;font-size:32px}.footer-grid{grid-template-columns:1fr;gap:22px}.footer-grid>div:not(:first-child),.footer-grid>div:nth-child(3){border-left:0;padding-left:0;border-top:1px solid rgba(210,157,86,.35);padding-top:16px}.footer-intro{margin:9px 0 15px}}
-    @media(max-width:900px){.launch-grid,.brand-grid{grid-template-columns:1fr;gap:38px}.launch-gallery{height:520px;max-width:650px}.brand-grid{gap:45px}}
-    @media(max-width:600px){.launch{padding:62px 0}.launch-grid{gap:31px}.launch-gallery{height:390px;gap:8px}.launch-gallery img:last-child{margin-top:32px;height:calc(100% - 32px)}.launch-copy h2{font-size:42px}.launch-copy p{font-size:19px}.launch-data{gap:18px}.brand-story{padding:62px 0}.brand-word{font-size:53px}.brand-story p{font-size:20px}.file-card{padding:15px}}
-    .product-image{cursor:zoom-in}.product-modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:22px;background:rgba(45,9,8,.74);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}.product-modal.open{opacity:1;visibility:visible}.modal-card{width:min(860px,100%);background:#fffaf5;display:grid;grid-template-columns:1.05fr .95fr;position:relative;transform:translateY(18px) scale(.98);transition:transform .35s ease;overflow:hidden}.product-modal.open .modal-card{transform:none}.modal-image{min-height:450px;background:#f3e9e0;display:grid;place-items:center;padding:35px}.modal-image img{max-width:100%;max-height:430px;object-fit:contain;mix-blend-mode:multiply}.modal-content{padding:56px 45px;display:flex;justify-content:center;flex-direction:column}.modal-content .eyebrow{color:#9a6333;margin-bottom:15px}.modal-content h2{font-size:48px;line-height:.85;font-weight:400;margin:0 0 15px}.modal-content p{font-family:"Cormorant Garamond",serif;font-size:20px;line-height:1.25;margin:0 0 25px}.modal-content .price{font-size:13px;margin-bottom:26px}.modal-price-block{display:grid;gap:10px;margin-bottom:26px}.modal-close{position:absolute;right:14px;top:13px;background:transparent;border:0;color:var(--wine);font-size:31px;font-weight:300;line-height:1;cursor:pointer;z-index:2}.whatsapp-btn{background:#315f42;border-color:#315f42;width:100%;letter-spacing:.1em}.whatsapp-btn:hover{color:#315f42}.modal-note{font-size:10px!important;margin:14px 0 0!important;color:#7e6259;text-align:center}@media(max-width:600px){.modal-card{grid-template-columns:1fr;max-height:calc(100svh - 44px);overflow:auto}.modal-image{min-height:260px;height:38svh;padding:22px}.modal-image img{max-height:100%}.modal-content{padding:28px 25px 25px}.modal-content h2{font-size:39px}.modal-content p{font-size:18px;margin-bottom:16px}.modal-content .price{margin-bottom:18px}}
-    .hero-bg{inset:0;background-image:url('Estilo01.webp')}.hero-alt{display:none}.hero-feature{display:block;width:188px;height:258px;object-fit:cover;object-position:center;border:1px solid rgba(255,255,255,.65);box-shadow:0 18px 38px rgba(64,16,16,.3);margin:0 auto 18px;opacity:0;animation:hero-feature-fade 1.1s .2s cubic-bezier(.16,1,.3,1) forwards}@keyframes hero-feature-fade{from{opacity:0;transform:translateY(20px) scale(.96);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}.hero-actions{display:flex;justify-content:center;gap:10px}.hero-actions .btn{width:230px;min-height:58px;padding:12px 16px;text-align:center;line-height:1.35;letter-spacing:.1em}.hero-actions .btn-destinations{background:rgba(64,16,16,.88);border-color:rgba(255,255,255,.55);font-size:10px}.hero-actions .btn-destinations:hover{background:#d5a667;color:#401010;border-color:#d5a667}.hero-actions .btn-identity{background:#fff;color:var(--wine);border-color:#fff}.brand-board{border:1px solid rgba(231,194,151,.45);background:linear-gradient(135deg,rgba(106,36,31,.55),rgba(42,6,6,.18));overflow:hidden}.brand-principle{display:grid;grid-template-columns:64px 1fr;gap:19px;align-items:center;padding:21px 23px;position:relative}.brand-principle:not(:last-child){border-bottom:1px solid rgba(215,169,103,.43)}.brand-icon{width:59px;height:59px;border:1px solid #d5a667;color:#e0b76f;display:grid;place-items:center;font-size:27px;transition:transform .3s,background .3s}.brand-principle:hover .brand-icon{transform:rotate(-6deg) scale(1.06);background:rgba(213,166,103,.12)}.brand-index{font-size:9px;color:#d5a667;letter-spacing:.2em}.brand-principle h3{margin:4px 0 5px;color:#fff4e9;font-size:15px;line-height:1.1;letter-spacing:.08em;text-transform:uppercase;font-weight:500}.brand-principle p{margin:0!important;color:#e8cdbd!important;font:17px/1.15 "Cormorant Garamond",Georgia,serif!important;max-width:none!important}.brand-board img{display:none}@media(max-width:600px){.hero-feature{width:166px;height:224px;margin:0 auto 15px;object-position:center}.hero-actions{display:grid;grid-template-columns:1fr;width:100%;gap:8px}.hero-actions .btn{width:100%;min-height:48px;padding:10px 14px;font-size:9px}.hero-actions .btn-destinations{font-size:9px}.brand-board{margin-top:-8px}.brand-principle{grid-template-columns:51px 1fr;gap:14px;padding:18px 16px}.brand-icon{width:49px;height:49px;font-size:23px}.brand-principle h3{font-size:12px}.brand-principle p{font-size:16px!important}}
-    .hero-divider{display:flex;align-items:center;gap:12px;width:min(100%,360px);margin:0 auto 16px;color:#765022;opacity:0;animation:hero-divider-fade .8s .72s ease forwards}.hero-divider:before,.hero-divider:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,#765022)}.hero-divider:after{background:linear-gradient(90deg,#765022,transparent)}.hero-divider span{font-size:28px;line-height:1;filter:drop-shadow(0 2px 3px rgba(255,245,220,.7))}@keyframes hero-divider-fade{from{opacity:0;transform:scaleX(.7)}to{opacity:1;transform:none}}@media(max-width:600px){.hero-divider{width:min(100%,310px);margin:0 auto 14px}.hero-divider span{font-size:24px}}
-    .hero.image-only{background:#d9c1ad}.hero.image-only:before{content:"";position:absolute;inset:-28px;background:url('Estilo01.webp') center/cover no-repeat;filter:blur(24px);transform:scale(1.08);opacity:.72}.hero.image-only .hero-bg{z-index:1;background-position:center;background-size:98% auto;background-color:transparent}.hero.image-only .mobile-hero-hint{display:none}.journey-banner{background:linear-gradient(100deg,#43100f,#581714 52%,#3a0b0b);color:#e4bd77}.journey-inner{min-height:68px;display:flex;align-items:center;gap:34px}.journey-points{display:flex;align-items:center;flex:1}.journey-points span{display:flex;align-items:center;gap:10px;padding:0 30px;border-right:1px solid rgba(214,166,94,.55);font-size:10px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}.journey-points span:first-child{padding-left:0}.journey-points i{font-size:18px;color:#c99542}.journey-inner p{margin:0;font:italic 20px "Cormorant Garamond",Georgia,serif;white-space:nowrap}.journey-mark{font-size:27px;letter-spacing:-7px;color:#c99542;transform:rotate(-16deg)}@media(max-width:900px){.journey-inner{gap:18px}.journey-points span{padding:0 15px}.journey-inner p{font-size:17px}}@media(max-width:600px){.hero.image-only:before{inset:-18px;filter:blur(16px);opacity:.58}.hero.image-only .hero-bg{background-size:cover}.journey-banner{overflow:hidden}.journey-inner{min-height:78px;display:block;padding:13px 0}.journey-points{justify-content:space-between}.journey-points span{padding:0;border:0;font-size:8px;letter-spacing:.11em;gap:5px}.journey-points i{font-size:15px}.journey-inner p{margin-top:9px;font-size:17px;white-space:normal}.journey-mark{display:none}}
-    .journey-inner p{font-family:"Cormorant Garamond",Georgia,serif}.journey-mark{display:flex;align-items:center;gap:4px;width:30px;height:36px;transform:rotate(18deg)}.journey-mark i{display:block;width:3px;height:34px;border-radius:4px;background:linear-gradient(90deg,#8a5c22,#e6bb66 52%,#8a5c22);box-shadow:0 0 8px rgba(221,170,79,.42)}.journey-mark i:nth-child(2){height:38px}.journey-mark i:nth-child(3){height:32px}@media(max-width:600px){.journey-mark{display:flex;position:absolute;right:17px;bottom:13px;transform:rotate(18deg) scale(.72);transform-origin:right bottom}.journey-inner{position:relative}.journey-inner p{padding-right:32px}}
-    .hero.image-only{height:clamp(420px,45vw,635px)}.hero.image-only:before{display:none}.hero.image-only .hero-bg{background-size:cover}@media(max-width:600px){.hero.image-only{height:auto;min-height:0;max-height:none;aspect-ratio:1774/799}.hero.image-only .hero-bg{background-size:cover;background-position:center}}
-    .hero-actions .btn-destinations{color:#fff}
-    .benefits .wrap{grid-template-columns:repeat(3,1fr)}
-    @media(max-width:600px){.nav-icons .login-icon{display:flex!important;align-items:center;justify-content:center;color:#fff}.nav-icons .login-icon svg{width:20px;height:20px}}
-    .products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;padding:14px 0 20px}
-    @media(max-width:900px){.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}}
-    @media(max-width:600px){.products{grid-template-columns:1fr;gap:14px}}
-  </style>
+  <link rel="stylesheet" href="home.css">
 </head>
 <body>
   <header class="topbar"><nav class="wrap nav"><a href="#top" class="logo">DONA <i>///</i> GATTA</a><div class="links"><a class="active" href="#top">Início</a><a href="#colecoes">Coleções</a><a href="#colecoes">Óculos de sol</a><a href="#colecoes">Óculos de grau</a><a href="#sobre">Acessórios</a><a href="#footer">Sobre nós</a></div><div class="nav-icons"><button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button><button class="search-toggle" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="6"/><path d="m16 16 5 5"/></svg></button><a href="admin.html" aria-label="Admin Login" class="login-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a></div></nav></header><aside class="mobile-menu" aria-label="Menu móvel"><a href="#top">Início</a><a href="#colecoes">Coleções</a><a href="#colecoes">Óculos de sol</a><a href="#colecoes">Óculos de grau</a><a href="#sobre">Acessórios</a><a href="#footer">Sobre nós</a><small>Dona Gatta · Coleção Destinos</small></aside>
@@ -50,136 +23,11 @@
   </main>
   <div class="product-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-product-name"><div class="modal-card"><button class="modal-close" aria-label="Fechar">×</button><div class="modal-image"><img src="" alt=""></div><div class="modal-content"><div class="eyebrow">Coleção Dona Gatta</div><h2 id="modal-product-name" class="display"></h2><p>Gostou deste modelo? Nossa equipe confirma cores, disponibilidade e orienta seu pedido pelo WhatsApp.</p><div class="price modal-price"></div><a class="btn whatsapp-btn" href="#" target="_blank" rel="noopener">Consultar no WhatsApp</a><p class="modal-note">Atendimento personalizado e sem compromisso.</p></div></div></div>
   <footer id="footer"><div class="wrap"><div class="footer-grid"><div><div class="logo footer-logo">DONA <i>///</i> GATTA</div><p class="footer-intro">Você vai sentir quando<br>encontrar o seu.</p><div class="socials"><span>◎</span><span>f</span><span>♪</span><span>p</span></div></div><div><h3 class="footer-title">Institucional</h3><a href="#sobre">Sobre Nós</a><br><a href="#colecoes">Nossas Lojas</a><br><a href="#footer">Política de Privacidade</a><br><a href="#footer">Trocas e Devoluções</a><br><a href="#footer">Fale Conosco</a></div><div><h3 class="footer-title">Ajuda</h3><a href="#footer">Perguntas Frequentes</a><br><a href="#footer">Minha Conta</a><br><a href="#footer">Acompanhar Pedido</a><br><a href="#footer">Formas de Pagamento</a><br><a href="#footer">Garantia</a></div><div class="newsletter"><h3 class="footer-title">Receba novidades</h3><p>Cadastre-se e receba lançamentos<br>e ofertas exclusivas.</p><div class="email">Seu melhor e-mail <b>›</b></div></div></div><div class="copyright">© 2026 Dona Gatta. Todos os direitos reservados.</div></div></footer>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="db.js"></script>
-    <script src="index-page.js"></script>
-    <!--
-      gsap.registerPlugin(ScrollTrigger);
-      gsap.set('.reveal',{autoAlpha:1});
-      gsap.from('.hero-copy',{y:36,opacity:0,duration:1.1,ease:'power3.out'});
-      gsap.utils.toArray('.reveal').slice(1).forEach(el=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},y:35,opacity:0,duration:.8,ease:'power2.out'}));
-      gsap.to('.hero-bg',{yPercent:12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-      
-      
-      const productModal=document.querySelector('.product-modal'),modalImage=productModal.querySelector('.modal-image img'),modalName=productModal.querySelector('#modal-product-name'),modalPrice=productModal.querySelector('.modal-price'),whatsappLink=productModal.querySelector('.whatsapp-btn'),modalClose=productModal.querySelector('.modal-close');
-      function closeProduct(){productModal.classList.remove('open');productModal.setAttribute('aria-hidden','true');document.body.classList.remove('menu-open')}
-      modalClose.addEventListener('click',closeProduct);
-      productModal.addEventListener('click',e=>{if(e.target===productModal)closeProduct()});
-      document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProduct()});
-      
-      const menu=document.querySelector('.mobile-menu'),toggle=document.querySelector('.menu-toggle');
-      toggle.addEventListener('click',()=>{const open=menu.classList.toggle('open');document.body.classList.toggle('menu-open',open);toggle.setAttribute('aria-expanded',open)});
-      menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');document.body.classList.remove('menu-open');toggle.setAttribute('aria-expanded','false')}));
-      
-      function parseBrazilianPrice(value){
-          if(value==null) return NaN;
-          const normalized=String(value).replace(/\s+/g,'').replace(/[R$r$\u00A0]/g,'').replace(/\./g,'').replace(',', '.').replace(/[^0-9.-]/g,'');
-          return Number(normalized);
-      }
-      function formatBrazilianPrice(value){
-          return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(value);
-      }
-      function getCollectionPriceSummary(variacoes=[]){
-          const valid=variacoes.map(v=>({
-              parceladoRaw:v.valor_parcelado,
-              vistaRaw:v.valor_vista,
-              parcelado:parseBrazilianPrice(v.valor_parcelado),
-              vista:parseBrazilianPrice(v.valor_vista)
-          })).filter(v=>Number.isFinite(v.parcelado)||Number.isFinite(v.vista));
-          if(!valid.length) return null;
-          const featured=valid.filter(v=>Number.isFinite(v.parcelado)).sort((a,b)=>a.parcelado-b.parcelado)[0] || valid[0];
-          const pix=valid.filter(v=>Number.isFinite(v.vista)).sort((a,b)=>a.vista-b.vista)[0] || valid[0];
-          const savings=Number.isFinite(featured.parcelado)&&Number.isFinite(pix.vista)&&featured.parcelado>=pix.vista ? featured.parcelado-pix.vista : NaN;
-          return {
-              parceladoLabel: featured.parceladoRaw || '',
-              vistaLabel: pix.vistaRaw || '',
-              savings
-          };
-      }
-      function buildPriceSummaryHTML(summary){
-          const stack = document.createElement('div');
-          stack.className = 'price-stack';
-          const featured = document.createElement('div');
-          featured.className = 'price-chip price-chip-featured';
-          const featuredLabel = document.createElement('span');
-          featuredLabel.className = 'price-chip-label';
-          featuredLabel.textContent = 'Parcelado';
-          const featuredValue = document.createElement('strong');
-          featuredValue.className = 'price-chip-value';
-          featuredValue.textContent = summary?.parceladoLabel || 'Consulte';
-          const featuredNote = document.createElement('span');
-          featuredNote.className = 'price-chip-note';
-          featuredNote.textContent = 'Mais destaque para pagamento parcelado';
-          featured.append(featuredLabel, featuredValue, featuredNote);
-
-          const pix = document.createElement('div');
-          pix.className = 'price-chip price-chip-pix';
-          const pixLabel = document.createElement('span');
-          pixLabel.className = 'price-chip-label';
-          pixLabel.textContent = 'À vista no Pix';
-          const pixValue = document.createElement('strong');
-          pixValue.className = 'price-chip-value';
-          pixValue.textContent = summary?.vistaLabel || 'Consulte';
-          const pixSaving = document.createElement('span');
-          pixSaving.className = `price-chip-saving ${Number.isFinite(summary?.savings)&&summary.savings>0?'':'price-chip-saving-neutral'}`;
-          pixSaving.textContent = Number.isFinite(summary?.savings)&&summary.savings>0
-              ? `Economize ${formatBrazilianPrice(summary.savings)} no Pix`
-              : 'Melhor valor para pagamento à vista';
-          pix.append(pixLabel, pixValue, pixSaving);
-
-          stack.append(featured, pix);
-          return stack;
-      }
-      async function loadIndexCollections() {
-          if (!supabaseClient) return;
-          const { data: collections, error } = await supabaseClient.from('colecoes').select('*, variacoes(valor_vista, valor_parcelado)').order('created_at', { ascending: false });
-          if (error) { console.error(error); return; }
-          
-          const wrapper = document.querySelector('.products');
-          if (!wrapper) return;
-          
-          wrapper.replaceChildren();
-          collections.forEach(model => {
-              const summary = getCollectionPriceSummary(model.variacoes);
-              const article = document.createElement('article');
-              article.className = 'product-card';
-              const imageLink = document.createElement('a');
-              imageLink.className = 'product-image';
-              imageLink.href = `modelo.html?id=${encodeURIComponent(model.id)}`;
-              imageLink.setAttribute('aria-label', `Ver variações do modelo ${model.nome}`);
-              const img = document.createElement('img');
-              img.src = model.capa_url || '';
-              img.width = 720;
-              img.height = 900;
-              img.loading = 'eager';
-              img.fetchPriority = 'high';
-              img.decoding = 'async';
-              img.alt = `Óculos ${model.nome}`;
-              imageLink.append(img);
-
-              const info = document.createElement('div');
-              info.className = 'product-info';
-              const left = document.createElement('div');
-              const name = document.createElement('div');
-              name.className = 'product-name';
-              name.textContent = model.nome || 'Modelo';
-              left.append(name, buildPriceSummaryHTML(summary));
-
-              const heart = document.createElement('a');
-              heart.className = 'heart';
-              heart.href = `modelo.html?id=${encodeURIComponent(model.id)}`;
-              heart.setAttribute('aria-label', `Ver variações do ${model.nome}`);
-              heart.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z"/></svg>';
-
-              info.append(left, heart);
-              article.append(imageLink, info);
-              wrapper.append(article);
-          });
-          
-      }
-      
-      loadIndexCollections();
-    -->
-    <script src="motion.js"></script>
-</body></html>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <script src="index-page.js"></script>
+  <script src="motion.js"></script>
+</body>
+</html>

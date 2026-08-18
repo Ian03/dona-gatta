@@ -116,7 +116,7 @@ async function loadIndexCollections() {
   if (!wrapper) return;
 
   wrapper.replaceChildren();
-  collections.forEach(model => {
+  collections.forEach((model, index) => {
     const summary = getCollectionPriceSummary(model.variacoes);
     const article = document.createElement('article');
     article.className = 'product-card';
@@ -128,8 +128,8 @@ async function loadIndexCollections() {
     img.src = model.capa_url || '';
     img.width = 720;
     img.height = 900;
-    img.loading = 'eager';
-    img.fetchPriority = 'high';
+    img.loading = index < 2 ? 'eager' : 'lazy';
+    img.fetchPriority = index < 2 ? 'high' : 'low';
     img.decoding = 'async';
     img.alt = `Óculos ${model.nome}`;
     imageLink.append(img);

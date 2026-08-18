@@ -1,5 +1,7 @@
 (() => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isHomePage = document.querySelector('.journey-banner') && document.querySelector('.products');
+  const isModelPage = document.querySelector('#variations');
   const style = document.createElement('style');
   style.textContent = `
     @view-transition{navigation:auto}
@@ -10,6 +12,7 @@
     .product-card:hover>a:first-child:after{transform:translateX(70%) rotate(7deg)}
     .magnetic{will-change:transform;transition:transform .18s ease}
     .split-letter{display:inline-block;opacity:0;transform:translateY(.55em);animation:letter-in .68s cubic-bezier(.16,1,.3,1) forwards}
+    .editorial,.launch,.brand-story,.promise,footer,.catalog,.variations{content-visibility:auto;contain-intrinsic-size:1px 700px}
     @keyframes letter-in{to{opacity:1;transform:translateY(0)}}
     @media (prefers-reduced-motion:reduce){.motion-card,.magnetic{transition:none!important;transform:none!important}.split-letter{animation:none;opacity:1;transform:none}.product-card>a:first-child:after{display:none}}
   `;
@@ -46,7 +49,7 @@
   const modelName=document.title.split(' — ')[0];
   const variationConfig=modelVariations[modelName];
   const variationGrid=document.querySelector('#variations');
-  if(variationConfig&&variationGrid){
+  if(isModelPage && variationConfig && variationGrid){
     variationGrid.replaceChildren();
     variationConfig.items.forEach(number => {
       const article = document.createElement('article');
@@ -109,11 +112,37 @@
     button.addEventListener('pointerleave', () => { button.style.transform = ''; });
   });
 })();
-const mobileApp=document.createElement('script');mobileApp.src='mobile-app.js';mobileApp.async=false;document.body.append(mobileApp);
-const mobileReel=document.createElement('script');mobileReel.src='mobile-reel.js';mobileReel.async=false;document.body.append(mobileReel);
-const mobileRefresh=document.createElement('script');mobileRefresh.src='mobile-refresh.js';mobileRefresh.async=false;document.body.append(mobileRefresh);
-const menuIcons=document.createElement('script');menuIcons.src='menu-icons.js';menuIcons.async=false;document.body.append(menuIcons);
-const favoritesExperience=document.createElement('script');favoritesExperience.src='favorites-experience.js';favoritesExperience.async=false;document.body.append(favoritesExperience);
-const installPrompt=document.createElement('script');installPrompt.src='install-prompt.js';installPrompt.async=false;document.body.append(installPrompt);
-const siteSearch=document.createElement('script');siteSearch.src='site-search.js';siteSearch.async=false;document.body.append(siteSearch);
-const sectionDividers=document.createElement('script');sectionDividers.src='section-dividers.js';sectionDividers.async=false;document.body.append(sectionDividers);
+(() => {
+  const isHomePage = document.querySelector('.journey-banner') && document.querySelector('.products');
+  const isModelPage = document.querySelector('#variations');
+  const loadScript = src => {
+    if (document.querySelector(`script[src="${src}"]`)) return;
+    const script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    document.body.append(script);
+  };
+  const boot = () => {
+    loadScript('mobile-app.js');
+    loadScript('mobile-refresh.js');
+    loadScript('menu-icons.js');
+    loadScript('install-prompt.js');
+    if (isHomePage) {
+      loadScript('mobile-reel.js');
+      loadScript('favorites-experience.js');
+      loadScript('site-search.js');
+      loadScript('section-dividers.js');
+    }
+    if (isModelPage) {
+      loadScript('whatsapp-modelo.js');
+    }
+  };
+  const schedule = window.requestIdleCallback
+    ? callback => window.requestIdleCallback(callback, { timeout: 1500 })
+    : callback => window.setTimeout(callback, 350);
+  if (document.readyState === 'complete') {
+    schedule(boot);
+    return;
+  }
+  window.addEventListener('load', () => schedule(boot), { once: true });
+})();
