@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pdfCollectionSelect.replaceChildren();
         const placeholder = document.createElement('option');
         placeholder.value = '';
-        placeholder.textContent = 'Selecione uma coleção';
+        placeholder.textContent = 'Selecione um grupo';
         pdfCollectionSelect.append(placeholder);
 
         collectionsGrid.replaceChildren();
@@ -329,12 +329,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        data.forEach(collection => {
-            const option = document.createElement('option');
-            option.value = collection.id;
-            option.textContent = collection.nome;
-            pdfCollectionSelect.append(option);
+        const groupNames = [...new Set(
+            (data || [])
+                .map(collection => (collection.catalogo_eyebrow || defaultCollectionEyebrow).trim() || defaultCollectionEyebrow)
+        )].sort((a, b) => a.localeCompare(b, 'pt-BR'));
 
+        groupNames.forEach(groupName => {
+            const option = document.createElement('option');
+            option.value = groupName;
+            option.textContent = groupName;
+            pdfCollectionSelect.append(option);
+        });
+
+        data.forEach(collection => {
             const card = document.createElement('article');
             card.className = 'collection-card';
             const image = document.createElement('div');
@@ -478,9 +485,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function exportCollectionToPdf() {
-        const collectionId = pdfCollectionSelect.value;
-        if (!collectionId) {
-            alert('Selecione uma coleção para exportar.');
+        const groupName = pdfCollectionSelect.value.trim();
+        if (!groupName) {
+            alert('Selecione um grupo para exportar.');
             return;
         }
 
@@ -489,16 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
         exportPdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparando PDF...';
 
         try {
-            const { data: collection, error } = await supabaseClient
-                .from('colecoes')
-                .select('*, variacoes(*)')
-                .eq('id', collectionId)
-                .single();
-
-            if (error || !collection) throw error || new Error('Coleção não encontrada.');
-
-            const groupName = (collection.catalogo_eyebrow || defaultCollectionEyebrow).trim() || defaultCollectionEyebrow;
-
             const { data: groupedCollections, error: groupedError } = await supabaseClient
                 .from('colecoes')
                 .select('*, variacoes(*)')
@@ -508,6 +505,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (groupedError || !groupedCollections?.length) {
                 throw groupedError || new Error('Não foi possível carregar o grupo da coleção para exportação.');
             }
+
+            const collection = groupedCollections[0];
 
             const popup = window.open('', '_blank', 'noopener,noreferrer,width=1200,height=900');
             if (!popup) throw new Error('O navegador bloqueou a janela de exportação. Libere pop-ups para continuar.');
