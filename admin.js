@@ -499,11 +499,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>Gerado em 18/08/2026</span>
         </footer>
     </div>
-    <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => window.print(), 300);
-        });
-    </script>
 </body>
 </html>`;
     }
@@ -542,12 +537,6 @@ document.addEventListener('DOMContentLoaded', () => {
             printFrame.style.opacity = '0';
             printFrame.style.pointerEvents = 'none';
             printFrame.style.border = '0';
-            printFrame.onload = () => {
-                if (!printFrame.contentWindow) return;
-                printFrame.contentWindow.focus();
-                printFrame.contentWindow.print();
-                window.setTimeout(() => printFrame.remove(), 1500);
-            };
             document.body.append(printFrame);
 
             const frameDocument = printFrame.contentWindow?.document;
@@ -558,6 +547,57 @@ document.addEventListener('DOMContentLoaded', () => {
             frameDocument.open();
             frameDocument.write(buildPdfMarkup(collection, groupedCollections));
             frameDocument.close();
+
+            const waitForFrameReady = () => new Promise(resolve => {
+                const attemptReady = () => {
+                    const frameWindow = printFrame.contentWindow;
+                    const frameDoc = frameWindow?.document;
+                    if (!frameWindow || !frameDoc) {
+                        window.setTimeout(attemptReady, 120);
+                        return;
+                    }
+
+                    const images = [...frameDoc.images];
+                    const pending = images.filter(image => !image.complete);
+
+                    if (!pending.length && frameDoc.readyState === 'complete') {
+                        resolve();
+                        return;
+                    }
+
+                    let remaining = pending.length;
+                    const finalize = () => {
+                        remaining -= 1;
+                        if (remaining <= 0) {
+                            window.setTimeout(resolve, 250);
+                        }
+                    };
+
+                    if (!pending.length) {
+                        window.setTimeout(resolve, 250);
+                        return;
+                    }
+
+                    pending.forEach(image => {
+                        image.addEventListener('load', finalize, { once: true });
+                        image.addEventListener('error', finalize, { once: true });
+                    });
+
+                    window.setTimeout(resolve, 1800);
+                };
+
+                attemptReady();
+            });
+
+            await waitForFrameReady();
+
+            if (!printFrame.contentWindow) {
+                throw new Error('Não foi possível finalizar a exportação em PDF.');
+            }
+
+            printFrame.contentWindow.focus();
+            printFrame.contentWindow.print();
+            window.setTimeout(() => printFrame.remove(), 2000);
         } catch (error) {
             console.error(error);
             alert(error.message || 'Não foi possível exportar a coleção em PDF.');
