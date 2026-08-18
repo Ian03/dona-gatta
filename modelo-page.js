@@ -18,10 +18,19 @@ function formatBrazilianPrice(value) {
 
 const defaultCollectionEyebrow = 'Coleção Verão';
 const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
-const defaultInstallmentLabel = 'Até 5x sem juros';
-const installmentRangeNote = 'Opções de 1x até 12x no site · acima de 6x com juros';
 
-function buildPriceBlock(installmentValue, cashValue) {
+function clampInstallments(value) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed)) return 5;
+  return Math.min(12, Math.max(1, parsed));
+}
+
+function buildInstallmentLabel(value) {
+  const installments = clampInstallments(value);
+  return `Até ${installments}x${installments <= 5 ? ' sem juros' : ''}`;
+}
+
+function buildPriceBlock(installmentValue, cashValue, installmentLimit) {
   const parcelado = parseBrazilianPrice(installmentValue);
   const vista = parseBrazilianPrice(cashValue);
   const hasValidPrices = Number.isFinite(parcelado) && Number.isFinite(vista) && parcelado >= vista;
@@ -36,11 +45,8 @@ function buildPriceBlock(installmentValue, cashValue) {
   featuredLabel.textContent = 'Parcelado';
   const featuredValue = document.createElement('strong');
   featuredValue.className = 'price-value';
-  featuredValue.textContent = defaultInstallmentLabel;
-  const featuredNote = document.createElement('span');
-  featuredNote.className = 'price-saving price-installment-note';
-  featuredNote.textContent = installmentRangeNote;
-  featured.append(featuredLabel, featuredValue, featuredNote);
+  featuredValue.textContent = buildInstallmentLabel(installmentLimit);
+  featured.append(featuredLabel, featuredValue);
 
   const pix = document.createElement('div');
   pix.className = 'price-card price-card-pix';
@@ -127,7 +133,7 @@ async function loadModel() {
     const choice = document.createElement('div');
     choice.className = 'choice';
     choice.textContent = v.descricao || '';
-    content.append(name, choice, buildPriceBlock(v.valor_parcelado, v.valor_vista));
+    content.append(name, choice, buildPriceBlock(v.valor_parcelado, v.valor_vista, model.parcelamento_maximo));
 
     const link = document.createElement('a');
     link.className = 'choose';

@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colName = document.getElementById('colName');
     const colEyebrow = document.getElementById('colEyebrow');
     const colIntroText = document.getElementById('colIntroText');
+    const colInstallments = document.getElementById('colInstallments');
     const colCover = document.getElementById('colCover');
     const coverPreview = document.getElementById('coverPreview');
     const editViewTitle = document.getElementById('editViewTitle');
@@ -24,8 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const exportPdfBtn = document.getElementById('exportPdfBtn');
     const defaultCollectionEyebrow = 'Coleção Verão';
     const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
-    const defaultInstallmentLabel = 'Até 5x sem juros';
-    const installmentRangeNote = 'Opções de 1x até 12x no site · acima de 6x com juros';
     const allowedAdminEmail = 'admin@donagatta.com';
     const maxImageSizeBytes = 5 * 1024 * 1024;
     const allowedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -91,6 +90,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return Number(normalized);
     }
 
+    function clampInstallments(value) {
+        const parsed = Number.parseInt(value, 10);
+        if (!Number.isFinite(parsed)) return 5;
+        return Math.min(12, Math.max(1, parsed));
+    }
+
+    function buildInstallmentLabel(value) {
+        const installments = clampInstallments(value);
+        return `Até ${installments}x${installments <= 5 ? ' sem juros' : ''}`;
+    }
+
     function showAdminApp() {
         loginModal.style.display = 'none';
         adminApp.style.display = 'flex';
@@ -108,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         collectionForm.reset();
         colEyebrow.value = defaultCollectionEyebrow;
         colIntroText.value = defaultCollectionIntro;
+        colInstallments.value = '5';
         variationsContainer.replaceChildren();
         defaultCoverPreview();
     }
@@ -210,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         colName.value = collection.nome || '';
         colEyebrow.value = collection.catalogo_eyebrow ?? defaultCollectionEyebrow;
         colIntroText.value = collection.catalogo_intro ?? defaultCollectionIntro;
+        colInstallments.value = String(clampInstallments(collection.parcelamento_maximo));
         if (collection.capa_url) showImagePreview(coverPreview, collection.capa_url, 'cover-image');
         (collection.variacoes || []).forEach(createVariationItem);
         showView('editCollectionView');
@@ -225,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const nome = colName.value.trim();
             const catalogo_eyebrow = colEyebrow.value.trim();
             const catalogo_intro = colIntroText.value.trim();
+            const parcelamento_maximo = clampInstallments(colInstallments.value);
             let capaUrl = editingCollection?.capa_url || '';
             if (coverFile) capaUrl = await uploadImage(coverFile, 'capas');
 
@@ -232,13 +245,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (collectionId) {
                 const { error } = await supabaseClient
                     .from('colecoes')
-                    .update({ nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro })
+                    .update({ nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro, parcelamento_maximo })
                     .eq('id', collectionId);
                 if (error) throw error;
             } else {
                 const { data, error } = await supabaseClient
                     .from('colecoes')
-                    .insert([{ nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro }])
+                    .insert([{ nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro, parcelamento_maximo }])
                     .select('id')
                     .single();
                 if (error) throw error;
@@ -364,6 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function buildPdfMarkup(collection) {
+        const installmentLabel = buildInstallmentLabel(collection.parcelamento_maximo);
         const variations = (collection.variacoes || []).map((variation, index) => {
             const parcelado = parseBrazilianPrice(variation.valor_parcelado);
             const vista = parseBrazilianPrice(variation.valor_vista);
@@ -381,8 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="pdf-variation-name">${variation.descricao || `Variação ${index + 1}`}</div>
                         <div class="pdf-price-box pdf-price-box-featured">
                             <span class="pdf-price-label">Parcelado</span>
-                            <strong class="pdf-price-value">${defaultInstallmentLabel}</strong>
-                            <span class="pdf-price-note">${installmentRangeNote}</span>
+                            <strong class="pdf-price-value">${installmentLabel}</strong>
                         </div>
                         <div class="pdf-price-box pdf-price-box-pix">
                             <span class="pdf-price-label">À vista no Pix</span>
@@ -449,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </section>
         <section class="pdf-grid">${variations}</section>
-        <footer class="pdf-footer">Dona Gatta · Parcelamento padrão exibido: até 5x sem juros</footer>
+        <footer class="pdf-footer">Dona Gatta · Catálogo de coleção</footer>
     </div>
     <script>
         window.addEventListener('load', () => {

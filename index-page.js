@@ -46,6 +46,17 @@ function formatBrazilianPrice(value) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 }
 
+function clampInstallments(value) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed)) return 5;
+  return Math.min(12, Math.max(1, parsed));
+}
+
+function buildInstallmentLabel(value) {
+  const installments = clampInstallments(value);
+  return `Até ${installments}x${installments <= 5 ? ' sem juros' : ''}`;
+}
+
 function getCollectionPriceSummary(variacoes = []) {
   const valid = variacoes.map(v => ({
     parceladoRaw: v.valor_parcelado,
@@ -72,7 +83,7 @@ function buildHeartIcon() {
   return svg;
 }
 
-function buildPriceSummaryHTML(summary) {
+function buildPriceSummaryHTML(summary, installmentLimit) {
   const stack = document.createElement('div');
   stack.className = 'price-stack';
   const featured = document.createElement('div');
@@ -82,11 +93,8 @@ function buildPriceSummaryHTML(summary) {
   featuredLabel.textContent = 'Parcelado';
   const featuredValue = document.createElement('strong');
   featuredValue.className = 'price-chip-value';
-  featuredValue.textContent = summary?.parceladoLabel || 'Consulte';
-  const featuredNote = document.createElement('span');
-  featuredNote.className = 'price-chip-note';
-  featuredNote.textContent = 'Mais destaque para pagamento parcelado';
-  featured.append(featuredLabel, featuredValue, featuredNote);
+  featuredValue.textContent = buildInstallmentLabel(installmentLimit);
+  featured.append(featuredLabel, featuredValue);
 
   const pix = document.createElement('div');
   pix.className = 'price-chip price-chip-pix';
@@ -140,7 +148,7 @@ async function loadIndexCollections() {
     const name = document.createElement('div');
     name.className = 'product-name';
     name.textContent = model.nome || 'Modelo';
-    left.append(name, buildPriceSummaryHTML(summary));
+    left.append(name, buildPriceSummaryHTML(summary, model.parcelamento_maximo));
 
     const heart = document.createElement('a');
     heart.className = 'heart';

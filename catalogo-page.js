@@ -8,8 +8,16 @@ function formatBrazilianPrice(value) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 }
 
-const defaultInstallmentLabel = 'Até 5x sem juros';
-const installmentRangeNote = 'Opções de 1x até 12x no site · acima de 6x com juros';
+function clampInstallments(value) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed)) return 5;
+  return Math.min(12, Math.max(1, parsed));
+}
+
+function buildInstallmentLabel(value) {
+  const installments = clampInstallments(value);
+  return `Até ${installments}x${installments <= 5 ? ' sem juros' : ''}`;
+}
 
 function getCollectionPriceSummary(variacoes = []) {
   const valid = variacoes.map(v => ({
@@ -25,7 +33,7 @@ function getCollectionPriceSummary(variacoes = []) {
   return { parceladoLabel: featured.parceladoRaw || '', vistaLabel: pix.vistaRaw || '', savings };
 }
 
-function buildPriceSummaryHTML(summary) {
+function buildPriceSummaryHTML(summary, installmentLimit) {
   const wrap = document.createElement('div');
   wrap.className = 'catalog-prices';
   const featured = document.createElement('div');
@@ -35,11 +43,8 @@ function buildPriceSummaryHTML(summary) {
   featuredLabel.textContent = 'Parcelado';
   const featuredValue = document.createElement('strong');
   featuredValue.className = 'price-chip-value';
-  featuredValue.textContent = defaultInstallmentLabel;
-  const featuredNote = document.createElement('span');
-  featuredNote.className = 'price-chip-note';
-  featuredNote.textContent = installmentRangeNote;
-  featured.append(featuredLabel, featuredValue, featuredNote);
+  featuredValue.textContent = buildInstallmentLabel(installmentLimit);
+  featured.append(featuredLabel, featuredValue);
 
   const pix = document.createElement('div');
   pix.className = 'price-chip price-chip-pix';
@@ -100,7 +105,7 @@ async function loadCatalog() {
     const code = document.createElement('div');
     code.className = 'card-code';
     code.textContent = 'Coleção Verão · Ver variações';
-    info.append(name, code, buildPriceSummaryHTML(getCollectionPriceSummary(c.variacoes)));
+    info.append(name, code, buildPriceSummaryHTML(getCollectionPriceSummary(c.variacoes), c.parcelamento_maximo));
     card.append(photo, info);
     grid.append(card);
   });

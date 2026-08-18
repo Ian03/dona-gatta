@@ -669,7 +669,8 @@ body {
     font-weight: 600;
 }
 
-.form-group input[type="text"] {
+.form-group input[type="text"],
+.form-group input[type="number"] {
     width: 100%;
     padding: 12px;
     border: 1px solid var(--border-color);
@@ -701,6 +702,7 @@ body {
 
 .form-group textarea:focus,
 .form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
 .form-group select:focus {
     outline: none;
     border-color: var(--accent-color);
