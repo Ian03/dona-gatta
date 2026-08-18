@@ -323,7 +323,11 @@ document.addEventListener('DOMContentLoaded', () => {
         loginError.textContent = '';
         resetEditor();
     });
-    toggleSidebar.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+    toggleSidebar.addEventListener('click', () => {
+        const collapsed = sidebar.classList.toggle('collapsed');
+        toggleSidebar.setAttribute('aria-expanded', String(!collapsed));
+        toggleSidebar.setAttribute('aria-label', collapsed ? 'Expandir menu lateral' : 'Recolher menu lateral');
+    });
     document.querySelectorAll('.sidebar-nav a[data-target]').forEach(link => {
         link.addEventListener('click', event => {
             event.preventDefault();

@@ -68,14 +68,25 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h3>Dona Gatta</h3>
-                <button id="toggleSidebar" class="toggle-btn"><i class="fas fa-bars"></i></button>
+                <div class="sidebar-brand">
+                    <span class="sidebar-brand-mark">DG</span>
+                    <div class="sidebar-brand-copy">
+                        <strong>Dona Gatta</strong>
+                        <small>Painel Admin</small>
+                    </div>
+                </div>
+                <button id="toggleSidebar" class="toggle-btn" aria-label="Recolher menu lateral" aria-expanded="true"><i class="fas fa-angle-left"></i></button>
             </div>
             
             <nav class="sidebar-nav">
                 <ul>
                     <li class="active"><a href="#" data-target="dashboard"><i class="fas fa-home"></i> <span>Início</span></a></li>
                     <li><a href="#" data-target="collections"><i class="fas fa-images"></i> <span>Coleções</span></a></li>
+                </ul>
+            </nav>
+
+            <nav class="sidebar-nav sidebar-nav-bottom">
+                <ul>
                     <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></a></li>
                 </ul>
             </nav>
