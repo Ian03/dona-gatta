@@ -371,6 +371,30 @@ body {
     border-radius: 4px;
 }
 
+.form-group textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.55;
+    resize: vertical;
+}
+
+.form-group textarea:focus,
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px rgba(185, 133, 61, 0.35);
+}
+
+#colIntroText {
+    min-height: 180px;
+}
+
 .file-upload-wrapper {
     position: relative;
     border: 2px dashed var(--border-color);
@@ -579,6 +603,12 @@ body {
     .edit-form {
         padding: 18px 14px;
         max-width: none;
+    }
+
+    #colIntroText {
+        min-height: 140px;
+        padding: 12px 14px;
+        font-size: .95rem;
     }
 
     .file-upload-wrapper {
