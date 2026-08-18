@@ -45,8 +45,11 @@ function buildPriceBlock(installmentValue, cashValue, installmentLimit) {
   featuredLabel.textContent = 'Parcelado';
   const featuredValue = document.createElement('strong');
   featuredValue.className = 'price-value';
-  featuredValue.textContent = buildInstallmentLabel(installmentLimit);
-  featured.append(featuredLabel, featuredValue);
+  featuredValue.textContent = installmentValue || 'Consulte';
+  const featuredNote = document.createElement('span');
+  featuredNote.className = 'price-saving';
+  featuredNote.textContent = buildInstallmentLabel(installmentLimit);
+  featured.append(featuredLabel, featuredValue, featuredNote);
 
   const pix = document.createElement('div');
   pix.className = 'price-card price-card-pix';

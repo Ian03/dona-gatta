@@ -93,8 +93,11 @@ function buildPriceSummaryHTML(summary, installmentLimit) {
   featuredLabel.textContent = 'Parcelado';
   const featuredValue = document.createElement('strong');
   featuredValue.className = 'price-chip-value';
-  featuredValue.textContent = buildInstallmentLabel(installmentLimit);
-  featured.append(featuredLabel, featuredValue);
+  featuredValue.textContent = summary?.parceladoLabel || 'Consulte';
+  const featuredNote = document.createElement('span');
+  featuredNote.className = 'price-chip-note';
+  featuredNote.textContent = buildInstallmentLabel(installmentLimit);
+  featured.append(featuredLabel, featuredValue, featuredNote);
 
   const pix = document.createElement('div');
   pix.className = 'price-chip price-chip-pix';
