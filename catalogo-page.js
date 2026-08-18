@@ -8,6 +8,9 @@ function formatBrazilianPrice(value) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 }
 
+const defaultInstallmentLabel = 'Até 5x sem juros';
+const installmentRangeNote = 'Opções de 1x até 12x no site · acima de 6x com juros';
+
 function getCollectionPriceSummary(variacoes = []) {
   const valid = variacoes.map(v => ({
     parceladoRaw: v.valor_parcelado,
@@ -32,10 +35,10 @@ function buildPriceSummaryHTML(summary) {
   featuredLabel.textContent = 'Parcelado';
   const featuredValue = document.createElement('strong');
   featuredValue.className = 'price-chip-value';
-  featuredValue.textContent = summary?.parceladoLabel || 'Consulte';
+  featuredValue.textContent = defaultInstallmentLabel;
   const featuredNote = document.createElement('span');
   featuredNote.className = 'price-chip-note';
-  featuredNote.textContent = 'Mais destaque para pagamento parcelado';
+  featuredNote.textContent = installmentRangeNote;
   featured.append(featuredLabel, featuredValue, featuredNote);
 
   const pix = document.createElement('div');

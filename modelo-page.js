@@ -18,6 +18,8 @@ function formatBrazilianPrice(value) {
 
 const defaultCollectionEyebrow = 'Coleção Verão';
 const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
+const defaultInstallmentLabel = 'Até 5x sem juros';
+const installmentRangeNote = 'Opções de 1x até 12x no site · acima de 6x com juros';
 
 function buildPriceBlock(installmentValue, cashValue) {
   const parcelado = parseBrazilianPrice(installmentValue);
@@ -34,8 +36,11 @@ function buildPriceBlock(installmentValue, cashValue) {
   featuredLabel.textContent = 'Parcelado';
   const featuredValue = document.createElement('strong');
   featuredValue.className = 'price-value';
-  featuredValue.textContent = installmentValue || 'Consulte';
-  featured.append(featuredLabel, featuredValue);
+  featuredValue.textContent = defaultInstallmentLabel;
+  const featuredNote = document.createElement('span');
+  featuredNote.className = 'price-saving price-installment-note';
+  featuredNote.textContent = installmentRangeNote;
+  featured.append(featuredLabel, featuredValue, featuredNote);
 
   const pix = document.createElement('div');
   pix.className = 'price-card price-card-pix';

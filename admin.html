@@ -82,6 +82,7 @@
                 <ul>
                     <li class="active"><a href="#" data-target="dashboard"><i class="fas fa-home"></i> <span>Início</span></a></li>
                     <li><a href="#" data-target="collections"><i class="fas fa-images"></i> <span>Coleções</span></a></li>
+                    <li><a href="#" data-target="pdfExport"><i class="fas fa-file-pdf"></i> <span>Exportar coleção para PDF</span></a></li>
                 </ul>
             </nav>
 
@@ -164,6 +165,32 @@
                             <button type="submit" class="btn-primary btn-lg">Salvar Coleção</button>
                         </div>
                     </form>
+                </section>
+
+                <section id="pdfExportView" class="view-section" style="display: none;">
+                    <div class="section-header">
+                        <h3>Exportar coleção para PDF</h3>
+                    </div>
+
+                    <div class="edit-form export-panel">
+                        <div class="form-group">
+                            <label for="pdfCollectionSelect">Escolha a coleção</label>
+                            <select id="pdfCollectionSelect">
+                                <option value="">Selecione uma coleção</option>
+                            </select>
+                        </div>
+
+                        <div class="export-help">
+                            O PDF será aberto em formato pronto para impressão. Depois, escolha “Salvar como PDF” no navegador e compartilhe no WhatsApp.
+                        </div>
+
+                        <div class="form-actions export-actions">
+                            <button type="button" id="exportPdfBtn" class="btn-primary btn-lg">
+                                <i class="fas fa-file-export"></i>
+                                Exportar coleção em PDF
+                            </button>
+                        </div>
+                    </div>
                 </section>
 
             </div>

@@ -20,8 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const colCover = document.getElementById('colCover');
     const coverPreview = document.getElementById('coverPreview');
     const editViewTitle = document.getElementById('editViewTitle');
+    const pdfCollectionSelect = document.getElementById('pdfCollectionSelect');
+    const exportPdfBtn = document.getElementById('exportPdfBtn');
     const defaultCollectionEyebrow = 'Coleção Verão';
     const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
+    const defaultInstallmentLabel = 'Até 5x sem juros';
+    const installmentRangeNote = 'Opções de 1x até 12x no site · acima de 6x com juros';
     const allowedAdminEmail = 'admin@donagatta.com';
     const maxImageSizeBytes = 5 * 1024 * 1024;
     const allowedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -67,6 +71,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function showView(viewId) {
         document.querySelectorAll('.view-section').forEach(section => section.style.display = 'none');
         document.getElementById(viewId).style.display = 'block';
+    }
+
+    function formatBrazilianPrice(value) {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value);
+    }
+
+    function parseBrazilianPrice(value) {
+        if (value == null) return NaN;
+        const normalized = String(value)
+            .replace(/\s+/g, '')
+            .replace(/[R$r$\u00A0]/g, '')
+            .replace(/\./g, '')
+            .replace(',', '.')
+            .replace(/[^0-9.-]/g, '');
+        return Number(normalized);
     }
 
     function showAdminApp() {
@@ -282,6 +304,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        pdfCollectionSelect.replaceChildren();
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Selecione uma coleção';
+        pdfCollectionSelect.append(placeholder);
+
         collectionsGrid.replaceChildren();
         if (!data?.length) {
             collectionsGrid.textContent = 'Nenhuma coleção criada ainda.';
@@ -289,6 +317,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         data.forEach(collection => {
+            const option = document.createElement('option');
+            option.value = collection.id;
+            option.textContent = collection.nome;
+            pdfCollectionSelect.append(option);
+
             const card = document.createElement('article');
             card.className = 'collection-card';
             const image = document.createElement('div');
@@ -328,6 +361,138 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         await loadCollections();
+    }
+
+    function buildPdfMarkup(collection) {
+        const variations = (collection.variacoes || []).map((variation, index) => {
+            const parcelado = parseBrazilianPrice(variation.valor_parcelado);
+            const vista = parseBrazilianPrice(variation.valor_vista);
+            const savings = Number.isFinite(parcelado) && Number.isFinite(vista) && parcelado >= vista
+                ? parcelado - vista
+                : 0;
+
+            return `
+                <article class="pdf-card">
+                    <div class="pdf-image-wrap">
+                        ${variation.imagem_url ? `<img src="${variation.imagem_url}" alt="${collection.nome} - ${variation.descricao || `Variação ${index + 1}`}">` : '<div class="pdf-image-fallback">Sem imagem</div>'}
+                    </div>
+                    <div class="pdf-card-body">
+                        <div class="pdf-model-name">${collection.nome}</div>
+                        <div class="pdf-variation-name">${variation.descricao || `Variação ${index + 1}`}</div>
+                        <div class="pdf-price-box pdf-price-box-featured">
+                            <span class="pdf-price-label">Parcelado</span>
+                            <strong class="pdf-price-value">${defaultInstallmentLabel}</strong>
+                            <span class="pdf-price-note">${installmentRangeNote}</span>
+                        </div>
+                        <div class="pdf-price-box pdf-price-box-pix">
+                            <span class="pdf-price-label">À vista no Pix</span>
+                            <strong class="pdf-price-value">${variation.valor_vista || 'Consulte'}</strong>
+                            <span class="pdf-price-note">${savings > 0 ? `Economize ${formatBrazilianPrice(savings)} no Pix` : 'Consulte o melhor valor à vista'}</span>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }).join('');
+
+        return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${collection.nome} - PDF</title>
+    <style>
+        :root{--wine:#401010;--cream:#fbf4ee;--text:#3d2020;--line:#e8d7c8;--gold:#b9853d;--pix:#f7eee5}
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:var(--text)}
+        .pdf-shell{padding:32px}
+        .pdf-header{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;margin-bottom:28px}
+        .pdf-header-copy{padding:20px 0}
+        .pdf-eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#7a5740}
+        .pdf-title{font-family:Georgia,serif;font-size:44px;line-height:.9;margin:14px 0 18px;color:var(--wine)}
+        .pdf-intro{font-size:16px;line-height:1.65;max-width:520px}
+        .pdf-cover img{width:100%;max-height:360px;object-fit:cover;border:1px solid var(--line)}
+        .pdf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+        .pdf-card{background:#fffaf6;border:1px solid var(--line);page-break-inside:avoid}
+        .pdf-image-wrap{aspect-ratio:4/5;background:#efe3d7;overflow:hidden}
+        .pdf-image-wrap img{width:100%;height:100%;object-fit:cover}
+        .pdf-image-fallback{display:grid;place-items:center;height:100%;color:#7a5740}
+        .pdf-card-body{padding:16px}
+        .pdf-model-name{font-size:14px;letter-spacing:.16em;text-transform:uppercase}
+        .pdf-variation-name{margin-top:6px;color:#7a5740;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+        .pdf-price-box{display:grid;gap:4px;padding:10px 12px;border-radius:12px;margin-top:12px;border:1px solid var(--line)}
+        .pdf-price-box-featured{background:linear-gradient(135deg,var(--wine),#5b1a1a);border-color:rgba(64,16,16,.9)}
+        .pdf-price-box-pix{background:var(--pix)}
+        .pdf-price-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase}
+        .pdf-price-box-featured .pdf-price-label{color:#ecdccf}
+        .pdf-price-box-pix .pdf-price-label{color:#7c5b49}
+        .pdf-price-value{font-size:19px;line-height:1.05}
+        .pdf-price-box-featured .pdf-price-value{color:#fff}
+        .pdf-price-box-pix .pdf-price-value{color:var(--wine)}
+        .pdf-price-note{font-size:10px;line-height:1.4}
+        .pdf-price-box-featured .pdf-price-note{color:#e8cdbd}
+        .pdf-price-box-pix .pdf-price-note{color:#8b5a1d;font-weight:600}
+        .pdf-footer{margin-top:24px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7a5740}
+        @page{size:A4;margin:14mm}
+        @media print {.pdf-shell{padding:0}.pdf-header{margin-bottom:18px}.pdf-grid{gap:14px}}
+    </style>
+</head>
+<body>
+    <div class="pdf-shell">
+        <section class="pdf-header">
+            <div class="pdf-header-copy">
+                <div class="pdf-eyebrow">${collection.catalogo_eyebrow || defaultCollectionEyebrow}</div>
+                <h1 class="pdf-title">${collection.nome}</h1>
+                <p class="pdf-intro">${collection.catalogo_intro || defaultCollectionIntro}</p>
+            </div>
+            <div class="pdf-cover">
+                ${collection.capa_url ? `<img src="${collection.capa_url}" alt="${collection.nome}">` : ''}
+            </div>
+        </section>
+        <section class="pdf-grid">${variations}</section>
+        <footer class="pdf-footer">Dona Gatta · Parcelamento padrão exibido: até 5x sem juros</footer>
+    </div>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => window.print(), 300);
+        });
+    </script>
+</body>
+</html>`;
+    }
+
+    async function exportCollectionToPdf() {
+        const collectionId = pdfCollectionSelect.value;
+        if (!collectionId) {
+            alert('Selecione uma coleção para exportar.');
+            return;
+        }
+
+        exportPdfBtn.disabled = true;
+        const originalHtml = exportPdfBtn.innerHTML;
+        exportPdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparando PDF...';
+
+        try {
+            const { data: collection, error } = await supabaseClient
+                .from('colecoes')
+                .select('*, variacoes(*)')
+                .eq('id', collectionId)
+                .single();
+
+            if (error || !collection) throw error || new Error('Coleção não encontrada.');
+
+            const popup = window.open('', '_blank', 'noopener,noreferrer,width=1200,height=900');
+            if (!popup) throw new Error('O navegador bloqueou a janela de exportação. Libere pop-ups para continuar.');
+
+            popup.document.open();
+            popup.document.write(buildPdfMarkup(collection));
+            popup.document.close();
+        } catch (error) {
+            console.error(error);
+            alert(error.message || 'Não foi possível exportar a coleção em PDF.');
+        } finally {
+            exportPdfBtn.disabled = false;
+            exportPdfBtn.innerHTML = originalHtml;
+        }
     }
 
     loginForm.addEventListener('submit', async event => {
@@ -388,10 +553,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = link.dataset.target;
             document.querySelectorAll('.sidebar-nav li').forEach(item => item.classList.remove('active'));
             link.closest('li').classList.add('active');
-            document.getElementById('pageTitle').textContent = target === 'dashboard'
-                ? 'Visão geral das coleções'
-                : 'Gerenciador de Coleções';
-            showView('collectionsView');
+            const titleByTarget = {
+                dashboard: 'Visão geral das coleções',
+                collections: 'Gerenciador de Coleções',
+                pdfExport: 'Exportar coleção para PDF'
+            };
+            document.getElementById('pageTitle').textContent = titleByTarget[target] || 'Painel Administrativo';
+            const targetViewByMenu = {
+                dashboard: 'collectionsView',
+                collections: 'collectionsView',
+                pdfExport: 'pdfExportView'
+            };
+            showView(targetViewByMenu[target] || 'collectionsView');
             loadCollections();
         });
     });
@@ -410,6 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showImagePreview(coverPreview, URL.createObjectURL(coverFile), 'cover-image');
     });
     collectionForm.addEventListener('submit', saveCollection);
+    exportPdfBtn.addEventListener('click', exportCollectionToPdf);
 
     (async () => {
         if (!supabaseClient) {
