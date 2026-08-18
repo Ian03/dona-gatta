@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editViewTitle = document.getElementById('editViewTitle');
     const defaultCollectionEyebrow = 'Coleção Verão';
     const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
+    const allowedAdminEmail = 'admin@donagatta.com';
 
     let editingCollection = null;
     let coverFile = null;
@@ -48,6 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function showView(viewId) {
         document.querySelectorAll('.view-section').forEach(section => section.style.display = 'none');
         document.getElementById(viewId).style.display = 'block';
+    }
+
+    function showAdminApp() {
+        loginModal.style.display = 'none';
+        adminApp.style.display = 'flex';
+    }
+
+    function showLogin() {
+        adminApp.style.display = 'none';
+        loginModal.style.display = 'flex';
     }
 
     function resetEditor() {
@@ -296,16 +307,36 @@ document.addEventListener('DOMContentLoaded', () => {
         await loadCollections();
     }
 
-    loginForm.addEventListener('submit', event => {
+    loginForm.addEventListener('submit', async event => {
         event.preventDefault();
-        const user = document.getElementById('username').value;
-        const password = passwordInput.value;
-        if (user === 'admin' && password === 'admin4030') {
-            loginModal.style.display = 'none';
-            adminApp.style.display = 'flex';
-            loadCollections();
-        } else {
-            loginError.textContent = 'Usuário ou senha incorretos.';
+        loginError.textContent = '';
+        const submitButton = loginForm.querySelector('button[type="submit"]');
+        const originalButtonHtml = submitButton.innerHTML;
+        submitButton.innerHTML = '<span>Entrando...</span><i class="fas fa-arrow-right"></i>';
+        submitButton.disabled = true;
+
+        try {
+            const email = document.getElementById('username').value.trim().toLowerCase();
+            const password = passwordInput.value;
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+
+            const signedEmail = data.user?.email?.toLowerCase();
+            if (signedEmail !== allowedAdminEmail) {
+                await supabaseClient.auth.signOut();
+                throw new Error('Este usuário não tem permissão para acessar o painel.');
+            }
+
+            showAdminApp();
+            await loadCollections();
+        } catch (error) {
+            console.error(error);
+            loginError.textContent = error.message === 'Invalid login credentials'
+                ? 'Email ou senha incorretos.'
+                : error.message;
+        } finally {
+            submitButton.innerHTML = originalButtonHtml;
+            submitButton.disabled = false;
         }
     });
     passwordToggle?.addEventListener('click', () => {
@@ -315,10 +346,10 @@ document.addEventListener('DOMContentLoaded', () => {
         passwordToggle.setAttribute('aria-pressed', String(show));
         passwordToggle.innerHTML = show ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
     });
-    logoutBtn.addEventListener('click', event => {
+    logoutBtn.addEventListener('click', async event => {
         event.preventDefault();
-        adminApp.style.display = 'none';
-        loginModal.style.display = 'flex';
+        await supabaseClient.auth.signOut();
+        showLogin();
         loginForm.reset();
         loginError.textContent = '';
         resetEditor();
@@ -348,5 +379,26 @@ document.addEventListener('DOMContentLoaded', () => {
         coverFile = colCover.files[0] || null;
         if (coverFile) showImagePreview(coverPreview, URL.createObjectURL(coverFile), 'cover-image');
     });
-        collectionForm.addEventListener('submit', saveCollection);
+    collectionForm.addEventListener('submit', saveCollection);
+
+    (async () => {
+        if (!supabaseClient) {
+            loginError.textContent = 'Falha ao iniciar o login.';
+            return;
+        }
+
+        const { data, error } = await supabaseClient.auth.getSession();
+        if (error) {
+            console.error(error);
+            return;
+        }
+
+        const sessionEmail = data.session?.user?.email?.toLowerCase();
+        if (sessionEmail === allowedAdminEmail) {
+            showAdminApp();
+            await loadCollections();
+        } else {
+            showLogin();
+        }
+    })();
 });
