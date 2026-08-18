@@ -37,6 +37,48 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="db.js"></script>
 <script>
+    function parseBrazilianPrice(value) {
+        if (value == null) return NaN;
+        const normalized = String(value)
+            .replace(/\s+/g, '')
+            .replace(/[R$r$\u00A0]/g, '')
+            .replace(/\./g, '')
+            .replace(',', '.')
+            .replace(/[^0-9.-]/g, '');
+        return Number(normalized);
+    }
+
+    function formatBrazilianPrice(value) {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value);
+    }
+
+    function buildPriceBlock(installmentValue, cashValue) {
+        const parcelado = parseBrazilianPrice(installmentValue);
+        const vista = parseBrazilianPrice(cashValue);
+        const hasValidPrices = Number.isFinite(parcelado) && Number.isFinite(vista) && parcelado >= vista;
+        const savings = hasValidPrices ? parcelado - vista : 0;
+
+        return `
+            <div class="price-block">
+                <div class="price-card price-card-featured">
+                    <span class="price-label">Parcelado</span>
+                    <strong class="price-value">${installmentValue}</strong>
+                    <span class="price-note">Mais destaque para pagamento parcelado</span>
+                </div>
+                <div class="price-card price-card-pix">
+                    <span class="price-label">À vista no Pix</span>
+                    <strong class="price-value">${cashValue}</strong>
+                    ${hasValidPrices && savings > 0
+                        ? `<span class="price-saving">Economize ${formatBrazilianPrice(savings)} no Pix</span>`
+                        : `<span class="price-saving price-saving-neutral">Melhor valor para pagamento à vista</span>`}
+                </div>
+            </div>
+        `;
+    }
+
     async function loadModel() {
         const urlParams = new URLSearchParams(window.location.search);
         const modelId = urlParams.get('id');
@@ -79,10 +121,7 @@
                     <div>
                         <div class="variation-name">${model.nome}</div>
                         <div class="choice">${v.descricao}</div>
-                        <div style="font-size: 11px; margin-top: 4px; color: var(--wine);">
-                            À vista: <b>${v.valor_vista}</b><br>
-                            Parcelado: <b>${v.valor_parcelado}</b>
-                        </div>
+                        ${buildPriceBlock(v.valor_parcelado, v.valor_vista)}
                     </div>
                     <a class="choose" href="https://wa.me/5575981513433?text=${encodeURIComponent('Olá! Gostaria de consultar o modelo ' + model.nome + ' (' + v.descricao + ').')}" target="_blank" rel="noopener">Escolher</a>
                 </div>
