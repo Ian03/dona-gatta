@@ -376,35 +376,39 @@ document.addEventListener('DOMContentLoaded', () => {
         await loadCollections();
     }
 
-    function buildPdfMarkup(collection) {
-        const installmentLabel = buildInstallmentLabel(collection.parcelamento_maximo);
-        const variations = (collection.variacoes || []).map((variation, index) => {
-            const parcelado = parseBrazilianPrice(variation.valor_parcelado);
-            const vista = parseBrazilianPrice(variation.valor_vista);
-            const savings = Number.isFinite(parcelado) && Number.isFinite(vista) && parcelado >= vista
-                ? parcelado - vista
-                : 0;
+    function buildPdfMarkup(selectedCollection, groupedCollections) {
+        const groupName = (selectedCollection.catalogo_eyebrow || defaultCollectionEyebrow).trim() || defaultCollectionEyebrow;
+        const groupIntro = (selectedCollection.catalogo_intro || defaultCollectionIntro).trim() || defaultCollectionIntro;
+        const cards = groupedCollections.flatMap(collection => {
+            const installmentLabel = buildInstallmentLabel(collection.parcelamento_maximo);
+            return (collection.variacoes || []).map((variation, index) => {
+                const parcelado = parseBrazilianPrice(variation.valor_parcelado);
+                const vista = parseBrazilianPrice(variation.valor_vista);
+                const savings = Number.isFinite(parcelado) && Number.isFinite(vista) && parcelado >= vista
+                    ? parcelado - vista
+                    : 0;
 
-            return `
-                <article class="pdf-card">
-                    <div class="pdf-image-wrap">
-                        ${variation.imagem_url ? `<img src="${variation.imagem_url}" alt="${collection.nome} - ${variation.descricao || `Variação ${index + 1}`}">` : '<div class="pdf-image-fallback">Sem imagem</div>'}
-                    </div>
-                    <div class="pdf-card-body">
-                        <div class="pdf-model-name">${collection.nome}</div>
-                        <div class="pdf-variation-name">${variation.descricao || `Variação ${index + 1}`}</div>
-                        <div class="pdf-price-box pdf-price-box-featured">
-                            <span class="pdf-price-label">Parcelado</span>
-                            <strong class="pdf-price-value">${installmentLabel}</strong>
+                return `
+                    <article class="pdf-card">
+                        <div class="pdf-image-wrap">
+                            ${variation.imagem_url ? `<img src="${variation.imagem_url}" alt="${collection.nome} - ${variation.descricao || `Variação ${index + 1}`}">` : '<div class="pdf-image-fallback">Sem imagem</div>'}
                         </div>
-                        <div class="pdf-price-box pdf-price-box-pix">
-                            <span class="pdf-price-label">À vista no Pix</span>
-                            <strong class="pdf-price-value">${variation.valor_vista || 'Consulte'}</strong>
-                            <span class="pdf-price-note">${savings > 0 ? `Economize ${formatBrazilianPrice(savings)} no Pix` : 'Consulte o melhor valor à vista'}</span>
+                        <div class="pdf-card-body">
+                            <div class="pdf-model-name">${collection.nome}</div>
+                            <div class="pdf-variation-name">${variation.descricao || `Variação ${index + 1}`}</div>
+                            <div class="pdf-price-box pdf-price-box-featured">
+                                <span class="pdf-price-label">Parcelado</span>
+                                <strong class="pdf-price-value">${installmentLabel}</strong>
+                            </div>
+                            <div class="pdf-price-box pdf-price-box-pix">
+                                <span class="pdf-price-label">À vista no Pix</span>
+                                <strong class="pdf-price-value">${variation.valor_vista || 'Consulte'}</strong>
+                                <span class="pdf-price-note">${savings > 0 ? `Economize ${formatBrazilianPrice(savings)} no Pix` : 'Consulte o melhor valor à vista'}</span>
+                            </div>
                         </div>
-                    </div>
-                </article>
-            `;
+                    </article>
+                `;
+            });
         }).join('');
 
         return `<!DOCTYPE html>
@@ -412,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${collection.nome} - PDF</title>
+    <title>${groupName} - PDF</title>
     <style>
         :root{--wine:#401010;--cream:#fbf4ee;--text:#3d2020;--line:#e8d7c8;--gold:#b9853d;--pix:#f7eee5}
         *{box-sizing:border-box}
@@ -453,15 +457,15 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="pdf-shell">
         <section class="pdf-header">
             <div class="pdf-header-copy">
-                <div class="pdf-eyebrow">${collection.catalogo_eyebrow || defaultCollectionEyebrow}</div>
-                <h1 class="pdf-title">${collection.nome}</h1>
-                <p class="pdf-intro">${collection.catalogo_intro || defaultCollectionIntro}</p>
+                <div class="pdf-eyebrow">Grupo da coleção</div>
+                <h1 class="pdf-title">${groupName}</h1>
+                <p class="pdf-intro">${groupIntro}</p>
             </div>
             <div class="pdf-cover">
-                ${collection.capa_url ? `<img src="${collection.capa_url}" alt="${collection.nome}">` : ''}
+                ${selectedCollection.capa_url ? `<img src="${selectedCollection.capa_url}" alt="${groupName}">` : ''}
             </div>
         </section>
-        <section class="pdf-grid">${variations}</section>
+        <section class="pdf-grid">${cards}</section>
         <footer class="pdf-footer">Dona Gatta · Catálogo de coleção</footer>
     </div>
     <script>
@@ -493,11 +497,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (error || !collection) throw error || new Error('Coleção não encontrada.');
 
+            const groupName = (collection.catalogo_eyebrow || defaultCollectionEyebrow).trim() || defaultCollectionEyebrow;
+
+            const { data: groupedCollections, error: groupedError } = await supabaseClient
+                .from('colecoes')
+                .select('*, variacoes(*)')
+                .eq('catalogo_eyebrow', groupName)
+                .order('created_at', { ascending: false });
+
+            if (groupedError || !groupedCollections?.length) {
+                throw groupedError || new Error('Não foi possível carregar o grupo da coleção para exportação.');
+            }
+
             const popup = window.open('', '_blank', 'noopener,noreferrer,width=1200,height=900');
             if (!popup) throw new Error('O navegador bloqueou a janela de exportação. Libere pop-ups para continuar.');
 
             popup.document.open();
-            popup.document.write(buildPdfMarkup(collection));
+            popup.document.write(buildPdfMarkup(collection, groupedCollections));
             popup.document.close();
         } catch (error) {
             console.error(error);
