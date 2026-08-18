@@ -425,25 +425,34 @@ document.addEventListener('DOMContentLoaded', () => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${groupName} - PDF</title>
     <style>
-        :root{--wine:#401010;--cream:#fbf4ee;--text:#3d2020;--line:#e8d7c8;--gold:#b9853d;--pix:#f7eee5}
+        :root{--wine:#401010;--wine-deep:#2c0a0a;--cream:#fbf4ee;--text:#3d2020;--line:#e8d7c8;--gold:#b9853d;--pix:#f7eee5;--paper:#fffdf9}
         *{box-sizing:border-box}
-        body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:var(--text)}
-        .pdf-shell{padding:32px}
-        .pdf-header{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;margin-bottom:28px}
-        .pdf-header-copy{padding:20px 0}
-        .pdf-eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#7a5740}
-        .pdf-title{font-family:Georgia,serif;font-size:44px;line-height:.9;margin:14px 0 18px;color:var(--wine)}
-        .pdf-intro{font-size:16px;line-height:1.65;max-width:520px}
-        .pdf-cover img{width:100%;max-height:360px;object-fit:cover;border:1px solid var(--line)}
-        .pdf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-        .pdf-card{background:#fffaf6;border:1px solid var(--line);page-break-inside:avoid}
+        body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#f7ede4 0%,#fbf4ee 100%);color:var(--text)}
+        .pdf-shell{padding:26px}
+        .pdf-cover-panel{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--wine) 0%,#5b1a1a 50%,var(--wine-deep) 100%);color:#fff7f0;border-radius:28px;padding:34px 34px 30px;margin-bottom:24px;min-height:320px}
+        .pdf-cover-panel:before{content:"";position:absolute;inset:auto -50px -90px auto;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 68%)}
+        .pdf-cover-panel:after{content:"";position:absolute;inset:20px auto auto 20px;width:120px;height:120px;border-radius:24px;border:1px solid rgba(255,255,255,.12);opacity:.45}
+        .pdf-header{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;position:relative;z-index:1}
+        .pdf-header-copy{padding:8px 0}
+        .pdf-eyebrow{font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#dfc3a5}
+        .pdf-title{font-family:Georgia,serif;font-size:52px;line-height:.88;margin:16px 0 14px;color:#fffdf9}
+        .pdf-intro{font-size:16px;line-height:1.7;max-width:520px;color:#f5ddd0}
+        .pdf-cover-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+        .pdf-badge{display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fce9d7}
+        .pdf-cover-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:14px;border-radius:22px;backdrop-filter:blur(4px)}
+        .pdf-cover img{width:100%;height:290px;object-fit:cover;border-radius:18px;display:block}
+        .pdf-section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:18px;padding:0 4px}
+        .pdf-section-title{font-family:Georgia,serif;font-size:26px;color:var(--wine);letter-spacing:.04em}
+        .pdf-section-subtitle{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8c6a54}
+        .pdf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+        .pdf-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 10px 24px rgba(64,16,16,.06);page-break-inside:avoid}
         .pdf-image-wrap{aspect-ratio:4/5;background:#efe3d7;overflow:hidden}
         .pdf-image-wrap img{width:100%;height:100%;object-fit:cover}
         .pdf-image-fallback{display:grid;place-items:center;height:100%;color:#7a5740}
-        .pdf-card-body{padding:16px}
-        .pdf-model-name{font-size:14px;letter-spacing:.16em;text-transform:uppercase}
-        .pdf-variation-name{margin-top:6px;color:#7a5740;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-        .pdf-price-box{display:grid;gap:4px;padding:10px 12px;border-radius:12px;margin-top:12px;border:1px solid var(--line)}
+        .pdf-card-body{padding:18px}
+        .pdf-model-name{font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--wine)}
+        .pdf-variation-name{margin-top:7px;color:#7a5740;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+        .pdf-price-box{display:grid;gap:4px;padding:11px 12px;border-radius:14px;margin-top:12px;border:1px solid var(--line)}
         .pdf-price-box-featured{background:linear-gradient(135deg,var(--wine),#5b1a1a);border-color:rgba(64,16,16,.9)}
         .pdf-price-box-pix{background:var(--pix)}
         .pdf-price-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase}
@@ -455,25 +464,40 @@ document.addEventListener('DOMContentLoaded', () => {
         .pdf-price-note{font-size:10px;line-height:1.4}
         .pdf-price-box-featured .pdf-price-note{color:#e8cdbd}
         .pdf-price-box-pix .pdf-price-note{color:#8b5a1d;font-weight:600}
-        .pdf-footer{margin-top:24px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7a5740}
+        .pdf-footer{margin-top:24px;padding:16px 4px 0;border-top:1px solid var(--line);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7a5740;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         @page{size:A4;margin:14mm}
-        @media print {.pdf-shell{padding:0}.pdf-header{margin-bottom:18px}.pdf-grid{gap:14px}}
+        @media print {.pdf-shell{padding:0}.pdf-cover-panel{margin-bottom:18px;border-radius:0;min-height:auto}.pdf-cover img{height:250px}.pdf-grid{gap:14px}.pdf-card{box-shadow:none}}
     </style>
 </head>
 <body>
     <div class="pdf-shell">
-        <section class="pdf-header">
-            <div class="pdf-header-copy">
-                <div class="pdf-eyebrow">Grupo da coleção</div>
-                <h1 class="pdf-title">${groupName}</h1>
-                <p class="pdf-intro">${groupIntro}</p>
-            </div>
-            <div class="pdf-cover">
-                ${selectedCollection.capa_url ? `<img src="${selectedCollection.capa_url}" alt="${groupName}">` : ''}
+        <section class="pdf-cover-panel">
+            <div class="pdf-header">
+                <div class="pdf-header-copy">
+                    <div class="pdf-eyebrow">Grupo da coleção</div>
+                    <h1 class="pdf-title">${groupName}</h1>
+                    <p class="pdf-intro">${groupIntro}</p>
+                    <div class="pdf-cover-meta">
+                        <span class="pdf-badge">${groupedCollections.length} modelos</span>
+                        <span class="pdf-badge">Catálogo para WhatsApp</span>
+                    </div>
+                </div>
+                <div class="pdf-cover-card">
+                    <div class="pdf-cover">
+                        ${selectedCollection.capa_url ? `<img src="${selectedCollection.capa_url}" alt="${groupName}">` : ''}
+                    </div>
+                </div>
             </div>
         </section>
+        <div class="pdf-section-head">
+            <div class="pdf-section-title">Modelos do grupo</div>
+            <div class="pdf-section-subtitle">Dona Gatta</div>
+        </div>
         <section class="pdf-grid">${cards}</section>
-        <footer class="pdf-footer">Dona Gatta · Catálogo de coleção</footer>
+        <footer class="pdf-footer">
+            <span>Dona Gatta · Catálogo de coleção</span>
+            <span>Gerado em 18/08/2026</span>
+        </footer>
     </div>
     <script>
         window.addEventListener('load', () => {
@@ -507,13 +531,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const collection = groupedCollections[0];
+            const existingFrame = document.getElementById('pdfExportFrame');
+            if (existingFrame) existingFrame.remove();
 
-            const popup = window.open('', '_blank', 'noopener,noreferrer,width=1200,height=900');
-            if (!popup) throw new Error('O navegador bloqueou a janela de exportação. Libere pop-ups para continuar.');
+            const printFrame = document.createElement('iframe');
+            printFrame.id = 'pdfExportFrame';
+            printFrame.style.position = 'fixed';
+            printFrame.style.width = '0';
+            printFrame.style.height = '0';
+            printFrame.style.opacity = '0';
+            printFrame.style.pointerEvents = 'none';
+            printFrame.style.border = '0';
+            printFrame.onload = () => {
+                if (!printFrame.contentWindow) return;
+                printFrame.contentWindow.focus();
+                printFrame.contentWindow.print();
+                window.setTimeout(() => printFrame.remove(), 1500);
+            };
+            document.body.append(printFrame);
 
-            popup.document.open();
-            popup.document.write(buildPdfMarkup(collection, groupedCollections));
-            popup.document.close();
+            const frameDocument = printFrame.contentWindow?.document;
+            if (!frameDocument || !printFrame.contentWindow) {
+                throw new Error('Não foi possível preparar a exportação em PDF.');
+            }
+
+            frameDocument.open();
+            frameDocument.write(buildPdfMarkup(collection, groupedCollections));
+            frameDocument.close();
         } catch (error) {
             console.error(error);
             alert(error.message || 'Não foi possível exportar a coleção em PDF.');
