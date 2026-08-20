@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultCollectionEyebrow = 'Coleção Verão';
     const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
     const allowedAdminEmail = 'admin@donagatta.com';
-    const maxImageSizeBytes = 5 * 1024 * 1024;
+    const maxImageSizeBytes = 30 * 1024 * 1024;
+    const maxUploadDimension = 1500;
+    const webpQuality = 0.8;
     const allowedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
     let editingCollection = null;
@@ -60,11 +62,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (file.size > maxImageSizeBytes) {
-            alert(`${fieldLabel}: o arquivo excede o limite de 5 MB.`);
+            alert(`${fieldLabel}: o arquivo excede o limite de ${Math.round(maxImageSizeBytes / (1024 * 1024))} MB.`);
             return false;
         }
 
         return true;
+    }
+
+    async function compressImage(file) {
+        if (!file) return file;
+        try {
+            const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+            const scale = Math.min(1, maxUploadDimension / Math.max(bitmap.width, bitmap.height));
+            const width = Math.max(1, Math.round(bitmap.width * scale));
+            const height = Math.max(1, Math.round(bitmap.height * scale));
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const context = canvas.getContext('2d');
+            context.drawImage(bitmap, 0, 0, width, height);
+            bitmap.close?.();
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/webp', webpQuality));
+            if (!blob || blob.size >= file.size) return file;
+            const name = `${file.name.replace(/\.[^.]+$/, '')}.webp`;
+            return new File([blob], name, { type: 'image/webp' });
+        } catch (error) {
+            console.warn('Não foi possível comprimir a imagem, o arquivo original será enviado.', error);
+            return file;
+        }
     }
 
     function showView(viewId) {
@@ -194,10 +219,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function uploadImage(file, pathFolder) {
         if (!file) return null;
-        const extension = file.name.split('.').pop();
+        const compressed = await compressImage(file);
+        const extension = compressed.name.split('.').pop().toLowerCase();
         const fileName = `${Date.now()}_${crypto.randomUUID()}.${extension}`;
         const filePath = `${pathFolder}/${fileName}`;
-        const { error } = await supabaseClient.storage.from('produtos').upload(filePath, file);
+        const { error } = await supabaseClient.storage.from('produtos').upload(filePath, compressed);
         if (error) throw error;
         return supabaseClient.storage.from('produtos').getPublicUrl(filePath).data.publicUrl;
     }
@@ -496,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <section class="pdf-grid">${cards}</section>
         <footer class="pdf-footer">
             <span>Dona Gatta · Catálogo de coleção</span>
-            <span>Gerado em 18/08/2026</span>
+                    <span>Gerado em ${new Date().toLocaleDateString('pt-BR')}</span>
         </footer>
     </div>
 </body>
@@ -531,9 +557,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const printFrame = document.createElement('iframe');
             printFrame.id = 'pdfExportFrame';
+            printFrame.setAttribute('aria-hidden', 'true');
             printFrame.style.position = 'fixed';
-            printFrame.style.width = '0';
-            printFrame.style.height = '0';
+            printFrame.style.left = '-10000px';
+            printFrame.style.top = '0';
+            printFrame.style.width = '794px';
+            printFrame.style.height = '1123px';
             printFrame.style.opacity = '0';
             printFrame.style.pointerEvents = 'none';
             printFrame.style.border = '0';
@@ -590,6 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             await waitForFrameReady();
+            await new Promise(resolve => window.setTimeout(resolve, 300));
 
             if (!printFrame.contentWindow) {
                 throw new Error('Não foi possível finalizar a exportação em PDF.');
