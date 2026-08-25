@@ -7,19 +7,17 @@
     <link rel="stylesheet" href="admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal-overlay">
+    <main class="modal-overlay">
         <div class="login-aurora" aria-hidden="true">
             <span class="aurora aurora-1"></span>
             <span class="aurora aurora-2"></span>
             <span class="aurora aurora-3"></span>
         </div>
-        <div class="login-container">
+
+        <section class="login-container maintenance-container" aria-labelledby="maintenanceTitle">
             <div class="login-background" aria-hidden="true">
                 <svg viewBox="0 0 800 240" preserveAspectRatio="none">
                     <defs>
@@ -32,179 +30,15 @@
                     <path d="M0,188 C145,150 255,250 395,214 C536,178 649,107 800,148 L800,240 L0,240 Z" fill="rgba(255,255,255,0.05)"></path>
                 </svg>
             </div>
-            <div class="login-brand">
+
+            <div class="login-brand maintenance-brand">
                 <span class="login-badge">Acesso restrito</span>
                 <img src="app-icon.svg" alt="Dona Gatta" class="login-logo-image">
                 <span class="logo">DONA <i>///</i> GATTA</span>
                 <span class="eyebrow">Painel Administrativo</span>
-                <p class="login-welcome">Acesse para gerenciar coleções, variações e conteúdos exibidos no site.</p>
+                <p class="login-welcome maintenance-message" id="maintenanceTitle">Estamos em manutenção interna</p>
             </div>
-            <form id="loginForm">
-                <div class="input-group login-field">
-                    <i class="fas fa-user"></i>
-                    <input type="email" id="username" required placeholder=" " autocomplete="username">
-                    <label for="username">Email</label>
-                </div>
-                <div class="input-group login-field">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="password" required placeholder=" " autocomplete="current-password">
-                    <label for="password">Senha</label>
-                    <button type="button" class="password-toggle" id="passwordToggle" aria-label="Mostrar senha" aria-pressed="false">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </div>
-                <p id="loginError" class="error-message"></p>
-                <button type="submit" class="btn-primary login-submit">
-                    <span>Entrar</span>
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Admin Layout (Hidden by default) -->
-    <div id="adminApp" class="admin-layout" style="display: none;">
-        
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-brand">
-                    <span class="sidebar-brand-mark">DG</span>
-                    <div class="sidebar-brand-copy">
-                        <strong>Dona Gatta</strong>
-                        <small>Painel Admin</small>
-                    </div>
-                </div>
-                <button id="toggleSidebar" class="toggle-btn" aria-label="Recolher menu lateral" aria-expanded="true"><i class="fas fa-angle-left"></i></button>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <ul>
-                    <li class="active"><a href="#" data-target="dashboard"><i class="fas fa-home"></i> <span>Início</span></a></li>
-                    <li><a href="#" data-target="collections"><i class="fas fa-images"></i> <span>Coleções</span></a></li>
-                    <li><a href="#" data-target="pdfExport"><i class="fas fa-file-pdf"></i> <span>Exportar coleção para PDF</span></a></li>
-                </ul>
-            </nav>
-
-            <nav class="sidebar-nav sidebar-nav-bottom">
-                <ul>
-                    <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></a></li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            
-            <header class="top-header">
-                <div class="header-title">
-                    <h2 id="pageTitle">Gerenciador de Coleções</h2>
-                </div>
-            </header>
-
-            <div class="content-area">
-                
-                <!-- Dashboard / Collections View -->
-                <section id="collectionsView" class="view-section active">
-                    <div class="section-header">
-                        <h3>Suas Coleções</h3>
-                        <button id="newCollectionBtn" class="btn-primary"><i class="fas fa-plus"></i> Nova Coleção</button>
-                    </div>
-                    
-                    <div class="collections-grid" id="collectionsGrid">
-                        <!-- Coleções serão renderizadas aqui via JS -->
-                    </div>
-                </section>
-
-                <!-- Create/Edit Collection View -->
-                <section id="editCollectionView" class="view-section" style="display: none;">
-                    <div class="section-header">
-                        <h3 id="editViewTitle">Nova Coleção</h3>
-                        <button id="backToCollections" class="btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</button>
-                    </div>
-
-                    <form id="collectionForm" class="edit-form">
-                        <div class="form-group">
-                            <label>Nome da Coleção</label>
-                            <input type="text" id="colName" required placeholder="Ex: Coleção Verão 2024">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Texto superior da página da coleção</label>
-                            <input type="text" id="colEyebrow" placeholder="Ex: Coleção Verão">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Texto descritivo da página da coleção</label>
-                            <textarea id="colIntroText" rows="4" placeholder="Ex: Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe."></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Parcelamento máximo exibido no site</label>
-                            <input type="number" id="colInstallments" min="1" max="12" step="1" placeholder="5">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Foto de Capa (Modelo)</label>
-                            <div class="file-upload-wrapper">
-                                <input type="file" id="colCover" accept="image/*" class="file-input">
-                                <div class="upload-placeholder" id="coverPreview">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <p>Clique para selecionar a capa</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="variations-section">
-                            <div class="section-header">
-                                <h4>Fotos das Variações</h4>
-                                <button type="button" id="addVariationBtn" class="btn-secondary btn-sm"><i class="fas fa-plus"></i> Adicionar Foto</button>
-                            </div>
-                            
-                            <div id="variationsContainer" class="variations-list">
-                                <!-- Variações serão adicionadas aqui -->
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <button type="submit" class="btn-primary btn-lg">Salvar Coleção</button>
-                        </div>
-                    </form>
-                </section>
-
-                <section id="pdfExportView" class="view-section" style="display: none;">
-                    <div class="section-header">
-                        <h3>Exportar coleção para PDF</h3>
-                    </div>
-
-                    <div class="edit-form export-panel">
-                        <div class="form-group">
-                            <label for="pdfCollectionSelect">Escolha o grupo da coleção</label>
-                            <select id="pdfCollectionSelect">
-                                <option value="">Selecione um grupo</option>
-                            </select>
-                        </div>
-
-                        <div class="export-help">
-                            O PDF será aberto em formato pronto para impressão. Depois, escolha “Salvar como PDF” no navegador e compartilhe no WhatsApp.
-                        </div>
-
-                        <div class="form-actions export-actions">
-                            <button type="button" id="exportPdfBtn" class="btn-primary btn-lg">
-                                <i class="fas fa-file-export"></i>
-                                Exportar coleção em PDF
-                            </button>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </main>
-    </div>
-
-    <!-- Supabase Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="db.js"></script>
-    <script src="admin.js"></script>
+        </section>
+    </main>
 </body>
 </html>
