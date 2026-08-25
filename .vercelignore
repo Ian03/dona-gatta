@@ -1,0 +1,3 @@
+backups/
+scripts/backup-supabase-public-data.ps1
+scripts/build-local-catalog-from-backup.js
