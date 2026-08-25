@@ -76,17 +76,25 @@ async function loadModel() {
   const urlParams = new URLSearchParams(window.location.search);
   const modelId = urlParams.get('id');
 
-  if (!modelId || !supabaseClient) {
+  if (!modelId) {
     document.getElementById('model-name').textContent = 'Modelo não encontrado.';
     document.getElementById('variations').replaceChildren();
     return;
   }
 
-  const { data: model, error } = await supabaseClient
-    .from('colecoes')
-    .select('*, variacoes(*)')
-    .eq('id', modelId)
-    .single();
+  let model = null;
+  let error = null;
+  if (typeof getLocalCatalogCollection === 'function') {
+    model = getLocalCatalogCollection(modelId);
+  } else if (supabaseClient) {
+    const result = await supabaseClient
+      .from('colecoes')
+      .select('*, variacoes(*)')
+      .eq('id', modelId)
+      .single();
+    model = result.data;
+    error = result.error;
+  }
 
   if (error || !model) {
     console.error(error);

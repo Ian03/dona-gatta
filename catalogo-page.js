@@ -69,9 +69,14 @@ function buildPriceSummaryHTML(summary, installmentLimit) {
 }
 
 async function loadCatalog() {
-  if (!supabaseClient) return;
-  const { data: collections, error } = await supabaseClient.from('colecoes').select('*, variacoes(valor_vista, valor_parcelado)').order('created_at', { ascending: false });
-  if (error) { console.error(error); return; }
+  let collections = [];
+  if (typeof getLocalCatalogCollections === 'function') {
+    collections = getLocalCatalogCollections();
+  } else if (supabaseClient) {
+    const { data, error } = await supabaseClient.from('colecoes').select('*, variacoes(valor_vista, valor_parcelado)').order('created_at', { ascending: false });
+    if (error) { console.error(error); return; }
+    collections = data || [];
+  }
 
   const grid = document.getElementById('catalog-grid');
   if (!collections.length) {
