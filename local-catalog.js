@@ -91,8 +91,8 @@ const LOCAL_CATALOG_MODELS = [
         },
         {
           "descricao": "Variação 07",
-          "valor_vista": "",
-          "valor_parcelado": ""
+          "valor_vista": "99",
+          "valor_parcelado": "119"
         }
       ]
     },
@@ -203,8 +203,8 @@ const LOCAL_CATALOG_MODELS = [
         },
         {
           "descricao": "Variação 08",
-          "valor_vista": "",
-          "valor_parcelado": ""
+          "valor_vista": "99",
+          "valor_parcelado": "119"
         }
       ]
     },
