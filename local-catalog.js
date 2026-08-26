@@ -10,43 +10,43 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "Armação tartaruga com lentes marrom",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação em acetato marrom com lentes G15 verde",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação acetato preto com lentes amarela Night Drive",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação em acetato preto com lentes total black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação tartaruga com lentes total marrom",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação acerta preto com lentes all black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação em acetato marrom com leite G15 verde",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "A modernidade se une ao estilo fundindo o nosso modelo All-inclusive",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         }
       ]
     },
@@ -61,38 +61,38 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "Lentes flutuante âmbar com armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lenço flutuante marrom com armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes flutuantes Âmbar com armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lenço flutuante âmbar com armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes flutuantes marrom com armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes âmbar flutuante com armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Variação 07",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         }
       ]
     },
@@ -107,53 +107,53 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "Armação tartaruga com lentes marrom",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes All black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação tartaruga com lentes total marrom",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes all black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes all black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação tartaruga com lente total marrom",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes all black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes all black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes all black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Nosso modelo Capri une modernidade  & estilo",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         }
       ]
     },
@@ -168,43 +168,43 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "O clássico aviador armação tartaruga com lentes total cinza",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "O clássico aviador armação preta e lente Total black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "O clássico aviador armação tartaruga com lentes cinza",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação cinza grafite com lentes total marrom",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta com lentes total marrom",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "O clássico aviador armação preta e lente Total black",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "O clássico aviador com suas apaixonantes variações",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Variação 08",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         }
       ]
     },
@@ -219,8 +219,8 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "Armação marrom ,com lentes degrade hastes tartaruga",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes ALL BLACK",
@@ -229,28 +229,28 @@ const LOCAL_CATALOG_MODELS = [
         },
         {
           "descricao": "Armação marrom ,com lentes degrade hastes tartaruga",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação marrom ,com lentes degrade hastes tartaruga",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes ALL BLACK",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta lentes ALL BLACK",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes Preto Degrade",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         }
       ]
     },
@@ -265,28 +265,28 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "Lente degrade azul com verde armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes cinza degrade com armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes cinza degrade com armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lente degrade azul com verde armação dourada",
-          "valor_vista": "99",
-          "valor_parcelado": "11 eu9"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "VARIANTES",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         }
       ]
     },
@@ -301,23 +301,23 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "Armação Total preto lentes em preto degrade",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação Total preto lentes em preto degrade",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação tartaruga com lentes fume",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação preta com lentes âmbar",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "VARIANTES",
@@ -337,53 +337,53 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "Armação Total black, hastes em Dourado",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação tartarugada ,, hastes em Dourado",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação tartaruga,hastes em metal dourado.",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação marrom,hastes em metal dourado.",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação Total black, hastes em Dourado",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação Total black, hastes em Dourado",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação marrom,, hastes em Dourado",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação Total black, hastes em Dourado",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Armação tartarugada ,, hastes em Dourado",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "VARIANTES",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         }
       ]
     },
@@ -398,38 +398,38 @@ const LOCAL_CATALOG_MODELS = [
       "variations": [
         {
           "descricao": "Lentes All black , armação preta com detalhes dourados.",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes marrom total ,armação tartaruga com detalhes dourados.",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes marrom total armação tartaruga,com detalhes dourados",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "Lentes marrom total armação tartaruga com detalhes dourados",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "VARIANTES",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "VARIANTES",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         },
         {
           "descricao": "VARIANTES",
-          "valor_vista": "99",
-          "valor_parcelado": "119"
+          "valor_vista": "99,00",
+          "valor_parcelado": "119,00"
         }
       ]
     },
