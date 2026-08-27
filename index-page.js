@@ -39,6 +39,7 @@ menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 function parseBrazilianPrice(value) {
   if (value == null) return NaN;
   const normalized = String(value).replace(/\s+/g, '').replace(/[R$r$\u00A0]/g, '').replace(/\./g, '').replace(',', '.').replace(/[^0-9.-]/g, '');
+  if (!normalized) return NaN;
   return Number(normalized);
 }
 

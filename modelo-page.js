@@ -6,6 +6,7 @@ function parseBrazilianPrice(value) {
     .replace(/\./g, '')
     .replace(',', '.')
     .replace(/[^0-9.-]/g, '');
+  if (!normalized) return NaN;
   return Number(normalized);
 }
 
