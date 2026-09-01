@@ -85,17 +85,9 @@ async function loadModel() {
 
   let model = null;
   let error = null;
-  if (typeof getLocalCatalogCollection === 'function') {
-    model = getLocalCatalogCollection(modelId);
-  } else if (supabaseClient) {
-    const result = await supabaseClient
-      .from('colecoes')
-      .select('*, variacoes(*)')
-      .eq('id', modelId)
-      .single();
-    model = result.data;
-    error = result.error;
-  }
+  const remote = typeof getRemoteCatalogCollections === 'function' ? await getRemoteCatalogCollections() : null;
+  if (remote) model = remote.find(collection => String(collection.id) === String(modelId)) || null;
+  else if (typeof getLocalCatalogCollection === 'function') model = getLocalCatalogCollection(modelId);
 
   if (error || !model) {
     console.error(error);

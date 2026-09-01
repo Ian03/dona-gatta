@@ -1,3 +1,7 @@
-backups/
-scripts/backup-supabase-public-data.ps1
-scripts/build-local-catalog-from-backup.js
+.codex
+backup-vercel
+backups
+assets/Apresentação Dona Gatta.pdf
+Modeloanterior.pdf
+Modeloanterior-identico-com-valores.pdf
+Modeloanterior-identico-com-valores-parcelado.pdf

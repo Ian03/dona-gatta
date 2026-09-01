@@ -431,7 +431,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="pdf-variation-name">${variation.descricao || `Variação ${index + 1}`}</div>
                             <div class="pdf-price-box pdf-price-box-featured">
                                 <span class="pdf-price-label">Parcelado</span>
-                                <strong class="pdf-price-value">${installmentLabel}</strong>
+                                <strong class="pdf-price-value">${variation.valor_parcelado || 'Consulte'}</strong>
+                                <span class="pdf-price-note">${installmentLabel}</span>
                             </div>
                             <div class="pdf-price-box pdf-price-box-pix">
                                 <span class="pdf-price-label">À vista no Pix</span>

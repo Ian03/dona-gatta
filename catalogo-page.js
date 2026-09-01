@@ -71,13 +71,9 @@ function buildPriceSummaryHTML(summary, installmentLimit) {
 
 async function loadCatalog() {
   let collections = [];
-  if (typeof getLocalCatalogCollections === 'function') {
-    collections = getLocalCatalogCollections();
-  } else if (supabaseClient) {
-    const { data, error } = await supabaseClient.from('colecoes').select('*, variacoes(valor_vista, valor_parcelado)').order('created_at', { ascending: false });
-    if (error) { console.error(error); return; }
-    collections = data || [];
-  }
+  const remote = typeof getRemoteCatalogCollections === 'function' ? await getRemoteCatalogCollections() : null;
+  if (remote) collections = remote;
+  else if (typeof getLocalCatalogCollections === 'function') collections = getLocalCatalogCollections();
 
   const grid = document.getElementById('catalog-grid');
   if (!collections.length) {
