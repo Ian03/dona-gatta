@@ -1,8 +1,0 @@
-{
-  "name": "dona-gatta",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "@vercel/blob": "^2.5.0"
-  }
-}

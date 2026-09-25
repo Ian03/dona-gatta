@@ -1,6 +1,112 @@
-let blobCollections=null;
-const api=async(path,options={})=>{const r=await fetch(path,options),j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Erro no painel.');return j};
-async function load(){if(blobCollections)return blobCollections;const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),3500);try{const c=await api('/api/catalog',{signal:controller.signal});blobCollections=c.collections?.length?c.collections:getLocalCatalogCollections()}catch{blobCollections=getLocalCatalogCollections()}finally{clearTimeout(timer)}return blobCollections}
-async function save(){await api('/api/catalog',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({collections:blobCollections})})}
-function query(table){let op='select',payload,filter;const q={select(){return q},order(){return q},eq(k,v){filter=[k,v];return q},single(){q._single=true;return q},insert(v){op='insert';payload=v;return q},update(v){op='update';payload=v;return q},delete(){op='delete';return q},then(resolve,reject){(async()=>{let all=await load();if(op==='select'){let rows=table==='colecoes'?all:all.flatMap(c=>c.variacoes||[]);if(filter)rows=rows.filter(x=>String(x[filter[0]])===String(filter[1]));return {data:q._single?rows[0]||null:rows,error:null}}if(table==='colecoes'){if(op==='insert'){const x={...payload[0],id:crypto.randomUUID(),variacoes:[]};all.unshift(x);await save();return{data:x,error:null}}let i=all.findIndex(x=>String(x.id)===String(filter?.[1]));if(op==='update')Object.assign(all[i],payload);if(op==='delete')all.splice(i,1)}else if(op==='insert'){const x={...payload[0],id:crypto.randomUUID()},c=all.find(item=>String(item.id)===String(x.colecao_id));if(!c)throw new Error('Coleção não encontrada.');(c.variacoes||=[]).push(x)}else for(const col of all){let i=col.variacoes?.findIndex(x=>String(x.id)===String(filter?.[1]));if(i>=0){if(op==='update')Object.assign(col.variacoes[i],payload);else col.variacoes.splice(i,1)}}await save();return{data:null,error:null}})().then(resolve,reject)}};return q}
-window.supabaseClient={auth:{async signInWithPassword({password}){if(password!=='admin4030')return{data:null,error:new Error('Senha incorreta.')};sessionStorage.setItem('dona-gatta-admin','1');return{data:{user:{email:'admin@donagatta.com'}},error:null}},async signOut(){sessionStorage.removeItem('dona-gatta-admin')},async getSession(){const active=sessionStorage.getItem('dona-gatta-admin')==='1';return{data:{session:active?{user:{email:'admin@donagatta.com'}}:null},error:null}}},from:query,storage:{from(){return{async upload(path,file){const f=new FormData();f.append('file',file);const x=await api('/api/upload',{method:'POST',body:f});window.__lastBlobUrl=x.url;return{error:null}},getPublicUrl(){return{data:{publicUrl:window.__lastBlobUrl}}}}}}};
+const adminApi = async (action, options = {}) => {
+  const response = await fetch(`/api/index.php?action=${encodeURIComponent(action)}`, { credentials: 'same-origin', ...options });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.error || 'Não foi possível concluir a operação.');
+  return body;
+};
+
+class HostingerAdminQuery {
+  constructor(table) { this.table = table; this.operation = 'select'; this.filters = []; }
+  select() { return this; }
+  order(column, options = {}) { this.orderBy = [column, options.ascending !== false]; return this; }
+  eq(column, value) { this.filters.push([column, value]); return this; }
+  in(column, values) { this.filters.push([column, values, true]); return this; }
+  single() { this.returnSingle = true; return this; }
+  insert(value) { this.operation = 'insert'; this.payload = value; return this; }
+  update(value) { this.operation = 'update'; this.payload = value; return this; }
+  delete() { this.operation = 'delete'; return this; }
+  then(resolve, reject) { return this.execute().then(resolve, reject); }
+  async execute() {
+    try {
+      const catalog = await adminApi('catalog');
+      const collections = catalog.collections || [];
+      let rows = this.table === 'colecoes' ? collections : collections.flatMap(item => item.variacoes || []);
+      const matches = row => this.filters.every(([key, value, many]) => many
+        ? value.map(String).includes(String(row[key]))
+        : String(row[key]) === String(value));
+      if (this.operation === 'select') {
+        rows = rows.filter(matches);
+        if (this.orderBy) {
+          const [key, ascending] = this.orderBy;
+          rows.sort((a, b) => String(a[key] || '').localeCompare(String(b[key] || '')) * (ascending ? 1 : -1));
+        }
+        return { data: this.returnSingle ? rows[0] || null : rows, error: null };
+      }
+      let result = null;
+      if (this.table === 'colecoes') {
+        if (this.operation === 'insert') {
+          result = { ...(this.payload[0] || {}), id: crypto.randomUUID(), created_at: new Date().toISOString(), variacoes: [] };
+          collections.unshift(result);
+        } else if (this.operation === 'update') {
+          const target = collections.find(matches);
+          if (!target) throw new Error('Coleção não encontrada.');
+          Object.assign(target, this.payload);
+        } else if (this.operation === 'delete') {
+          const index = collections.findIndex(matches);
+          if (index < 0) throw new Error('Coleção não encontrada.');
+          collections.splice(index, 1);
+        }
+      } else if (this.operation === 'insert') {
+        const value = this.payload[0] || {};
+        const collection = collections.find(item => String(item.id) === String(value.colecao_id));
+        if (!collection) throw new Error('Coleção não encontrada.');
+        result = { ...value, id: crypto.randomUUID(), created_at: new Date().toISOString() };
+        (collection.variacoes ||= []).push(result);
+      } else {
+        let found = false;
+        for (const collection of collections) {
+          const variations = collection.variacoes || [];
+          const selected = variations.filter(matches);
+          if (!selected.length) continue;
+          found = true;
+          if (this.operation === 'update') selected.forEach(item => Object.assign(item, this.payload));
+          if (this.operation === 'delete') collection.variacoes = variations.filter(item => !matches(item));
+        }
+        if (!found && this.operation !== 'delete') throw new Error('Variação não encontrada.');
+      }
+      await adminApi('catalog', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ collections }) });
+      return { data: result, error: null };
+    } catch (error) { return { data: null, error }; }
+  }
+}
+
+window.supabaseClient = {
+  auth: {
+    async signInWithPassword({ email, password }) {
+      try {
+        await adminApi('login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+        return { data: { user: { email: 'admin@donagatta.com' } }, error: null };
+      } catch (error) { return { data: null, error }; }
+    },
+    async signOut() {
+      try { await adminApi('logout', { method: 'POST' }); return { error: null }; }
+      catch (error) { return { error }; }
+    },
+    async getSession() {
+      try {
+        const { authenticated } = await adminApi('session');
+        return { data: { session: authenticated ? { user: { email: 'admin@donagatta.com' } } : null }, error: null };
+      } catch (error) { return { data: { session: null }, error }; }
+    }
+  },
+  from(table) { return new HostingerAdminQuery(table); },
+  storage: {
+    from(bucket) {
+      let uploadedUrl = null;
+      return {
+        async upload(path, file) {
+          const form = new FormData();
+          form.append('bucket', bucket);
+          form.append('path', path);
+          form.append('file', file);
+          try {
+            const result = await adminApi('upload', { method: 'POST', body: form });
+            uploadedUrl = result.url;
+            return { data: { path: result.path }, error: null };
+          } catch (error) { return { data: null, error }; }
+        },
+        getPublicUrl() { return { data: { publicUrl: uploadedUrl } }; }
+      };
+    }
+  }
+};

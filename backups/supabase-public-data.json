@@ -1,0 +1,784 @@
+﻿{
+    "backup":  {
+                   "colecoes":  [
+                                    {
+                                        "id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                        "nome":  "Modelo SUNSET",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787012308045_4131d498-8d1c-4d7b-b4fe-deb1cf63b470.webp",
+                                        "created_at":  "2026-08-17T23:34:37.652486+00:00",
+                                        "catalogo_intro":  "Modelo Sunset: o dia termina, o estilo nÃ£o!Tem Ã³culos que acompanha o look ,o Sunset vai alÃ©m a uniÃ£o do Dourado unido as formas marcantes, e as lentes degrade criam presenÃ§a que transforma atÃ© a produÃ§Ã£o mais simples em algo moderno Ã© aquele toque de personalidade que faz tudo parecer ainda mais vocÃª ,",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "b31cf1d1-58ba-4d19-b39f-e8554dcaeb16",
+                                        "nome":  "Modelo RESORT",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787012974881_8224b80c-f5e9-4bbe-aaf1-98a7fa1367ff.webp",
+                                        "created_at":  "2026-08-17T23:33:09.925349+00:00",
+                                        "catalogo_intro":  "Descanso Ã© destino \nEstilo Ã  escolha .\nSe vocÃª gosta de um Ã³culos que chega com elegÃ¢ncia mas sem esforÃ§o o resort Ã© pra vocÃª o formato marcante e os detalhes sofisticados fazem dele aquele acessÃ³rio que transforma o look sem precisar de muito.",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                        "nome":  "Modelo MARÃ",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787009576489_0b78e3ca-dc4b-4456-abef-62923ff5bb30.webp",
+                                        "created_at":  "2026-08-17T23:31:42.188446+00:00",
+                                        "catalogo_intro":  "Leveza \u0026 poder em Ãºnico ritmo .\nPara  quem gosta de um Ã³culos que transforma o olhar sem pesar o estilo , marÃ© tem exatamente essa proposta um formato marcante porÃ©m delicado e sofisticado, e faz total diferenÃ§a no look aquele modelo que a gente coloca e sente que Ã© o protagonista do look.",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "f8410cc4-2275-49bf-95e7-c6c354b809c0",
+                                        "nome":  "Modelo LOUNGE",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787009477725_081b46e4-7e86-4a19-8592-17119175fe80.webp",
+                                        "created_at":  "2026-08-17T23:30:02.429928+00:00",
+                                        "catalogo_intro":  "O Lounge Ã© para quem entende que estilo tambÃ©m estÃ¡ nos momentos de pausa,o formato marcante e as lentes em tons profundos criam visual sofisticado moderno e cheio de personalidade aquele Ã³culos que vocÃª coloca e sente que tudo se encaixou!",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                        "nome":  "Modelo ESCAPE",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787009389134_150d91d2-5233-48b6-bc4d-ac1fcb40d3bc.webp",
+                                        "created_at":  "2026-08-17T23:28:33.51551+00:00",
+                                        "catalogo_intro":  "Escape leveza que foge do comum.\nA gente acredita que estilo tambÃ©m se permitir experimentar e o escape traz essa liberdade a leveza das lentes flutuantes agregado Ã  armaÃ§Ã£o Dourado trazendo muito requinte e sofisticaÃ§Ã£o para qualquer produÃ§Ã£o",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "c178b82c-2757-4a0a-8138-ef2a272de54e",
+                                        "nome":  "Modelo DAY USE",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787015653358_9b9f5227-9953-4455-b7e3-2b2549f86d11.webp",
+                                        "created_at":  "2026-08-17T23:27:27.169334+00:00",
+                                        "catalogo_intro":  "Aquele Ã³culos que te deixa pronta pra qualquer destino .ClÃ¡ssico fÃ¡cil de combinar e funciona em diferentes momentos, Ã© sÃ³ colocar e vocÃª jÃ¡ se sente pronta Ã© o tipo de Ã³culos que vocÃª vai usar muito.\nO coringa pra todos os looks estilos",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "1405cd2c-c42c-4a23-95d5-d4738f82f9d4",
+                                        "nome":  "Modelo CHECK IN",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787015575336_9be9e2e1-7cb2-4c7d-8b12-72dd26c8f2a2.webp",
+                                        "created_at":  "2026-08-17T23:25:57.085299+00:00",
+                                        "catalogo_intro":  "O clÃ¡ssico aviador repaginado que nunca sai de moda.\n Seja qual for o seu destino ele comeÃ§a com o nosso modelo check-in e o melhor o modelo unissex que se encaixa em todos os estilos gostos e personalidades.",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                        "nome":  "Modelo CAPRI",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787009114970_9dd6a953-2530-41fa-bd47-f4c5ab293211.webp",
+                                        "created_at":  "2026-08-17T23:23:59.179613+00:00",
+                                        "catalogo_intro":  "Sabe aquele Ã³culos que vocÃª coloca e tudo funciona?,\n o CAPRI Ã© assim discreto na medida certa sofisticado ,e fÃ¡cil de combinar com tudo nÃ£o Ã© Ã  toa que a beleza dispensa excessos.",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "5e9ad143-dc02-431c-8037-386369b1f25f",
+                                        "nome":  "Modelo BEACH CLUB",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787015373635_18231876-901c-421d-a00e-c591e360b241.webp",
+                                        "created_at":  "2026-08-17T23:21:50.931039+00:00",
+                                        "catalogo_intro":  "Se . uma coisa que o verÃ£o pede Ã© atitude o beach Club tem esse formato marcante e leve.\nO design com lentes flutuante deixa a peÃ§a ainda delicada, e o dourado da armaÃ§Ã£o que transforma atÃ© o look mais simples em algo enigmÃ¡tico.",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    },
+                                    {
+                                        "id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                        "nome":  "Modelo ALL INCLUSIVE",
+                                        "capa_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/capas/1787015189786_f963d8f7-1952-44df-ba31-c68f1f8e7e7d.webp",
+                                        "created_at":  "2026-08-17T22:58:29.924593+00:00",
+                                        "catalogo_intro":  "O All-inclusive Ã© aquele modelo da liberdade de vocÃª criar, e ser que vocÃª quiser combina com tudo \u0026 todos os estilos in Ã© aquele Ã³culos que sem dÃºvida eleva  o look quer experimentar o novo se permitir esse aqui Ã© aquela aposta sem erros .",
+                                        "catalogo_eyebrow":  "ColeÃ§Ã£o DESTINOS",
+                                        "parcelamento_maximo":  5
+                                    }
+                                ],
+                   "variacoes":  [
+                                     {
+                                         "id":  "7407b09c-1947-45ba-af82-0bf6f7a92155",
+                                         "descricao":  "ArmaÃ§Ã£o tartaruga com lentes marrom",
+                                         "colecao_id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                         "created_at":  "2026-08-17T22:58:34.137628+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008743532_4d7070ba-07ee-41c0-a335-092b67ae2aac.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "06c9cd5d-32df-4995-ab3e-f369e4bbde23",
+                                         "descricao":  "ArmaÃ§Ã£o em acetato marrom com lentes G15 verde",
+                                         "colecao_id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                         "created_at":  "2026-08-17T23:17:50.695408+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008745146_4d9b5f26-4c20-45af-b866-3449c506b7b6.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "4712f314-402b-4d05-8191-2bebc1777a88",
+                                         "descricao":  "ArmaÃ§Ã£o acetato preto com lentes amarela Night Drive",
+                                         "colecao_id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                         "created_at":  "2026-08-17T23:17:53.067831+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008747770_185ccd8a-701b-4627-9ad4-4a08ef60f224.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "009f69ff-bea6-4466-8af9-9c0fae56ac85",
+                                         "descricao":  "ArmaÃ§Ã£o em acetato preto com lentes total black",
+                                         "colecao_id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                         "created_at":  "2026-08-17T23:17:55.084631+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008750137_fd520ffb-b7f4-4d68-a950-dfb9d86941ea.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "9b6e42a8-9fdc-4cb6-b14b-00285a2c0d3f",
+                                         "descricao":  "ArmaÃ§Ã£o tartaruga com lentes total marrom",
+                                         "colecao_id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                         "created_at":  "2026-08-17T23:17:57.61875+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008752155_45f8bb77-b1ac-4ebd-8e0a-06748d9eb12e.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "c0a8c1ed-d7d9-43a2-b8f8-e4e0f8a22ee1",
+                                         "descricao":  "ArmaÃ§Ã£o acerta preto com lentes all black",
+                                         "colecao_id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                         "created_at":  "2026-08-17T23:18:00.087906+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008754690_ad47698f-57a6-4380-b823-a13013fe89b7.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "6b7c7036-1c43-4cf0-a020-9491f0d3f8e9",
+                                         "descricao":  "ArmaÃ§Ã£o em acetato marrom com leite G15 verde",
+                                         "colecao_id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                         "created_at":  "2026-08-17T23:18:03.423701+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008757157_83d973a6-12df-42d3-80a6-24cc5367147c.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "19f55074-8eec-4b22-a097-8dc27daef97c",
+                                         "descricao":  "Lentes flutuante Ã¢mbar com armaÃ§Ã£o dourada",
+                                         "colecao_id":  "5e9ad143-dc02-431c-8037-386369b1f25f",
+                                         "created_at":  "2026-08-17T23:21:55.908804+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008987991_343d6ee6-eaa3-4ceb-a30d-bbcff5599ca2.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "a3bc9879-61d8-4e31-8dcb-fed6056a907d",
+                                         "descricao":  "LenÃ§o flutuante marrom com armaÃ§Ã£o dourada",
+                                         "colecao_id":  "5e9ad143-dc02-431c-8037-386369b1f25f",
+                                         "created_at":  "2026-08-17T23:22:00.441444+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008992964_eb955c3e-7a39-4a7e-bf9f-9728cc515265.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "3df691e6-e7ce-43f3-b5ec-3ddf06636698",
+                                         "descricao":  "Lentes flutuantes Ãmbar com armaÃ§Ã£o dourada",
+                                         "colecao_id":  "5e9ad143-dc02-431c-8037-386369b1f25f",
+                                         "created_at":  "2026-08-17T23:22:04.392164+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787008997490_bf750396-dc0e-4b81-b928-dbf35f6d3c96.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "df9d1b58-9b9d-42d3-9bfb-40f306d1e487",
+                                         "descricao":  "LenÃ§o flutuante Ã¢mbar com armaÃ§Ã£o dourada",
+                                         "colecao_id":  "5e9ad143-dc02-431c-8037-386369b1f25f",
+                                         "created_at":  "2026-08-17T23:22:09.307041+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009001446_f51ab91c-07f5-4b20-9352-5e5ea4430462.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "fdb3b997-e26b-45b8-98a3-1ec511542c7f",
+                                         "descricao":  "Lentes flutuantes marrom com armaÃ§Ã£o dourada",
+                                         "colecao_id":  "5e9ad143-dc02-431c-8037-386369b1f25f",
+                                         "created_at":  "2026-08-17T23:22:14.155366+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009006359_8cb24d63-8956-4ed2-a5e3-95fd7cd033b6.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "b99bc9ac-b0dc-4a5e-9ca5-3fb35449e5ae",
+                                         "descricao":  "Lentes Ã¢mbar flutuante com armaÃ§Ã£o dourada",
+                                         "colecao_id":  "5e9ad143-dc02-431c-8037-386369b1f25f",
+                                         "created_at":  "2026-08-17T23:22:18.554813+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009011202_68bfd537-7b53-46ec-959b-61f48711bf42.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "a0a4df65-3222-49ee-be31-10d017a40e82",
+                                         "descricao":  "ArmaÃ§Ã£o tartaruga com lentes marrom",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:00.883757+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009116237_5bff779e-5e3f-47b6-8b71-12b4708db16b.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "7efb65a3-09e1-48ba-84f1-335843f5e74c",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes All black",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:03.035322+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009117932_c619456f-c85c-4d4e-b495-da83b17d2517.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "a87906e5-628b-4a24-98e3-6fc68c521c6a",
+                                         "descricao":  "ArmaÃ§Ã£o tartaruga com lentes total marrom",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:05.417633+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009120081_8b76c1aa-cb5c-42e3-97a7-442be2436fdb.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "cbd0c635-8775-48d9-a52c-d0b563767c7d",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes all black",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:07.385048+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009122465_f8cbf47f-83a5-4554-8880-66c062f9ae52.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "3d05bf2f-5484-44b6-8fe4-a540ffe4a94a",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes all black",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:10.769286+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009124431_ec588436-fa94-4115-8135-60c4bc153be8.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "d63f76ca-9e3b-4c5a-9219-b3c36aefcfa3",
+                                         "descricao":  "ArmaÃ§Ã£o tartaruga com lente total marrom",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:12.274851+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009127816_37ef926e-5f29-48bc-90fd-586eaf5fadcf.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "27e6ddc9-1b53-46a9-824b-2e6414cf2dac",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes all black",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:13.438951+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009129325_5ccf81d0-e731-4a04-9534-de44db72e756.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "4797c194-640b-4fea-8e18-b655c307cb61",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes all black",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:16.312913+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009130486_0dcdcff8-5c35-43e8-97c7-b4fe255b9c8c.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "2c50cbbf-199c-4219-8e5f-c2a9b8f9f71e",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes all black",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-17T23:24:18.835839+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009133358_2c5c049f-c8f3-4468-95e1-ea99d212eb0f.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "fa0d6130-6794-461c-9066-bf59240c22b9",
+                                         "descricao":  "O clÃ¡ssico aviador armaÃ§Ã£o tartaruga com lentes total cinza",
+                                         "colecao_id":  "1405cd2c-c42c-4a23-95d5-d4738f82f9d4",
+                                         "created_at":  "2026-08-17T23:26:00.301197+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009234157_76fb2afe-3874-41a1-b0d0-4a81b1f5a50b.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "4f575384-b163-4b31-ae3f-1f8327cf518e",
+                                         "descricao":  "O clÃ¡ssico aviador armaÃ§Ã£o preta e lente Total black",
+                                         "colecao_id":  "1405cd2c-c42c-4a23-95d5-d4738f82f9d4",
+                                         "created_at":  "2026-08-17T23:26:04.746854+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009237377_f7aad538-15c3-4a8d-a253-0c38ff37aa5f.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "9825b270-9484-415b-97b7-bbffccf3c73d",
+                                         "descricao":  "O clÃ¡ssico aviador armaÃ§Ã£o tartaruga com lentes cinza",
+                                         "colecao_id":  "1405cd2c-c42c-4a23-95d5-d4738f82f9d4",
+                                         "created_at":  "2026-08-17T23:26:08.681838+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009241810_16bdb207-e477-4cc5-b0b6-1cfe9eda6b6c.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "f028c8d7-5d8f-47f8-b2e9-549dea5a89c9",
+                                         "descricao":  "ArmaÃ§Ã£o cinza grafite com lentes total marrom",
+                                         "colecao_id":  "1405cd2c-c42c-4a23-95d5-d4738f82f9d4",
+                                         "created_at":  "2026-08-17T23:26:11.729074+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009245748_f1d775b2-3cdc-4832-86b6-6d8aaa5019f9.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "b931f059-2e2b-4871-9d06-c35de6788a3d",
+                                         "descricao":  "ArmaÃ§Ã£o preta com lentes total marrom",
+                                         "colecao_id":  "1405cd2c-c42c-4a23-95d5-d4738f82f9d4",
+                                         "created_at":  "2026-08-17T23:26:16.058065+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009248793_5f2b63c4-b47c-43ed-9f38-f2c8a8d82d0a.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "edbfe5c4-f314-4a49-9e57-59a1ba428c3c",
+                                         "descricao":  "O clÃ¡ssico aviador armaÃ§Ã£o preta e lente Total black",
+                                         "colecao_id":  "1405cd2c-c42c-4a23-95d5-d4738f82f9d4",
+                                         "created_at":  "2026-08-17T23:26:18.634615+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009253125_ad28de94-7b6d-4260-b176-4bbef28cafb3.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "9dc9b395-f736-415b-8422-6b1670d3cd08",
+                                         "descricao":  "ArmaÃ§Ã£o marrom ,com lentes degrade hastes tartaruga",
+                                         "colecao_id":  "c178b82c-2757-4a0a-8138-ef2a272de54e",
+                                         "created_at":  "2026-08-17T23:27:29.575501+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009324234_e4075fd0-baeb-4efd-ae51-14a47be3ff16.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "e9a91ea4-5f0f-4213-8ae4-d9964d1f8f43",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes ALL BLACK",
+                                         "colecao_id":  "c178b82c-2757-4a0a-8138-ef2a272de54e",
+                                         "created_at":  "2026-08-17T23:27:32.187852+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009326638_b9c1eae0-bb6f-43b7-adb4-a6abdcaae94b.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "0fef0f9b-81fb-47fc-ab9e-5324ac3600bf",
+                                         "descricao":  "ArmaÃ§Ã£o marrom ,com lentes degrade hastes tartaruga",
+                                         "colecao_id":  "c178b82c-2757-4a0a-8138-ef2a272de54e",
+                                         "created_at":  "2026-08-17T23:27:34.263837+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009329250_6296bb15-03a2-4128-9d42-b62cc9ad1ed2.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "c9f1606b-84bf-4bdc-9f36-d6597438d546",
+                                         "descricao":  "ArmaÃ§Ã£o marrom ,com lentes degrade hastes tartaruga",
+                                         "colecao_id":  "c178b82c-2757-4a0a-8138-ef2a272de54e",
+                                         "created_at":  "2026-08-17T23:27:37.720401+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009331326_af947c79-b34d-4d7b-ae95-9b0e2e495992.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "cb4193d8-a6eb-47dc-b077-4bb17745af3c",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes ALL BLACK",
+                                         "colecao_id":  "c178b82c-2757-4a0a-8138-ef2a272de54e",
+                                         "created_at":  "2026-08-17T23:27:41.735686+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009334785_49add1c2-f5c4-4510-8467-f02c8d146083.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "cfd6e532-7199-441d-a76c-af5556e70e45",
+                                         "descricao":  "ArmaÃ§Ã£o preta lentes ALL BLACK",
+                                         "colecao_id":  "c178b82c-2757-4a0a-8138-ef2a272de54e",
+                                         "created_at":  "2026-08-17T23:27:44.762192+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009338806_4bf993b9-0f6c-4f88-a9ab-8976544c3c16.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "e1f24963-4e12-40a1-b9e8-9a316dcc60a7",
+                                         "descricao":  "Lente degrade azul com verde armaÃ§Ã£o dourada",
+                                         "colecao_id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                         "created_at":  "2026-08-17T23:28:36.237146+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009390579_861c1d97-c4dc-4f77-8c71-9113fb3e6c26.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "3dab448c-98e9-4a2c-b2ea-d8b8b65db97f",
+                                         "descricao":  "Lentes cinza degrade com armaÃ§Ã£o dourada",
+                                         "colecao_id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                         "created_at":  "2026-08-17T23:28:39.47885+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009393299_54b96015-a14e-4650-b6b6-7c3121dd4016.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "92ea25b3-004d-461f-aaa6-dba199dcdb3a",
+                                         "descricao":  "Lentes cinza degrade com armaÃ§Ã£o dourada",
+                                         "colecao_id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                         "created_at":  "2026-08-17T23:28:41.382268+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009396542_42d8da32-8a56-42dc-abcc-f602beba3e17.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "37b96d03-9915-4477-acb8-72b5101c7cca",
+                                         "descricao":  "Lente degrade azul com verde armaÃ§Ã£o dourada",
+                                         "colecao_id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                         "created_at":  "2026-08-17T23:28:45.180796+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009398448_61e1b545-9754-4174-80de-2f203572a805.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "86e51eec-471a-4c27-bce3-9e65295c0203",
+                                         "descricao":  "ArmaÃ§Ã£o Total preto lentes em preto degrade",
+                                         "colecao_id":  "f8410cc4-2275-49bf-95e7-c6c354b809c0",
+                                         "created_at":  "2026-08-17T23:30:04.085178+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009479482_4bdf77dd-329f-44cc-b22e-737f4a9119bf.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "700eaa77-fd44-4e87-89b1-0da8ecf16bc2",
+                                         "descricao":  "ArmaÃ§Ã£o Total preto lentes em preto degrade",
+                                         "colecao_id":  "f8410cc4-2275-49bf-95e7-c6c354b809c0",
+                                         "created_at":  "2026-08-17T23:30:06.33364+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009481135_8a5a732b-96c9-4640-bd7a-8cf6b63e0709.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "090977f8-45a2-4baa-8254-db3fdfef3bb3",
+                                         "descricao":  "ArmaÃ§Ã£o tartaruga com lentes fume",
+                                         "colecao_id":  "f8410cc4-2275-49bf-95e7-c6c354b809c0",
+                                         "created_at":  "2026-08-17T23:30:08.27146+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009483377_ddad0f44-a77b-437c-a639-28ba14b8430f.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "34fbd0fc-aff8-4d58-af4f-5ceeb6044460",
+                                         "descricao":  "ArmaÃ§Ã£o preta com lentes Ã¢mbar",
+                                         "colecao_id":  "f8410cc4-2275-49bf-95e7-c6c354b809c0",
+                                         "created_at":  "2026-08-17T23:30:10.694691+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009485326_2c2b812b-cb40-4473-88aa-6b98138695be.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "72daaabc-9281-455a-a4ca-05b09c5fbd4a",
+                                         "descricao":  "ArmaÃ§Ã£o Total black, hastes em Dourado",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:31:46.122518+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009579233_388fd30e-634e-4f17-b13f-e08589ce0286.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "f68bc301-e10e-47b3-9943-2dd851858309",
+                                         "descricao":  "ArmaÃ§Ã£o tartarugada ,, hastes em Dourado",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:31:49.823975+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009583166_4dd904fd-6c8b-485b-b1b8-7a05c6bbf8fa.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "11f3cb29-6139-436e-a9e8-f894ad420543",
+                                         "descricao":  "ArmaÃ§Ã£o tartaruga,hastes em metal dourado.",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:31:52.142817+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009586866_cf410790-eb61-42e9-898a-81e4e9f9252c.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "f4d69716-e897-4c91-9eef-195efab75380",
+                                         "descricao":  "ArmaÃ§Ã£o marrom,hastes em metal dourado.",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:31:54.318948+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009589183_17a5543b-2436-47f3-ad0f-4d350803595b.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "c05d3431-a36b-4a45-95a8-ed1b687d804f",
+                                         "descricao":  "ArmaÃ§Ã£o Total black, hastes em Dourado",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:31:57.492358+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009591362_f45fd974-fa81-4755-bdac-76c3b04e60f1.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "7aeab29c-4ec1-4fd8-be12-7bd268393aa1",
+                                         "descricao":  "ArmaÃ§Ã£o Total black, hastes em Dourado",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:31:59.488118+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009594534_b1d23847-2029-4818-b3c4-f4f38ad21355.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "d8dc847b-bf29-49d2-b062-4dbc65a9fb80",
+                                         "descricao":  "ArmaÃ§Ã£o marrom,, hastes em Dourado",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:32:00.889064+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009596528_0af878cf-cf65-4591-a614-a74f6f2a53cf.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "7a0c44cd-0317-417d-8451-70bb68a864a2",
+                                         "descricao":  "ArmaÃ§Ã£o Total black, hastes em Dourado",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:32:02.645115+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009597929_99925b1d-7b0b-4777-986b-f89717bbed73.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "eb428942-f459-449b-9901-a2fae0916831",
+                                         "descricao":  "ArmaÃ§Ã£o tartarugada ,, hastes em Dourado",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-17T23:32:03.945817+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009599685_7d31a88e-9316-479f-b4c0-9c87c07d18b1.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "de4bc22b-7326-48f3-b630-6c163b607cf3",
+                                         "descricao":  "Lentes All black , armaÃ§Ã£o preta com detalhes dourados.",
+                                         "colecao_id":  "b31cf1d1-58ba-4d19-b39f-e8554dcaeb16",
+                                         "created_at":  "2026-08-17T23:33:11.684404+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009666985_8c0e44ac-bac1-4551-9e7c-a20efdb84093.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "347f7abe-fe2c-4d79-aa7d-b738e193a463",
+                                         "descricao":  "Lentes marrom total ,armaÃ§Ã£o tartaruga com detalhes dourados.",
+                                         "colecao_id":  "b31cf1d1-58ba-4d19-b39f-e8554dcaeb16",
+                                         "created_at":  "2026-08-17T23:33:13.645313+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009668734_fc5a9159-8174-4636-81a6-195656abb7a1.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "c85f2665-6b98-4bad-90ca-262a12091257",
+                                         "descricao":  "Lentes marrom total armaÃ§Ã£o tartaruga,com detalhes dourados",
+                                         "colecao_id":  "b31cf1d1-58ba-4d19-b39f-e8554dcaeb16",
+                                         "created_at":  "2026-08-17T23:33:16.664756+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009670720_9d1e1d43-c01c-4503-9153-99340d9c708e.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "dfcb7ee2-25a8-42cf-9ff1-0a7800878c2a",
+                                         "descricao":  "Lentes marrom total armaÃ§Ã£o tartaruga com detalhes dourados",
+                                         "colecao_id":  "b31cf1d1-58ba-4d19-b39f-e8554dcaeb16",
+                                         "created_at":  "2026-08-17T23:33:18.957909+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009673705_c1196cc3-0023-44a6-8fa2-832f7d54bf46.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "fbeb3539-e7a2-45bc-8c7d-927538223d68",
+                                         "descricao":  "VARIANTES",
+                                         "colecao_id":  "b31cf1d1-58ba-4d19-b39f-e8554dcaeb16",
+                                         "created_at":  "2026-08-17T23:33:21.165495+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009676004_fd8be9df-9be0-46e5-bd8a-f9f498923164.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "4962d8ae-d913-43af-b3cc-c98b73de3aaa",
+                                         "descricao":  "VARIANTES",
+                                         "colecao_id":  "b31cf1d1-58ba-4d19-b39f-e8554dcaeb16",
+                                         "created_at":  "2026-08-17T23:33:23.787327+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009678205_63ba62da-f136-4c0c-bece-4d2d96ecc71f.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "410b4101-1c67-48ec-a500-c4d061936043",
+                                         "descricao":  "Lentes Preto Degrade",
+                                         "colecao_id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                         "created_at":  "2026-08-17T23:34:40.456541+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009754933_9836dd80-ec88-44e7-973d-443531957ed1.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "e3235dda-0913-4c96-b1d5-060cd188aeba",
+                                         "descricao":  "Lentes Preto Degrade",
+                                         "colecao_id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                         "created_at":  "2026-08-17T23:34:44.37058+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009757505_23ed6cfd-a4e8-44f8-b095-ce48ca9746d4.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "3c68a8a1-8c8b-470f-929f-15ec429a57fb",
+                                         "descricao":  "Lentes All Black.",
+                                         "colecao_id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                         "created_at":  "2026-08-17T23:34:50.086234+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009761649_034c8616-4968-4e86-81ec-cf2f8ccb5b70.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "a066a23d-364c-4a7d-a871-babdfe1bc9f6",
+                                         "descricao":  "Lentes Marrom Degrade",
+                                         "colecao_id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                         "created_at":  "2026-08-17T23:34:54.760072+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009767194_7f37dd52-3dbd-4684-849a-93810a00cf3f.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "8137932c-bef4-4091-8e1b-38c1e135f5c7",
+                                         "descricao":  "dasda",
+                                         "colecao_id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                         "created_at":  "2026-08-17T23:35:01.077547+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009771803_48ce8427-a7f0-4ae5-a067-7c43fc1ce82e.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "92712253-eb45-4c61-9cf4-09df9633a9ef",
+                                         "descricao":  "Lentes Preto Degrade",
+                                         "colecao_id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                         "created_at":  "2026-08-17T23:35:03.560483+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009778125_9462729d-f167-4e6d-bade-830f6a02de9d.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "671a5471-eb4a-482b-b4a6-c458b59f8a8f",
+                                         "descricao":  "Lentes All Black",
+                                         "colecao_id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                         "created_at":  "2026-08-17T23:35:05.6016+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787009780604_c75820ee-7625-4974-ba04-df176d0b64d2.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "b5726e1e-8658-4525-8337-5c2de1da0e8e",
+                                         "descricao":  "VARIANTES",
+                                         "colecao_id":  "7f10cacc-b887-47ba-bfe9-f83395c97106",
+                                         "created_at":  "2026-08-17T23:55:27.749395+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787010926516_3c4cb55c-3e2c-4556-877f-845e2865fc10.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "cd1659fe-7a45-444a-8cbd-045968e7e205",
+                                         "descricao":  "VARIANTES",
+                                         "colecao_id":  "b31cf1d1-58ba-4d19-b39f-e8554dcaeb16",
+                                         "created_at":  "2026-08-18T00:03:04.02019+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787011383011_34846ee1-0ada-4ecf-b159-6cb4c4c2c385.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "e11fa173-6bed-4a45-abbf-14d4dd055dad",
+                                         "descricao":  "O clÃ¡ssico aviador com suas apaixonantes variaÃ§Ãµes",
+                                         "colecao_id":  "1405cd2c-c42c-4a23-95d5-d4738f82f9d4",
+                                         "created_at":  "2026-08-18T00:04:19.805688+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787011456958_1b434a20-a5fb-4842-8dc0-25937b996301.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "0d2d7fdb-466e-4002-9126-cba58d061796",
+                                         "descricao":  "Nosso modelo Capri une modernidade  \u0026 estilo",
+                                         "colecao_id":  "6adb7d9f-8853-4145-8b45-3051deea2522",
+                                         "created_at":  "2026-08-18T00:05:47.247946+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787011545077_1c564d0e-ab99-4bd3-a99c-a57fa141b830.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "b10456a4-e9d4-4e67-8082-1a0b41b69820",
+                                         "descricao":  "A modernidade se une ao estilo fundindo o nosso modelo All-inclusive",
+                                         "colecao_id":  "e91b4c50-3ef0-48cf-9d2c-9f0cc7b907d0",
+                                         "created_at":  "2026-08-18T00:08:30.77518+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787011709652_04f34e13-f5dc-4aad-b450-32f4e568a989.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "c37e0b4b-deb6-486d-a569-8dc789b83b1c",
+                                         "descricao":  "VARIANTES",
+                                         "colecao_id":  "7672a2fd-8982-4676-9c68-69319283e6c1",
+                                         "created_at":  "2026-08-18T00:10:53.431817+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787011852111_d982deb9-20e4-439f-818b-a87e700c11b9.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "c3edac60-4670-4da5-8a25-86c6efef63c8",
+                                         "descricao":  "VARIANTES",
+                                         "colecao_id":  "f8410cc4-2275-49bf-95e7-c6c354b809c0",
+                                         "created_at":  "2026-08-18T00:12:37.079244+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787013457446_c46d56fd-c694-43b3-9ac3-5b006511530c.webp",
+                                         "valor_vista":  "99,00",
+                                         "valor_parcelado":  "119,00"
+                                     },
+                                     {
+                                         "id":  "a1315c9b-cbc5-476e-848f-f5f02454be39",
+                                         "descricao":  "VARIANTES",
+                                         "colecao_id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                         "created_at":  "2026-08-18T00:15:07.301627+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787012105697_2bc9de37-eb7d-4751-917c-7fcd64ca7031.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "dbec11d9-ee18-4d61-b77d-d5fe661aa09e",
+                                         "descricao":  "Lentes Preto Degrade",
+                                         "colecao_id":  "c178b82c-2757-4a0a-8138-ef2a272de54e",
+                                         "created_at":  "2026-08-18T00:16:09.193255+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787012165316_d0f3d684-1528-4c64-85d7-c8831355e3bf.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "378e294c-1193-4597-9aa9-ff24d80663a5",
+                                         "descricao":  "Lentes marrom com asas douradas douradas",
+                                         "colecao_id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                         "created_at":  "2026-08-18T00:42:18.178936+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787013736945_06f5b5bb-89d2-4b3a-b27c-7c3e0dfb16c5.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "4ca25404-d86f-4f18-b2ec-752d7fcbff4d",
+                                         "descricao":  "Lentes marrom artes dourada",
+                                         "colecao_id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                         "created_at":  "2026-08-18T00:42:18.874023+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787013738000_ea0c855e-1e03-4c5a-a40d-a122396cc079.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     },
+                                     {
+                                         "id":  "47e16071-28b2-423f-bfce-b16866acb99a",
+                                         "descricao":  "Lentes total preto com armaÃ§Ã£o degrade",
+                                         "colecao_id":  "ea873c80-b66a-44d2-af98-4676180045eb",
+                                         "created_at":  "2026-08-18T00:42:19.588944+00:00",
+                                         "imagem_url":  "https://qrfgtkbwykkcfroybcro.supabase.co/storage/v1/object/public/produtos/variacoes/1787013738692_fe452bf1-d949-488e-a9c8-e360983e2cbc.webp",
+                                         "valor_vista":  "99",
+                                         "valor_parcelado":  "119"
+                                     }
+                                 ],
+                   "exported_at":  "2026-08-25T23:35:19.195577+00:00",
+                   "project_ref":  "qrfgtkbwykkcfroybcro"
+               }
+}
