@@ -523,7 +523,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <section class="pdf-grid">${cards}</section>
         <footer class="pdf-footer">
             <span>Dona Gatta · Catálogo de coleção</span>
-                    <span>Gerado em ${new Date().toLocaleDateString('pt-BR')}</span>
+            <a href="https://euusodonagatta.com.br/">euusodonagatta.com.br</a>
+            <span>Gerado em ${new Date().toLocaleDateString('pt-BR')}</span>
         </footer>
     </div>
 </body>
@@ -577,6 +578,13 @@ document.addEventListener('DOMContentLoaded', () => {
             frameDocument.open();
             frameDocument.write(buildPdfMarkup(collection, groupedCollections));
             frameDocument.close();
+            // O navegador usa a URL do documento ao imprimir cabeçalhos/rodapés.
+            // Como o iframe herda a rota do painel, troque-a pela página pública.
+            try {
+                printFrame.contentWindow.history.replaceState(null, '', '/');
+            } catch (error) {
+                console.warn('Não foi possível atualizar a URL do quadro de impressão.', error);
+            }
 
             const waitForFrameReady = () => new Promise(resolve => {
                 const attemptReady = () => {
