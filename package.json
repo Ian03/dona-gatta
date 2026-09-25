@@ -1,0 +1,13 @@
+{
+  "name": "dona-gatta",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "build": "node --check server.js && node --check admin-blob-adapter.js",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

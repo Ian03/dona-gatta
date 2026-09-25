@@ -1,11 +1,9 @@
 backups/*
-!backups/.htaccess
 !backups/supabase-public-data.json
 .codex/
 backup-vercel/
-private/catalog.json
+runtime-data/
 uploads/*
-!uploads/.htaccess
 Modeloanterior.pdf
 Modeloanterior-identico-com-valores.pdf
 Modeloanterior-identico-com-valores-parcelado.pdf
