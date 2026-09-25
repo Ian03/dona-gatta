@@ -71,7 +71,8 @@ function localImagePath(folder, number, type) {
 function initialCatalog() {
   const backupPath = path.join(ROOT, 'backups', 'supabase-public-data.json');
   if (!existsSync(backupPath)) return { version: 1, collections: [] };
-  const backup = JSON.parse(readFileSync(backupPath, 'utf8')).backup;
+  const backupJson = readFileSync(backupPath, 'utf8').replace(/^\uFEFF/, '');
+  const backup = JSON.parse(backupJson).backup;
   const models = [
     ['all-inclusive', 'ALL INCLUSIVE'], ['beach-club', 'BEACH CLUB'], ['capri', 'CAPRI'],
     ['check-in', 'CHECK IN'], ['day-use', 'DAY USE'], ['escape', 'ESCAPE'], ['lounge', 'LOUNGE'],
