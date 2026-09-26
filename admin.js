@@ -223,9 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const extension = compressed.name.split('.').pop().toLowerCase();
         const fileName = `${Date.now()}_${crypto.randomUUID()}.${extension}`;
         const filePath = `${pathFolder}/${fileName}`;
-        const { error } = await supabaseClient.storage.from('produtos').upload(filePath, compressed);
+        const { data, error } = await supabaseClient.storage.from('produtos').upload(filePath, compressed);
         if (error) throw error;
-        return supabaseClient.storage.from('produtos').getPublicUrl(filePath).data.publicUrl;
+        return data.publicUrl || supabaseClient.storage.from('produtos').getPublicUrl(filePath).data.publicUrl;
     }
 
     async function openCollectionEditor(id) {
@@ -255,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function saveCollection(event) {
         event.preventDefault();
+        const wasEditing = Boolean(editingCollection);
         const submitButton = collectionForm.querySelector('button[type="submit"]');
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
         submitButton.disabled = true;
@@ -274,6 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .update({ nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro, parcelamento_maximo })
                     .eq('id', collectionId);
                 if (error) throw error;
+                editingCollection = { ...editingCollection, nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro, parcelamento_maximo };
             } else {
                 const { data, error } = await supabaseClient
                     .from('colecoes')
@@ -282,7 +284,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     .single();
                 if (error) throw error;
                 collectionId = data.id;
+                editingCollection = { id: collectionId, nome, capa_url: capaUrl, catalogo_eyebrow, catalogo_intro, parcelamento_maximo };
             }
+            coverFile = null;
 
             if (removedVariationIds.size) {
                 const { error } = await supabaseClient
@@ -306,8 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         .update({ imagem_url, descricao, valor_vista, valor_parcelado })
                         .eq('id', item.dataset.variationId);
                     if (error) throw error;
+                    item.dataset.existingImageUrl = imagem_url;
                 } else {
-                    const { error } = await supabaseClient.from('variacoes').insert([{
+                    const { data, error } = await supabaseClient.from('variacoes').insert([{
                         colecao_id: collectionId,
                         imagem_url,
                         descricao,
@@ -315,10 +320,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         valor_parcelado
                     }]);
                     if (error) throw error;
+                    item.dataset.variationId = data.id;
+                    item.dataset.existingImageUrl = imagem_url;
                 }
+                item.querySelector('.var-file').value = '';
             }
 
-            alert(editingCollection ? 'Coleção atualizada com sucesso!' : 'Coleção criada com sucesso!');
+            alert(wasEditing ? 'Coleção atualizada com sucesso!' : 'Coleção criada com sucesso!');
             await loadCollections();
             showView('collectionsView');
         } catch (error) {

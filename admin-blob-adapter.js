@@ -112,10 +112,13 @@ window.supabaseClient = {
           try {
             const result = await adminApi('upload', { method: 'POST', body: form });
             uploadedUrl = result.url;
-            return { data: { path: result.path }, error: null };
+            return { data: { path: result.path, publicUrl: result.url }, error: null };
           } catch (error) { return { data: null, error }; }
         },
-        getPublicUrl() { return { data: { publicUrl: uploadedUrl } }; }
+        getPublicUrl(path) {
+          const publicUrl = uploadedUrl || `/uploads/${String(path || '').split('/').map(encodeURIComponent).join('/')}`;
+          return { data: { publicUrl } };
+        }
       };
     }
   }
