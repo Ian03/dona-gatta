@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
     const allowedAdminEmail = 'admin@donagatta.com';
     const maxImageSizeBytes = 30 * 1024 * 1024;
+    const maxEncodedImageSizeBytes = 8 * 1024 * 1024;
     const maxUploadDimension = 1500;
     const webpQuality = 0.8;
     const allowedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -71,8 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function compressImage(file) {
         if (!file) return file;
+        let bitmap;
         try {
-            const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+            bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
             const scale = Math.min(1, maxUploadDimension / Math.max(bitmap.width, bitmap.height));
             const width = Math.max(1, Math.round(bitmap.width * scale));
             const height = Math.max(1, Math.round(bitmap.height * scale));
@@ -80,15 +82,28 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas.width = width;
             canvas.height = height;
             const context = canvas.getContext('2d');
+            if (!context) throw new Error('O navegador não conseguiu preparar a imagem.');
             context.drawImage(bitmap, 0, 0, width, height);
             bitmap.close?.();
-            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/webp', webpQuality));
-            if (!blob || blob.size >= file.size) return file;
+            bitmap = null;
+
+            let blob = null;
+            for (const quality of [webpQuality, 0.65, 0.5, 0.35]) {
+                blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/webp', quality));
+                if (!blob || blob.type !== 'image/webp') {
+                    throw new Error('Este navegador não conseguiu converter a imagem para WebP.');
+                }
+                if (blob.size <= maxEncodedImageSizeBytes) break;
+            }
+            if (!blob || blob.size > maxEncodedImageSizeBytes) {
+                throw new Error('A imagem continua maior que 8 MB após a conversão. Escolha uma imagem menor.');
+            }
             const name = `${file.name.replace(/\.[^.]+$/, '')}.webp`;
             return new File([blob], name, { type: 'image/webp' });
         } catch (error) {
-            console.warn('Não foi possível comprimir a imagem, o arquivo original será enviado.', error);
-            return file;
+            bitmap?.close?.();
+            console.error('Não foi possível converter a imagem para WebP.', error);
+            throw error;
         }
     }
 
