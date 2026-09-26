@@ -318,7 +318,7 @@ function serveStatic(request, response, url) {
   catch { response.writeHead(404); response.end(); return; }
   if (!stats.isFile()) { response.writeHead(404); response.end(); return; }
   const headers = { 'Content-Type': mimeTypes[path.extname(file).toLowerCase()] || 'application/octet-stream' };
-  if (path.basename(file) === 'index.html' || path.basename(file) === 'sw.js') headers['Cache-Control'] = 'no-store, max-age=0, must-revalidate';
+  if (['.html', '.js', '.css', '.webmanifest'].includes(path.extname(file).toLowerCase()) || path.basename(file) === 'sw.js') headers['Cache-Control'] = 'no-store, max-age=0, must-revalidate';
   else headers['Cache-Control'] = 'public, max-age=3600';
   response.writeHead(200, headers);
   if (request.method === 'HEAD') response.end();

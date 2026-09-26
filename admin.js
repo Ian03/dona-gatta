@@ -88,18 +88,52 @@ document.addEventListener('DOMContentLoaded', () => {
             bitmap = null;
 
             let blob = null;
+            let webpSupported = true;
             for (const quality of [webpQuality, 0.65, 0.5, 0.35]) {
                 blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/webp', quality));
                 if (!blob || blob.type !== 'image/webp') {
-                    throw new Error('Este navegador não conseguiu converter a imagem para WebP.');
+                    webpSupported = false;
+                    break;
                 }
-                if (blob.size <= maxEncodedImageSizeBytes) break;
+                if (blob.size <= maxEncodedImageSizeBytes) {
+                    const name = `${file.name.replace(/\.[^.]+$/, '')}.webp`;
+                    return new File([blob], name, { type: 'image/webp' });
+                }
             }
-            if (!blob || blob.size > maxEncodedImageSizeBytes) {
+
+            if (webpSupported) {
                 throw new Error('A imagem continua maior que 8 MB após a conversão. Escolha uma imagem menor.');
             }
-            const name = `${file.name.replace(/\.[^.]+$/, '')}.webp`;
-            return new File([blob], name, { type: 'image/webp' });
+
+            // Preserve transparency for PNG files when this Safari version cannot encode WebP.
+            if (file.type === 'image/png') {
+                const png = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                if (png?.type === 'image/png' && png.size <= maxEncodedImageSizeBytes) {
+                    const name = `${file.name.replace(/\.[^.]+$/, '')}.png`;
+                    return new File([png], name, { type: 'image/png' });
+                }
+            }
+
+            // JPEG is supported by Safari canvas encoding and is a compact compatibility fallback.
+            const jpegCanvas = document.createElement('canvas');
+            jpegCanvas.width = width;
+            jpegCanvas.height = height;
+            const jpegContext = jpegCanvas.getContext('2d');
+            if (!jpegContext) throw new Error('O navegador não conseguiu preparar a imagem.');
+            jpegContext.fillStyle = '#fff';
+            jpegContext.fillRect(0, 0, width, height);
+            jpegContext.drawImage(canvas, 0, 0);
+            for (const quality of [0.82, 0.7, 0.6, 0.5, 0.4]) {
+                const jpeg = await new Promise(resolve => jpegCanvas.toBlob(resolve, 'image/jpeg', quality));
+                if (!jpeg || jpeg.type !== 'image/jpeg') {
+                    throw new Error('Este navegador não conseguiu preparar a imagem em um formato compatível.');
+                }
+                if (jpeg.size <= maxEncodedImageSizeBytes) {
+                    const name = `${file.name.replace(/\.[^.]+$/, '')}.jpg`;
+                    return new File([jpeg], name, { type: 'image/jpeg' });
+                }
+            }
+            throw new Error('A imagem continua maior que 8 MB após a conversão. Escolha uma imagem menor.');
         } catch (error) {
             bitmap?.close?.();
             console.error('Não foi possível converter a imagem para WebP.', error);

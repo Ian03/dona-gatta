@@ -1,4 +1,4 @@
-const CACHE = 'dona-gatta-v15';
+const CACHE = 'dona-gatta-v16';
 const CORE = [
   './', './index.html', './catalogo.html', './modelo.html',
   './home.css', './modelo.css', './motion.js',
@@ -36,12 +36,18 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then(hit => hit || fetch(event.request).then(response => {
+  event.respondWith((async () => {
+    try {
+      const response = await fetch(event.request, { cache: 'no-store' });
       if (response.ok && response.type === 'basic') {
-        caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
+        const cache = await caches.open(CACHE);
+        await cache.put(event.request, response.clone());
       }
       return response;
-    }))
-  );
+    } catch {
+      const cached = await caches.match(event.request);
+      if (cached) return cached;
+      throw new Error('Recurso indisponível offline.');
+    }
+  })());
 });
