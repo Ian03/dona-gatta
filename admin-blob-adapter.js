@@ -1,7 +1,17 @@
 const adminApi = async (action, options = {}) => {
-  const response = await fetch(`/api/index.php?action=${encodeURIComponent(action)}`, { credentials: 'same-origin', ...options });
-  const body = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(body.error || 'Não foi possível concluir a operação.');
+  let response;
+  try {
+    response = await fetch(`/api/index.php?action=${encodeURIComponent(action)}`, { credentials: 'same-origin', ...options });
+  } catch (error) {
+    throw new Error('Não foi possível acessar a API do painel. Confirme se a aplicação Node.js está ativa na hospedagem.');
+  }
+  const responseText = await response.text();
+  let body;
+  try { body = responseText ? JSON.parse(responseText) : {}; }
+  catch {
+    throw new Error('A API do painel não respondeu em JSON. Confirme se o site está rodando pelo server.js na aplicação Node.js da hospedagem.');
+  }
+  if (!response.ok) throw new Error(body.error || `Falha na API do painel (HTTP ${response.status}).`);
   return body;
 };
 

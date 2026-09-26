@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showView('collectionsView');
         } catch (error) {
             console.error(error);
-            alert('Erro ao salvar a coleção. Verifique o console.');
+            alert(`Erro ao salvar a coleção: ${error.message || 'falha desconhecida.'}`);
         } finally {
             submitButton.innerHTML = 'Salvar Coleção';
             submitButton.disabled = false;
