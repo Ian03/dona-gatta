@@ -111,7 +111,18 @@ function readCatalog() {
     try { renameSync(temporary, CATALOG_FILE); }
     catch (error) { if (error.code !== 'EEXIST') throw error; }
   }
-  return JSON.parse(readFileSync(CATALOG_FILE, 'utf8'));
+  const catalog = JSON.parse(readFileSync(CATALOG_FILE, 'utf8'));
+  const fallbackCovers = [
+    ['all-inclusive', 'ALL INCLUSIVE'], ['beach-club', 'BEACH CLUB'], ['capri', 'CAPRI'],
+    ['check-in', 'CHECK IN'], ['day-use', 'DAY USE'], ['escape', 'ESCAPE'], ['lounge', 'LOUNGE'],
+    ['mar', 'MARÉ'], ['resort', 'RESORT'], ['sunset', 'SUNSET']
+  ];
+  for (const collection of catalog.collections || []) {
+    if (collection.capa_url) continue;
+    const match = fallbackCovers.find(([name]) => normalizeName(collection.nome) === normalizeName(name));
+    if (match) collection.capa_url = localImagePath(match[1], 1, 'card');
+  }
+  return catalog;
 }
 
 function saveCatalog(collections) {
