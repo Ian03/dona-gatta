@@ -167,4 +167,20 @@ async function loadIndexCollections() {
   });
 }
 
+async function loadSiteCover() {
+  const heroCover = document.querySelector('.hero-bg');
+  if (!heroCover) return;
+  try {
+    const response = await fetch('/api/index.php?action=site-cover', { cache: 'no-store' });
+    if (!response.ok) return;
+    const { coverUrl } = await response.json();
+    if (typeof coverUrl === 'string' && coverUrl.startsWith('/uploads/capas/')) {
+      heroCover.style.backgroundImage = `url("${coverUrl.replace(/["\\]/g, '')}")`;
+    }
+  } catch (error) {
+    console.warn('Não foi possível carregar a capa personalizada do site.', error);
+  }
+}
+
 loadIndexCollections();
+loadSiteCover();

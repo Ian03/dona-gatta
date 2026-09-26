@@ -1,4 +1,4 @@
-const CACHE = 'dona-gatta-v16';
+const CACHE = 'dona-gatta-v17';
 const CORE = [
   './', './index.html', './catalogo.html', './modelo.html',
   './home.css', './modelo.css', './motion.js',

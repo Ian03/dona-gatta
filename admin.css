@@ -742,6 +742,55 @@ body {
     justify-content: flex-start;
 }
 
+.site-cover-panel {
+    max-width: 900px;
+}
+
+.site-cover-preview {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    background: #f3e9e0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.site-cover-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.site-cover-upload {
+    min-height: 130px;
+    padding: 18px;
+}
+
+.site-cover-upload .upload-placeholder i {
+    font-size: 2rem;
+    margin-bottom: 4px;
+}
+
+.site-cover-upload .upload-placeholder p {
+    margin: 4px 0;
+}
+
+.site-cover-upload small {
+    color: #777;
+}
+
+.site-cover-status {
+    min-height: 22px;
+    color: #6f4e35;
+}
+
+.site-cover-actions {
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 #colIntroText {
     min-height: 180px;
 }

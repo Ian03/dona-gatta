@@ -23,17 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const editViewTitle = document.getElementById('editViewTitle');
     const pdfCollectionSelect = document.getElementById('pdfCollectionSelect');
     const exportPdfBtn = document.getElementById('exportPdfBtn');
+    const siteCoverFile = document.getElementById('siteCoverFile');
+    const siteCoverPreview = document.getElementById('siteCoverPreview');
+    const siteCoverStatus = document.getElementById('siteCoverStatus');
+    const saveSiteCoverBtn = document.getElementById('saveSiteCoverBtn');
+    const resetSiteCoverBtn = document.getElementById('resetSiteCoverBtn');
     const defaultCollectionEyebrow = 'Coleção Verão';
     const defaultCollectionIntro = 'Escolha a sua variação favorita e consulte a disponibilidade com a nossa equipe.';
     const allowedAdminEmail = 'admin@donagatta.com';
     const maxImageSizeBytes = 30 * 1024 * 1024;
     const maxEncodedImageSizeBytes = 8 * 1024 * 1024;
     const maxUploadDimension = 1500;
+    const siteCoverDimensions = { width: 1600, height: 721 };
     const webpQuality = 0.8;
     const allowedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
     let editingCollection = null;
     let coverFile = null;
+    let siteCoverUpload = null;
     let removedVariationIds = new Set();
 
     const defaultCoverPreview = () => {
@@ -70,12 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
-    async function compressImage(file) {
+    async function compressImage(file, maxDimension = maxUploadDimension) {
         if (!file) return file;
         let bitmap;
         try {
             bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
-            const scale = Math.min(1, maxUploadDimension / Math.max(bitmap.width, bitmap.height));
+            const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height));
             const width = Math.max(1, Math.round(bitmap.width * scale));
             const height = Math.max(1, Math.round(bitmap.height * scale));
             const canvas = document.createElement('canvas');
@@ -144,6 +151,50 @@ document.addEventListener('DOMContentLoaded', () => {
     function showView(viewId) {
         document.querySelectorAll('.view-section').forEach(section => section.style.display = 'none');
         document.getElementById(viewId).style.display = 'block';
+    }
+
+    async function siteCoverRequest(method = 'GET', body) {
+        const response = await fetch('/api/index.php?action=site-cover', {
+            method,
+            credentials: 'same-origin',
+            headers: body ? { 'Content-Type': 'application/json' } : undefined,
+            body: body ? JSON.stringify(body) : undefined
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || 'Não foi possível acessar as configurações da capa.');
+        return result;
+    }
+
+    async function loadSiteCover() {
+        try {
+            const { coverUrl } = await siteCoverRequest();
+            const image = document.createElement('img');
+            image.src = coverUrl || 'Estilo01.webp';
+            image.alt = coverUrl ? 'Capa atual do site' : 'Capa padrão atual do site';
+            siteCoverPreview.replaceChildren(image);
+            siteCoverStatus.textContent = coverUrl ? 'Capa personalizada ativa.' : 'Capa padrão ativa.';
+            siteCoverUpload = null;
+            siteCoverFile.value = '';
+        } catch (error) {
+            siteCoverStatus.textContent = error.message;
+        }
+    }
+
+    async function saveSiteCover(coverUrl) {
+        saveSiteCoverBtn.disabled = true;
+        siteCoverStatus.textContent = 'Salvando capa…';
+        try {
+            await siteCoverRequest('PUT', { coverUrl });
+            siteCoverUpload = null;
+            siteCoverFile.value = '';
+            siteCoverStatus.textContent = coverUrl
+                ? 'Capa salva. Ela já está ativa no site.'
+                : 'Capa padrão restaurada no site.';
+        } catch (error) {
+            siteCoverStatus.textContent = error.message;
+        } finally {
+            saveSiteCoverBtn.disabled = false;
+        }
     }
 
     function formatBrazilianPrice(value) {
@@ -266,9 +317,9 @@ document.addEventListener('DOMContentLoaded', () => {
         variationsContainer.append(item);
     }
 
-    async function uploadImage(file, pathFolder) {
+    async function uploadImage(file, pathFolder, maxDimension = maxUploadDimension) {
         if (!file) return null;
-        const compressed = await compressImage(file);
+        const compressed = await compressImage(file, maxDimension);
         const extension = compressed.name.split('.').pop().toLowerCase();
         const fileName = `${Date.now()}_${crypto.randomUUID()}.${extension}`;
         const filePath = `${pathFolder}/${fileName}`;
@@ -764,16 +815,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const titleByTarget = {
                 dashboard: 'Visão geral das coleções',
                 collections: 'Gerenciador de Coleções',
-                pdfExport: 'Exportar coleção para PDF'
+                pdfExport: 'Exportar coleção para PDF',
+                siteCover: 'Capa do site'
             };
             document.getElementById('pageTitle').textContent = titleByTarget[target] || 'Painel Administrativo';
             const targetViewByMenu = {
                 dashboard: 'collectionsView',
                 collections: 'collectionsView',
-                pdfExport: 'pdfExportView'
+                pdfExport: 'pdfExportView',
+                siteCover: 'siteCoverView'
             };
             showView(targetViewByMenu[target] || 'collectionsView');
-            loadCollections();
+            if (target === 'siteCover') loadSiteCover();
+            else loadCollections();
         });
     });
     newCollectionBtn.addEventListener('click', openNewCollection);
@@ -792,6 +846,58 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     collectionForm.addEventListener('submit', saveCollection);
     exportPdfBtn.addEventListener('click', exportCollectionToPdf);
+    siteCoverFile.addEventListener('change', async () => {
+        const file = siteCoverFile.files[0] || null;
+        if (!file) return;
+        if (!validateImageFile(file, 'Capa do site')) {
+            siteCoverFile.value = '';
+            return;
+        }
+        let bitmap;
+        try {
+            bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+            if (bitmap.width !== siteCoverDimensions.width || bitmap.height !== siteCoverDimensions.height) {
+                alert(`A capa precisa ter exatamente ${siteCoverDimensions.width} × ${siteCoverDimensions.height} px. A imagem selecionada tem ${bitmap.width} × ${bitmap.height} px.`);
+                siteCoverFile.value = '';
+                siteCoverUpload = null;
+                await loadSiteCover();
+                return;
+            }
+        } catch (error) {
+            alert('Não foi possível verificar as dimensões da imagem. Escolha outro arquivo JPG, PNG ou WEBP.');
+            siteCoverFile.value = '';
+            siteCoverUpload = null;
+            await loadSiteCover();
+            return;
+        } finally {
+            bitmap?.close?.();
+        }
+        siteCoverUpload = file;
+        showImagePreview(siteCoverPreview, URL.createObjectURL(file));
+        siteCoverStatus.textContent = `Prévia selecionada (${siteCoverDimensions.width} × ${siteCoverDimensions.height} px). Clique em “Salvar capa” para publicar.`;
+    });
+    saveSiteCoverBtn.addEventListener('click', async () => {
+        saveSiteCoverBtn.disabled = true;
+        try {
+            let coverUrl = '';
+            if (siteCoverUpload) coverUrl = await uploadImage(siteCoverUpload, 'capas/site-cover', siteCoverDimensions.width);
+            else {
+                const current = await siteCoverRequest();
+                coverUrl = current.coverUrl || '';
+            }
+            await saveSiteCover(coverUrl);
+        } catch (error) {
+            siteCoverStatus.textContent = error.message || 'Não foi possível enviar a nova capa.';
+        } finally {
+            saveSiteCoverBtn.disabled = false;
+        }
+    });
+    resetSiteCoverBtn.addEventListener('click', async () => {
+        siteCoverUpload = null;
+        siteCoverFile.value = '';
+        await saveSiteCover('');
+        await loadSiteCover();
+    });
 
     (async () => {
         if (!supabaseClient) {
@@ -809,6 +915,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sessionEmail === allowedAdminEmail) {
             showAdminApp();
             await loadCollections();
+            await loadSiteCover();
         } else {
             showLogin();
         }

@@ -14,8 +14,11 @@ const DATA_DIR = process.env.DATA_DIR || (hbuildsAt >= 0
   : path.join(ROOT, 'runtime-data'));
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
 const CATALOG_FILE = path.join(DATA_DIR, 'catalog.json');
+const SITE_SETTINGS_FILE = path.join(DATA_DIR, 'site-settings.json');
 const MAX_UPLOAD = 8 * 1024 * 1024;
 const SESSION_AGE_SECONDS = 12 * 60 * 60;
+const SITE_COVER_WIDTH = 1600;
+const SITE_COVER_HEIGHT = 721;
 
 mkdirSync(DATA_DIR, { recursive: true });
 mkdirSync(UPLOAD_DIR, { recursive: true });
@@ -133,6 +136,37 @@ function saveCatalog(collections) {
   return catalog;
 }
 
+function readSiteCover() {
+  if (!existsSync(SITE_SETTINGS_FILE)) return '';
+  try {
+    const settings = JSON.parse(readFileSync(SITE_SETTINGS_FILE, 'utf8'));
+    return typeof settings.coverUrl === 'string' ? settings.coverUrl : '';
+  } catch (error) {
+    console.error('Erro ao ler configurações do site:', error);
+    return '';
+  }
+}
+
+function saveSiteCover(coverUrl) {
+  if (coverUrl && !/^\/uploads\/capas\/[a-f0-9]{32}\.(?:jpg|png|webp)$/i.test(coverUrl)) {
+    throw Object.assign(new Error('Imagem de capa inválida.'), { status: 400 });
+  }
+  if (coverUrl) {
+    const filename = path.basename(coverUrl);
+    const filePath = path.join(UPLOAD_DIR, 'capas', filename);
+    const mime = { jpg: 'image/jpeg', png: 'image/png', webp: 'image/webp' }[path.extname(filename).slice(1).toLowerCase()];
+    if (!existsSync(filePath)) throw Object.assign(new Error('O arquivo da capa não foi encontrado.'), { status: 400 });
+    const data = readFileSync(filePath);
+    const dimensions = getImageDimensions(data, mime);
+    if (!dimensions || dimensions.width !== SITE_COVER_WIDTH || dimensions.height !== SITE_COVER_HEIGHT) {
+      throw Object.assign(new Error(`A capa precisa ter exatamente ${SITE_COVER_WIDTH} × ${SITE_COVER_HEIGHT} px.`), { status: 400 });
+    }
+  }
+  const temporary = `${SITE_SETTINGS_FILE}.${process.pid}.tmp`;
+  writeFileSync(temporary, JSON.stringify({ coverUrl, updated_at: new Date().toISOString() }, null, 2), { mode: 0o600 });
+  renameSync(temporary, SITE_SETTINGS_FILE);
+}
+
 function readBody(request, maximumBytes) {
   return new Promise((resolve, reject) => {
     const chunks = [];
@@ -209,6 +243,51 @@ function isImage(data, mime) {
   return false;
 }
 
+function getImageDimensions(data, mime) {
+  if (mime === 'image/png' && data.length >= 24 && data.toString('ascii', 12, 16) === 'IHDR') {
+    return { width: data.readUInt32BE(16), height: data.readUInt32BE(20) };
+  }
+  if (mime === 'image/jpeg' && data.length >= 4) {
+    let offset = 2;
+    while (offset + 4 <= data.length) {
+      if (data[offset] !== 0xff) { offset++; continue; }
+      while (data[offset] === 0xff) offset++;
+      const marker = data[offset++];
+      if (marker === 0xd8 || marker === 0xd9 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) continue;
+      if (offset + 2 > data.length) break;
+      const segmentLength = data.readUInt16BE(offset);
+      if (segmentLength < 2 || offset + segmentLength > data.length) break;
+      const isFrame = (marker >= 0xc0 && marker <= 0xc3) || (marker >= 0xc5 && marker <= 0xc7)
+        || (marker >= 0xc9 && marker <= 0xcb) || (marker >= 0xcd && marker <= 0xcf);
+      if (isFrame && segmentLength >= 7) {
+        return { height: data.readUInt16BE(offset + 3), width: data.readUInt16BE(offset + 5) };
+      }
+      offset += segmentLength;
+    }
+  }
+  if (mime === 'image/webp' && data.length >= 30 && data.toString('ascii', 0, 4) === 'RIFF' && data.toString('ascii', 8, 12) === 'WEBP') {
+    let offset = 12;
+    while (offset + 8 <= data.length) {
+      const chunkType = data.toString('ascii', offset, offset + 4);
+      const chunkSize = data.readUInt32LE(offset + 4);
+      const chunk = offset + 8;
+      if (chunk + chunkSize > data.length) break;
+      if (chunkType === 'VP8X' && chunkSize >= 10) {
+        return { width: 1 + data.readUIntLE(chunk + 4, 3), height: 1 + data.readUIntLE(chunk + 7, 3) };
+      }
+      if (chunkType === 'VP8 ' && chunkSize >= 10 && data[chunk + 3] === 0x9d && data[chunk + 4] === 0x01 && data[chunk + 5] === 0x2a) {
+        return { width: data.readUInt16LE(chunk + 6) & 0x3fff, height: data.readUInt16LE(chunk + 8) & 0x3fff };
+      }
+      if (chunkType === 'VP8L' && chunkSize >= 5 && data[chunk] === 0x2f) {
+        const bits = data.readUInt32LE(chunk + 1);
+        return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
+      }
+      offset = chunk + chunkSize + (chunkSize & 1);
+    }
+  }
+  return null;
+}
+
 function handleUpload(request, response) {
   if (!requireAdmin(request, response)) return;
   readBody(request, MAX_UPLOAD + 64 * 1024).then(buffer => {
@@ -216,11 +295,19 @@ function handleUpload(request, response) {
     const file = parts.file;
     const mime = file?.headers.match(/content-type:\s*([^\r\n]+)/i)?.[1]?.trim().toLowerCase();
     const extensions = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
+    const requestedPath = parts.path?.data.toString() || '';
+    const isSiteCoverUpload = requestedPath.replace(/\\/g, '/').startsWith('capas/site-cover/');
     if (!file?.filename || file.data.length > MAX_UPLOAD || !extensions[mime] || !isImage(file.data, mime)) {
       sendJson(response, 400, { error: 'Envie JPG, PNG ou WEBP de até 8 MB.' });
       return;
     }
-    const requestedPath = parts.path?.data.toString() || '';
+    if (isSiteCoverUpload) {
+      const dimensions = getImageDimensions(file.data, mime);
+      if (!dimensions || dimensions.width !== SITE_COVER_WIDTH || dimensions.height !== SITE_COVER_HEIGHT) {
+        sendJson(response, 400, { error: `A capa precisa ter exatamente ${SITE_COVER_WIDTH} × ${SITE_COVER_HEIGHT} px.` });
+        return;
+      }
+    }
     const requestedFolder = requestedPath.split(/[\\/]/, 1)[0];
     const bucket = parts.bucket?.data.toString() || '';
     const directoryName = ['capas', 'variacoes'].includes(requestedFolder)
@@ -282,6 +369,26 @@ function handleApi(request, response, url) {
       if (!Array.isArray(body.collections)) { sendJson(response, 400, { error: 'Formato de catálogo inválido.' }); return; }
       try { sendJson(response, 200, saveCatalog(body.collections)); }
       catch (error) { console.error('Erro ao salvar catálogo:', error); sendJson(response, 500, { error: 'Não foi possível gravar o catálogo.' }); }
+    }).catch(error => sendJson(response, error.status || 400, { error: error.message }));
+    return;
+  }
+  if (action === 'site-cover' && method === 'GET') {
+    sendJson(response, 200, { coverUrl: readSiteCover() });
+    return;
+  }
+  if (action === 'site-cover' && method === 'PUT') {
+    if (!requireAdmin(request, response)) return;
+    readBody(request, 16 * 1024).then(buffer => {
+      let body;
+      try { body = JSON.parse(buffer.toString('utf8')); }
+      catch { sendJson(response, 400, { error: 'Configuração inválida.' }); return; }
+      if (typeof body.coverUrl !== 'string') { sendJson(response, 400, { error: 'Endereço da capa inválido.' }); return; }
+      try {
+        saveSiteCover(body.coverUrl);
+        sendJson(response, 200, { coverUrl: body.coverUrl });
+      } catch (error) {
+        sendJson(response, error.status || 500, { error: error.message || 'Não foi possível salvar a capa.' });
+      }
     }).catch(error => sendJson(response, error.status || 400, { error: error.message }));
     return;
   }
