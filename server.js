@@ -115,7 +115,7 @@ function readCatalog() {
   const fallbackCovers = [
     ['all-inclusive', 'ALL INCLUSIVE'], ['beach-club', 'BEACH CLUB'], ['capri', 'CAPRI'],
     ['check-in', 'CHECK IN'], ['day-use', 'DAY USE'], ['escape', 'ESCAPE'], ['lounge', 'LOUNGE'],
-    ['mar', 'MARÉ'], ['resort', 'RESORT'], ['sunset', 'SUNSET']
+    ['maré', 'MARÉ'], ['resort', 'RESORT'], ['sunset', 'SUNSET']
   ];
   for (const collection of catalog.collections || []) {
     if (collection.capa_url) continue;
